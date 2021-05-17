@@ -27,9 +27,8 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
 ``` 
 <br> 
 
- ### Status do Desafio: `Em Construção` 🚧
+ >### Status do Desafio: `Em Construção 🚧`
  
- <br> 
 
 <h2 align="center"> Diagrama não Oficial 🙋‍♂️ </h2>
 
