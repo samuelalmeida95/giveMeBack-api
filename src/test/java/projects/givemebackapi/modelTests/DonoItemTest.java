@@ -19,6 +19,7 @@ public class DonoItemTest {
         Assertions.assertThat(item.getWhatsapp()).isNull();
 
         Assertions.assertThat(item.getItensEmprestados()).isNull();
+
     }
 
     @Test
@@ -33,5 +34,7 @@ public class DonoItemTest {
         Assertions.assertThat(item.getWhatsapp()).isNotNull();
 
         Assertions.assertThat(item.getItensEmprestados()).isNotNull();
+
+        Assertions.assertThat(item.getItensEmprestados()).size().isEqualTo(0);
     }
 }
