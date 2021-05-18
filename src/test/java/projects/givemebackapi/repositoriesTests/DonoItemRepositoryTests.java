@@ -1,5 +1,7 @@
 package projects.givemebackapi.repositoriesTests;
 
+import java.util.Optional;
+
 import javax.validation.ConstraintViolationException;
 
 import org.assertj.core.api.Assertions;
@@ -54,17 +56,31 @@ public class DonoItemRepositoryTests {
     @DisplayName("Salvar e atualizar Dono de um item quando bem sucedido")
     void salvar_AtualizarDonoItemQuandoBemSucedido() {
 
-        DonoItem donoParaSerSalvo = DonoItemCreator.criarDonoItem();
+        DonoItem donoItemParaSerSalvo = DonoItemCreator.criarDonoItem();
 
-        DonoItem donoItemSalvo = this.donoItemRepository.save(donoParaSerSalvo);
+        DonoItem donoItemSalvo = this.donoItemRepository.save(donoItemParaSerSalvo);
 
-        donoItemSalvo.setNomeDono("Tiringa");
+        donoItemSalvo.setNomeDono("Alladin");
 
         DonoItem donoItemAtualizado = this.donoItemRepository.save(donoItemSalvo);
 
         Assertions.assertThat(donoItemAtualizado).isNotNull();
         Assertions.assertThat(donoItemAtualizado.getIdDono()).isNotNull();
         Assertions.assertThat(donoItemAtualizado.getNomeDono()).isEqualTo(donoItemSalvo.getNomeDono());
+    }
+
+    @Test
+    @DisplayName("Deletar e remover Dono quando bem sucedido")
+    void deletar_RemoverDonoItemQuandoBemSucedido() {
+        DonoItem donoParaSerSalvo = DonoItemCreator.criarDonoItem();
+
+        DonoItem donoItemSalvo = this.donoItemRepository.save(donoParaSerSalvo);
+
+        this.donoItemRepository.delete(donoItemSalvo);
+
+        Optional<DonoItem> donoItemOptional = this.donoItemRepository.findById(donoItemSalvo.getIdDono());
+
+        Assertions.assertThat(donoItemOptional).isEmpty();
     }
 
 }
