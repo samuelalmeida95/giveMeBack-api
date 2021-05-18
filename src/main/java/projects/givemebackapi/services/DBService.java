@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.repositories.DonoItemRepository;
-import projects.givemebackapi.repositories.ItemEmprestadoRepositorie;
+import projects.givemebackapi.repositories.ItemEmprestadoRepository;
 
 @Service
 public class DBService {
@@ -17,7 +17,7 @@ public class DBService {
     private DonoItemRepository donoItemRepositorie;
 
     @Autowired
-    private ItemEmprestadoRepositorie itemEmprestadoRepositorie;
+    private ItemEmprestadoRepository itemEmprestadoRepositorie;
 
 
     public void instanciaBaseDeDados(){
