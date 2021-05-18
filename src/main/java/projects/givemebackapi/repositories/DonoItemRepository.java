@@ -7,6 +7,6 @@ import projects.givemebackapi.model.DonoItem;
 
 
 @Repository
-public interface DonoItemRepositorie extends JpaRepository<DonoItem, Integer>{
+public interface DonoItemRepository extends JpaRepository<DonoItem, Integer>{
     
 }
