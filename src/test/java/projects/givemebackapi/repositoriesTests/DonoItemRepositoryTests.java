@@ -49,7 +49,6 @@ public class DonoItemRepositoryTests {
 
         Assertions.assertThatThrownBy(() -> this.donoItemRepository.save(donoVazio))
                 .isInstanceOf(ConstraintViolationException.class);
-
     }
 
     @Test
@@ -65,7 +64,9 @@ public class DonoItemRepositoryTests {
         DonoItem donoItemAtualizado = this.donoItemRepository.save(donoItemSalvo);
 
         Assertions.assertThat(donoItemAtualizado).isNotNull();
+
         Assertions.assertThat(donoItemAtualizado.getIdDono()).isNotNull();
+
         Assertions.assertThat(donoItemAtualizado.getNomeDono()).isEqualTo(donoItemSalvo.getNomeDono());
     }
 
@@ -83,4 +84,12 @@ public class DonoItemRepositoryTests {
         Assertions.assertThat(donoItemOptional).isEmpty();
     }
 
+    @Test
+    @DisplayName("Encontrar por id retorna empty quando não for encontrado")
+    void encontrar_PorIdRetornarEmptyQuandoNaoEncontrado() {
+
+        Optional<DonoItem> categoriaOptional = this.donoItemRepository.findById(1);
+
+        Assertions.assertThat(categoriaOptional).isEmpty();
+    }
 }
