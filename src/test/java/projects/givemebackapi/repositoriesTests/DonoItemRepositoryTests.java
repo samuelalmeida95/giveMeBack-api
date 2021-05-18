@@ -50,4 +50,21 @@ public class DonoItemRepositoryTests {
 
     }
 
+    @Test
+    @DisplayName("Salvar e atualizar Dono de um item quando bem sucedido")
+    void salvar_AtualizarDonoItemQuandoBemSucedido() {
+
+        DonoItem donoParaSerSalvo = DonoItemCreator.criarDonoItem();
+
+        DonoItem donoItemSalvo = this.donoItemRepository.save(donoParaSerSalvo);
+
+        donoItemSalvo.setNomeDono("Tiringa");
+
+        DonoItem donoItemAtualizado = this.donoItemRepository.save(donoItemSalvo);
+
+        Assertions.assertThat(donoItemAtualizado).isNotNull();
+        Assertions.assertThat(donoItemAtualizado.getIdDono()).isNotNull();
+        Assertions.assertThat(donoItemAtualizado.getNomeDono()).isEqualTo(donoItemSalvo.getNomeDono());
+    }
+
 }
