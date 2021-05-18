@@ -20,9 +20,7 @@ public class DonoItem {
         this.whatsapp = whatsapp;
         this.itensEmprestados = new LinkedList<>();
     }
-
-    
+ 
     public DonoItem() {}
       
-
 }
