@@ -12,11 +12,11 @@ public class DonoItemTest {
 
         DonoItem item = new DonoItem();
 
-        Assertions.assertThat(item.getId()).isNull();
+        Assertions.assertThat(item.getIdDono()).isNull();
 
-        Assertions.assertThat(item.getNome()).isNull();
+        Assertions.assertThat(item.getNomeDono()).isNull();
 
-        Assertions.assertThat(item.getWhatsapp()).isNull();
+        Assertions.assertThat(item.getWhatsappDono()).isNull();
 
         Assertions.assertThat(item.getItensEmprestados()).isNull();
 
@@ -27,11 +27,11 @@ public class DonoItemTest {
 
         DonoItem item = new DonoItem(1, "Samuel", "996172418");
 
-        Assertions.assertThat(item.getId()).isNotNull();
+        Assertions.assertThat(item.getIdDono()).isNotNull();
 
-        Assertions.assertThat(item.getNome()).isNotNull();
+        Assertions.assertThat(item.getNomeDono()).isNotNull();
         
-        Assertions.assertThat(item.getWhatsapp()).isNotNull();
+        Assertions.assertThat(item.getWhatsappDono()).isNotNull();
 
         Assertions.assertThat(item.getItensEmprestados()).isNotNull();
 
