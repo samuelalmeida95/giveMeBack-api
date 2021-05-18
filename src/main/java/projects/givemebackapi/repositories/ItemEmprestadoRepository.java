@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import projects.givemebackapi.model.ItemEmprestado;
 
 @Repository
-public interface ItemEmprestadoRepositorie extends JpaRepository<ItemEmprestado, Integer>{
+public interface ItemEmprestadoRepository extends JpaRepository<ItemEmprestado, Integer>{
     
 }
