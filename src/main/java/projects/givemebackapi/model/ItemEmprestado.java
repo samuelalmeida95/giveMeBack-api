@@ -28,7 +28,7 @@ public class ItemEmprestado {
     
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="donoItem_id")
+    @JoinColumn(name = "donoItem_id")
     private DonoItem donoItem;
     
     
