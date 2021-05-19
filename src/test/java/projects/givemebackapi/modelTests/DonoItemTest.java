@@ -18,7 +18,9 @@ public class DonoItemTest {
 
         Assertions.assertThat(item.getWhatsappDono()).isNull();
 
-        Assertions.assertThat(item.getItensEmprestados()).isNull();
+        Assertions.assertThat(item.getItensEmprestados()).isNotNull();
+
+        Assertions.assertThat(item.getItensEmprestados()).size().isEqualTo(0);
 
     }
 
