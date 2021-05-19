@@ -43,11 +43,9 @@ public class ItemEmprestado {
     @OneToOne
     @JoinColumn(name = "donoItem_id")
     private DonoItem donoItem;
-    
 
     @OneToOne
     private AmigoEmprestimo amigoEmprestimo;
-    
     
     public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, TipoStatus status, DonoItem donoItem, AmigoEmprestimo amigoEmprestimo) {
        

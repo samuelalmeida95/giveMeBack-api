@@ -40,7 +40,7 @@ public class DBService {
         ItemEmprestado itemEmprestado1 = new ItemEmprestado(null, "Relogio", "um relogio",TipoStatus.EMPRESTADO, donoItem2 , amigoEmprestimo1);
         ItemEmprestado itemEmprestado2 = new ItemEmprestado(null, "tenis", "um tenis",TipoStatus.EMPRESTADO, donoItem1 , amigoEmprestimo2);
 
-        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone",TipoStatus.EMPRESTADO, donoItem1 , amigoEmprestimo2);
+        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone",TipoStatus.EMPRESTADO, donoItem1 , amigoEmprestimo1);
         ItemEmprestado itemEmprestado4 = new ItemEmprestado(null, "pipa", "uma pipa",TipoStatus.EMPRESTADO, donoItem1 , amigoEmprestimo2);
         ItemEmprestado itemEmprestado5 = new ItemEmprestado(null, "caneta", "uma caneta",TipoStatus.EMPRESTADO, donoItem1 , amigoEmprestimo2);
 

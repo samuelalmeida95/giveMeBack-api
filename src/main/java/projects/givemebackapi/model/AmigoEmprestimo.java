@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -40,16 +38,13 @@ public class AmigoEmprestimo {
     @Length(min = 3, max = 50, message = "Campo INSTAGRAM deve ter entre 3 e 100 caracteres")
     private String instagram;
 
-    @OneToOne
-    @JoinColumn(name = "itemEmprestado_idItem")
-    private ItemEmprestado itemEmprestado;
 
     public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco, String email, String instagram) {
         
         this.id = id;
         this.nome = nome;
         this.whatsapp = whatsapp;
-        this.endereco = endereco;
+        this.endereco = endereco; 
         this.email = email;
         this.instagram = instagram;
     }
