@@ -17,6 +17,10 @@ public class TipoStatusTest {
 
       Assertions.assertThat(testeEmprestado).isNotNull();
 
+      Assertions.assertThat(testeDevolvido).isNotEqualTo(testeEmprestado);
+
+      Assertions.assertThat(testeEmprestado).isNotEqualTo(testeDevolvido);
+
       Assertions.assertThat(testeDevolvido).isEqualTo(TipoStatus.DEVOLVIDO);
 
       Assertions.assertThat(testeEmprestado).isEqualTo(TipoStatus.EMPRESTADO);
