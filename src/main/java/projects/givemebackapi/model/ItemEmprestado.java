@@ -3,6 +3,8 @@ package projects.givemebackapi.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,6 @@ import lombok.Data;
 @Entity
 public class ItemEmprestado {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idItem;
@@ -34,6 +35,9 @@ public class ItemEmprestado {
     private String descricaoItem;
     
     private Date dataDevolucaoItem;
+
+    @Enumerated(value = EnumType.STRING)
+    private TipoStatus status;
     
     @JsonIgnore
     @ManyToOne
@@ -41,10 +45,11 @@ public class ItemEmprestado {
     private DonoItem donoItem;
     
     
-    public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, DonoItem donoItem) {
+    public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, TipoStatus status, DonoItem donoItem) {
         this.idItem = idItem;
         this.nomeItem = nomeItem;
         this.descricaoItem = descricaoItem;
+        this.status = status;
         this.donoItem = donoItem;
     }
 

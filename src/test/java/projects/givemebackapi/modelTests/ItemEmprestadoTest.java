@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
+import projects.givemebackapi.model.TipoStatus;
 
 public class ItemEmprestadoTest {
     
@@ -28,15 +29,19 @@ public class ItemEmprestadoTest {
             
             DonoItem donoItem = new DonoItem(1, "Samuel", "996172418");
     
-            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", donoItem);
+            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", TipoStatus.EMPRESTADO, donoItem);
     
              Assertions.assertThat(item.getIdItem()).isNotNull();
     
             Assertions.assertThat(item.getNomeItem()).isNotNull();
             
             Assertions.assertThat(item.getDescricaoItem()).isNotNull();
-    
+
             Assertions.assertThat(item.getDonoItem()).isNotNull();
+            
+            Assertions.assertThat(item.getStatus()).isNotNull();
+
+            Assertions.assertThat(item.getStatus()).isEqualTo(TipoStatus.EMPRESTADO);
     
         }
 
