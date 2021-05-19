@@ -37,7 +37,5 @@ public class AmigoEmprestimoTest {
         Assertions.assertThat(amigoEmprestimo.getNome()).isEqualTo("José");
 
       //  Assertions.assertThat(amigoEmprestimo.getItemEmprestado().getNomeItem()).isEqualTo("Meia");
-
     }
-
 }
