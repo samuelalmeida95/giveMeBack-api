@@ -1,5 +1,7 @@
 package projects.givemebackapi.modelTests;
 
+import java.time.LocalDate;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +34,7 @@ public class ItemEmprestadoTest {
             
             AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "Fulano do teste", "887513","887513","887513","887513");
 
-            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", TipoStatus.EMPRESTADO, donoItem, amigoEmprestimo);
+            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", TipoStatus.EMPRESTADO, donoItem, LocalDate.of(2022, 2, 15), amigoEmprestimo);
     
             Assertions.assertThat(item.getIdItem()).isNotNull();
     

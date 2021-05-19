@@ -44,7 +44,7 @@ public class AmigoEmprestimo {
         this.id = id;
         this.nome = nome;
         this.whatsapp = whatsapp;
-        this.endereco = endereco; 
+        this.endereco = endereco;
         this.email = email;
         this.instagram = instagram;
     }
