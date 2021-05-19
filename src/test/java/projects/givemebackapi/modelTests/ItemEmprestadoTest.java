@@ -3,6 +3,7 @@ package projects.givemebackapi.modelTests;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.model.TipoStatus;
@@ -28,10 +29,12 @@ public class ItemEmprestadoTest {
         public void criar_ItemEmprestadoNaoRetornaNullQuandoBemSucedido() {
             
             DonoItem donoItem = new DonoItem(1, "Samuel", "996172418");
+            
+            AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "Fulano do teste", "887513","887513","887513","887513");
+
+            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", TipoStatus.EMPRESTADO, donoItem, amigoEmprestimo);
     
-            ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", TipoStatus.EMPRESTADO, donoItem);
-    
-             Assertions.assertThat(item.getIdItem()).isNotNull();
+            Assertions.assertThat(item.getIdItem()).isNotNull();
     
             Assertions.assertThat(item.getNomeItem()).isNotNull();
             
@@ -40,6 +43,8 @@ public class ItemEmprestadoTest {
             Assertions.assertThat(item.getDonoItem()).isNotNull();
             
             Assertions.assertThat(item.getStatus()).isNotNull();
+
+            Assertions.assertThat(item.getAmigoEmprestimo()).isNotNull();
 
             Assertions.assertThat(item.getStatus()).isEqualTo(TipoStatus.EMPRESTADO);
     

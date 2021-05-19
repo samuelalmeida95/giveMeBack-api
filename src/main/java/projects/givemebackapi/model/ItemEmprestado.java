@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,19 +38,25 @@ public class ItemEmprestado {
 
     @Enumerated(value = EnumType.STRING)
     private TipoStatus status;
-    
+
     @JsonIgnore
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "donoItem_id")
     private DonoItem donoItem;
     
+
+    @OneToOne
+    private AmigoEmprestimo amigoEmprestimo;
     
-    public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, TipoStatus status, DonoItem donoItem) {
+    
+    public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, TipoStatus status, DonoItem donoItem, AmigoEmprestimo amigoEmprestimo) {
+       
         this.idItem = idItem;
         this.nomeItem = nomeItem;
         this.descricaoItem = descricaoItem;
         this.status = status;
         this.donoItem = donoItem;
+        this.amigoEmprestimo = amigoEmprestimo;
     }
 
     public ItemEmprestado(){}
