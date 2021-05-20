@@ -44,10 +44,21 @@ public class DonoItemService {
         return donoItemRepository.save(dono);
     }
 
-    public DonoItem updateDono(Integer id, DonoItem newDono) {
-        DonoItem dono = findById(id);
-        dono.setNomeDono(newDono.getNomeDono());
-        dono.setWhatsappDono(newDono.getWhatsappDono());
-        return donoItemRepository.save(dono);
+    public DonoItem updateDono(Integer idDonoItem, DonoItem novoDonoItem) {
+       Optional<DonoItem> donoItemOptional = donoItemRepository.findById(idDonoItem);
+
+       if(donoItemOptional.isPresent()) {
+           DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDonoItem);
+           return this.donoItemRepository.save(donoItemAtualizado);
+       }
+
+       throw new RuntimeException(
+        "Objeto não encontrado! Id: " + idDonoItem + ", Tipo: " + DonoItem.class.getName());    
+    }
+
+    public DonoItem updateData(DonoItem novoDonoItem, DonoItem donoItem) {
+        novoDonoItem.setNomeDono(donoItem.getNomeDono());
+        novoDonoItem.setWhatsappDono(donoItem.getWhatsappDono());
+        return novoDonoItem;
     }
 }
