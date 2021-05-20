@@ -33,7 +33,7 @@ public class DonoItem {
     private String whatsappDono;
 
     @OneToMany(mappedBy = "donoItem")  //um dono para muitos itens
-    private List<ItemEmprestado> itensEmprestados  = new LinkedList<>();;
+    private List<ItemEmprestado> itensEmprestados  = new LinkedList<>();
 
     public DonoItem(Integer id, String nome, String whatsapp) {
         this.idDono = id;
