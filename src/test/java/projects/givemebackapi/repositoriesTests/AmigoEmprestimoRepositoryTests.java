@@ -1,7 +1,5 @@
 package projects.givemebackapi.repositoriesTests;
 
-
-
 import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
@@ -19,7 +17,7 @@ import projects.givemebackapi.util.AmigoEmprestimoCreator;
 @DataJpaTest
 @DisplayName("Testes para Repositorio de AmigoEmprestimo")
 public class AmigoEmprestimoRepositoryTests {
-   
+
     @Autowired
     private AmigoEmprestimoRepository amigoEmprestimoRepository;
 
@@ -37,11 +35,7 @@ public class AmigoEmprestimoRepositoryTests {
 
         Assertions.assertThat(amigoEmprestimoSalvo.getNome()).isNotNull();
 
-        Assertions.assertThat(amigoEmprestimoSalvo.getEmail()).isNotNull();
-
         Assertions.assertThat(amigoEmprestimoSalvo.getWhatsapp()).isNotNull();
-
-        Assertions.assertThat(amigoEmprestimoSalvo.getInstagram()).isNotNull();
     }
 
     @Test
@@ -82,7 +76,8 @@ public class AmigoEmprestimoRepositoryTests {
 
         this.amigoEmprestimoRepository.delete(AmigoEmprestimoSalvo);
 
-        Optional<AmigoEmprestimo> AmigoEmprestimoOptional = this.amigoEmprestimoRepository.findById(AmigoEmprestimoSalvo.getId());
+        Optional<AmigoEmprestimo> AmigoEmprestimoOptional = this.amigoEmprestimoRepository
+                .findById(AmigoEmprestimoSalvo.getId());
 
         Assertions.assertThat(AmigoEmprestimoOptional).isEmpty();
     }

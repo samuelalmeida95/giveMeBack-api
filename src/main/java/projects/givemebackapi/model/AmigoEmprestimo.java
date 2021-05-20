@@ -30,24 +30,14 @@ public class AmigoEmprestimo {
     @Length(min = 3, max = 100, message = "Campo NOME DONO deve ter entre 3 e 100 caracteres")
     private String endereco;
 
-    @NotEmpty(message = "Campo EMAILé obrigatório!")
-    @Length(min = 3, max = 50, message = "Campo EMAIL deve ter entre 3 e 100 caracteres")
-    private String email;
-
-    @NotEmpty(message = "Campo INSTAGRAM é obrigatório!")
-    @Length(min = 3, max = 50, message = "Campo INSTAGRAM deve ter entre 3 e 100 caracteres")
-    private String instagram;
-
-
-    public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco, String email, String instagram) {
+    public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco) {
         
         this.id = id;
         this.nome = nome;
         this.whatsapp = whatsapp;
-        this.endereco = endereco; 
-        this.email = email;
-        this.instagram = instagram;
+        this.endereco = endereco;
     }
 
-    public AmigoEmprestimo() {}
+    public AmigoEmprestimo() {
+    }
 }
