@@ -29,7 +29,8 @@ public class ItemEmprestadoService {
             return itemEmprestadoEncontrado;
         }
 
-        throw new RuntimeException("Deu ruim, não tem esse nome");
+        throw new RuntimeException(
+                "Dono de item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
     }
 
 }
