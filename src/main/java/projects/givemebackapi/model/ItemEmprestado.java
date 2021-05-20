@@ -51,14 +51,14 @@ public class ItemEmprestado {
     @JoinColumn(name = "amigoEmprestimo_id")
     private AmigoEmprestimo amigoEmprestimo;
 
-    public ItemEmprestado(Integer id, String nome, String desc, TipoStatus status, DonoItem dono, LocalDate dataDev,
+    public ItemEmprestado(Integer id, String nome, String desc, DonoItem dono, LocalDate dataDev,
             AmigoEmprestimo amigoEmp) {
 
         this.idItem = id;
         this.nomeItem = nome;
         this.descricaoItem = desc;
         this.dataDevolucaoItem = dataDev;
-        this.status = status;
+        this.status = TipoStatus.EMPRESTADO;
         this.donoItem = dono;
         this.amigoEmprestimo = amigoEmp;
     }
