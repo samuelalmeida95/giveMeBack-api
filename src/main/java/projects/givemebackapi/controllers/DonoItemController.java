@@ -28,17 +28,17 @@ public class DonoItemController {
 
     @GetMapping(value = "/{idDonoItem}")
     public ResponseEntity<DonoItem> findById(@PathVariable Integer idDonoItem) {
-        DonoItem dono = donoItemService.findById(idDonoItem);
-        return ResponseEntity.ok(dono);
+        DonoItem donoItem = donoItemService.findById(idDonoItem);
+        return ResponseEntity.ok(donoItem);
     }
 
     @GetMapping(value = "/search")
     public ResponseEntity<DonoItem> findByNomeDono(@RequestParam String nomeDono) {
-        DonoItem dono = donoItemService.findByNomeDono(nomeDono);
-        return ResponseEntity.ok().body(dono);
+        DonoItem donoItem = donoItemService.findByNomeDono(nomeDono);
+        return ResponseEntity.ok().body(donoItem);
     }
 
-    @GetMapping
+    @GetMapping(value = "/list")
     public ResponseEntity<List<DonoItem>> findAll() {
         List<DonoItem> listDonos = donoItemService.findAll();
         return ResponseEntity.ok().body(listDonos);
@@ -46,14 +46,21 @@ public class DonoItemController {
 
     @PostMapping
     public ResponseEntity<DonoItem> createNewDono(@RequestBody DonoItem dono) {
-        dono = donoItemService.createNewDono(dono);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dono.getIdDono()).toUri();
+
+        DonoItem novoDonoItem = donoItemService.createNewDono(dono);
+
+        URI uri = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(novoDonoItem.getIdDono())
+        .toUri();
+
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DonoItem> update(@PathVariable Integer id, @RequestBody DonoItem dono) {
-        DonoItem newDono = donoItemService.updateDono(id, dono);
-        return ResponseEntity.ok().body(newDono);
+        DonoItem novoDonoItem = donoItemService.updateDono(id, dono);
+        return ResponseEntity.ok().body(novoDonoItem);
     }
 }
