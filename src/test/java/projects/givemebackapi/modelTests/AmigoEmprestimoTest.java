@@ -18,24 +18,16 @@ public class AmigoEmprestimoTest {
 
         Assertions.assertThat(amigoEmprestimo.getWhatsapp()).isNull();
 
-        Assertions.assertThat(amigoEmprestimo.getEmail()).isNull();
-
-        Assertions.assertThat(amigoEmprestimo.getInstagram()).isNull();
-
         Assertions.assertThat(amigoEmprestimo.getEndereco()).isNull();
-
-        //Assertions.assertThat(amigoEmprestimo.getItemEmprestado()).isNull();
     }
 
     @Test
     void cria_AmigoEmprestimoQuandoBemSucedido() {
 
-        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x" , "jose@br", "jose_bonito");
+        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x");
 
         Assertions.assertThat(amigoEmprestimo.getNome()).isNotNull();
 
         Assertions.assertThat(amigoEmprestimo.getNome()).isEqualTo("José");
-
-      //  Assertions.assertThat(amigoEmprestimo.getItemEmprestado().getNomeItem()).isEqualTo("Meia");
     }
 }

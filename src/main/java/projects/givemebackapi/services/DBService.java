@@ -33,9 +33,9 @@ public class DBService {
         DonoItem donoItem1 = new DonoItem(null, "Ragnar", "666-999-323");
         DonoItem donoItem2 = new DonoItem(null, "Ronaldinha", "112-346-978");
     
-        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x" , "jose@br", "jose_bonito");
-        AmigoEmprestimo amigoEmprestimo1 = new AmigoEmprestimo(null, "pedro", "987", "rua x" , "pedro@br", "pedro_bonito");
-        AmigoEmprestimo amigoEmprestimo2 = new AmigoEmprestimo(null, "joao", "987", "rua x" , "joao@br", "joao_bonito");
+        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x");
+        AmigoEmprestimo amigoEmprestimo1 = new AmigoEmprestimo(null, "pedro", "987", "rua x");
+        AmigoEmprestimo amigoEmprestimo2 = new AmigoEmprestimo(null, "joao", "987", "rua x");
 
         ItemEmprestado itemEmprestado = new ItemEmprestado(null, "Video Game", "um video game",TipoStatus.EMPRESTADO, donoItem ,LocalDate.of(2022, 2, 15), amigoEmprestimo);
         ItemEmprestado itemEmprestado1 = new ItemEmprestado(null, "Relogio", "um relogio",TipoStatus.EMPRESTADO, donoItem2 ,LocalDate.of(2022, 2, 15), amigoEmprestimo1);
