@@ -1,5 +1,7 @@
 package projects.givemebackapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,4 +31,12 @@ public class ItemEmprestadoController {
         ItemEmprestado itemEmprestado = itemEmprestadoService.findByNomeItem(nomeItem);
         return ResponseEntity.ok().body(itemEmprestado);
     }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<List<ItemEmprestado>> findAll(){
+        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findAll();
+        return ResponseEntity.ok().body(listItensEmprestado);
+    }
+
+
 }
