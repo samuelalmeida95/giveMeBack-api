@@ -19,6 +19,7 @@ public class DonoItemService {
     public DonoItem findById(Integer idDonoItem) {
         Optional<DonoItem> donoItem = donoItemRepository.findById(idDonoItem);
         return donoItem.orElseThrow(() -> new RuntimeException(
+            
             "Dono de item não encontrado! " + idDonoItem + " Tipo: " + DonoItem.class.getName()));
     }
 
