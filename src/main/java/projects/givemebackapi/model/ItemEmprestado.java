@@ -27,15 +27,15 @@ public class ItemEmprestado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idItem;
-    
-    @NotEmpty(message = "Campo NOME ITEM é obrigatório!") 
+
+    @NotEmpty(message = "Campo NOME ITEM é obrigatório!")
     @Length(min = 3, max = 100, message = "Campo NOME ITEM deve ter entre 3 e 100 caracteres")
     private String nomeItem;
 
-    @NotEmpty(message = "Campo DESCRIÇÃO é obrigatório!") 
+    @NotEmpty(message = "Campo DESCRIÇÃO é obrigatório!")
     @Length(min = 3, max = 100, message = "Campo DESCRIÇÃO deve ter entre 3 e 100 caracteres")
     private String descricaoItem;
-    
+
     @JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
     private LocalDate dataDevolucaoItem;
 
@@ -50,18 +50,19 @@ public class ItemEmprestado {
     @ManyToOne
     @JoinColumn(name = "amigoEmprestimo_id")
     private AmigoEmprestimo amigoEmprestimo;
-    
-    
-    public ItemEmprestado(Integer idItem, String nomeItem, String descricaoItem, TipoStatus status, DonoItem donoItem, LocalDate dataDevolucaoItem, AmigoEmprestimo amigoEmprestimo) {
-       
-        this.idItem = idItem;
-        this.nomeItem = nomeItem;
-        this.descricaoItem = descricaoItem;
-        this.dataDevolucaoItem = dataDevolucaoItem; 
+
+    public ItemEmprestado(Integer id, String nome, String desc, TipoStatus status, DonoItem dono, LocalDate dataDev,
+            AmigoEmprestimo amigoEmp) {
+
+        this.idItem = id;
+        this.nomeItem = nome;
+        this.descricaoItem = desc;
+        this.dataDevolucaoItem = dataDev;
         this.status = status;
-        this.donoItem = donoItem;
-        this.amigoEmprestimo = amigoEmprestimo;
+        this.donoItem = dono;
+        this.amigoEmprestimo = amigoEmp;
     }
 
-    public ItemEmprestado(){}
+    public ItemEmprestado() {
+    }
 }
