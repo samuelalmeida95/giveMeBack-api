@@ -10,7 +10,6 @@ import projects.givemebackapi.services.DBService;
 @Configuration
 public class DevConfig {
 
-    
     @Autowired
     private DBService dbService;
 
@@ -24,5 +23,4 @@ public class DevConfig {
         }
         return false;
     }
-    
 }

@@ -10,15 +10,11 @@ public class DonoItemDTO {
     private String nome;
     private String whatsapp;
 
-    
     public DonoItemDTO(DonoItem dono) {
         this.id = dono.getId();
         this.nome = dono.getNome();
         this.whatsapp = dono.getWhatsapp();
     }
 
-
-    public DonoItemDTO() {}
-
-    
+    public DonoItemDTO() {}   
 }

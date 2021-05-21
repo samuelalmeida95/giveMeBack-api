@@ -31,7 +31,6 @@ public class ItemEmprestadoService {
                 "Item não encontrado! " + idItemEmprestado + " Tipo: " + ItemEmprestado.class.getName()));
     }
 
-
     public ItemEmprestado findByNomeItem(String nomeItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
@@ -48,15 +47,14 @@ public class ItemEmprestadoService {
         return itemEmprestadoRepository.findAll();
     }
 
-
     public ItemEmprestado emprestarItem(ItemEmprestado itemEmprestado, Integer id, Integer idAmigoEmprestimo) {
         DonoItem dono = donoItemService.findById(id);
         AmigoEmprestimo amigo = amigoEmprestimoService.findById(idAmigoEmprestimo);
         itemEmprestado.setAmigoEmprestimo(amigo);
         itemEmprestado.setDonoItem(dono);
+        itemEmprestado.setStatus(TipoStatus.EMPRESTADO);
         return itemEmprestadoRepository.save(itemEmprestado);
     }
-
 
     public ItemEmprestado update(Integer id, ItemEmprestado novoItemEmprestado) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
@@ -70,7 +68,6 @@ public class ItemEmprestadoService {
         throw new RuntimeException(
                 "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
     }
-
 
     public ItemEmprestado devolver(Integer idItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
@@ -86,7 +83,5 @@ public class ItemEmprestadoService {
         throw new RuntimeException(
                 "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
     }
-
-
 
 }
