@@ -30,11 +30,11 @@ public class DonoItemRepositoryTests {
 
         Assertions.assertThat(donoItemSalvo).isNotNull();
 
-        Assertions.assertThat(donoItemSalvo.getIdDono()).isNotNull();
+        Assertions.assertThat(donoItemSalvo.getId()).isNotNull();
 
-        Assertions.assertThat(donoItemSalvo.getNomeDono()).isNotNull();
+        Assertions.assertThat(donoItemSalvo.getNome()).isNotNull();
 
-        Assertions.assertThat(donoItemSalvo.getWhatsappDono()).isNotNull();
+        Assertions.assertThat(donoItemSalvo.getWhatsapp()).isNotNull();
 
         Assertions.assertThat(donoItemSalvo.getItensEmprestados()).isNotNull();
 
@@ -59,15 +59,15 @@ public class DonoItemRepositoryTests {
 
         DonoItem donoItemSalvo = this.donoItemRepository.save(donoItemParaSerSalvo);
 
-        donoItemSalvo.setNomeDono("Alladin");
+        donoItemSalvo.setNome("Alladin");
 
         DonoItem donoItemAtualizado = this.donoItemRepository.save(donoItemSalvo);
 
         Assertions.assertThat(donoItemAtualizado).isNotNull();
 
-        Assertions.assertThat(donoItemAtualizado.getIdDono()).isNotNull();
+        Assertions.assertThat(donoItemAtualizado.getId()).isNotNull();
 
-        Assertions.assertThat(donoItemAtualizado.getNomeDono()).isEqualTo(donoItemSalvo.getNomeDono());
+        Assertions.assertThat(donoItemAtualizado.getNome()).isEqualTo(donoItemSalvo.getNome());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class DonoItemRepositoryTests {
 
         this.donoItemRepository.delete(donoItemSalvo);
 
-        Optional<DonoItem> donoItemOptional = this.donoItemRepository.findById(donoItemSalvo.getIdDono());
+        Optional<DonoItem> donoItemOptional = this.donoItemRepository.findById(donoItemSalvo.getId());
 
         Assertions.assertThat(donoItemOptional).isEmpty();
     }

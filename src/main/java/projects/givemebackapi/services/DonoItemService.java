@@ -15,15 +15,15 @@ public class DonoItemService {
     @Autowired
     private DonoItemRepository donoItemRepository;
 
-    public DonoItem findById(Integer idDonoItem) {
-        Optional<DonoItem> donoItem = donoItemRepository.findById(idDonoItem);
+    public DonoItem findById(Integer id) {
+        Optional<DonoItem> donoItem = donoItemRepository.findById(id);
 
         return donoItem.orElseThrow(() -> new RuntimeException(
-                "Dono de item não encontrado! " + idDonoItem + " Tipo: " + DonoItem.class.getName()));
+                "Dono de item não encontrado! " + id + " Tipo: " + DonoItem.class.getName()));
     }
 
-    public DonoItem findByNomeDono(String nomeDono) {
-        Optional<DonoItem> donoOptional = donoItemRepository.findByNomeDono(nomeDono);
+    public DonoItem findByNomeDono(String nome) {
+        Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
         if (donoOptional.isPresent()){
              DonoItem donoItem = donoOptional.get();
@@ -31,7 +31,7 @@ public class DonoItemService {
         }
 
         throw new RuntimeException(
-            "Dono de item não encontrado! " + nomeDono + " Tipo: " + DonoItem.class.getName());
+            "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
     }
 
 
@@ -40,25 +40,25 @@ public class DonoItemService {
     }
 
     public DonoItem createNewDono(DonoItem dono) {
-        dono.setIdDono(null);
+        dono.setId(null);
         return donoItemRepository.save(dono);
     }
 
-    public DonoItem updateDono(Integer idDonoItem, DonoItem novoDonoItem) {
-       Optional<DonoItem> donoItemOptional = donoItemRepository.findById(idDonoItem);
+    public DonoItem updateDono(Integer id, DonoItem novoDono) {
+       Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
        if(donoItemOptional.isPresent()) {
-           DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDonoItem);
+           DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
            return this.donoItemRepository.save(donoItemAtualizado);
        }
 
        throw new RuntimeException(
-        "Objeto não encontrado! Id: " + idDonoItem + ", Tipo: " + DonoItem.class.getName());    
+        "Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());    
     }
 
-    public DonoItem updateData(DonoItem novoDonoItem, DonoItem donoItem) {
-        novoDonoItem.setNomeDono(donoItem.getNomeDono());
-        novoDonoItem.setWhatsappDono(donoItem.getWhatsappDono());
-        return novoDonoItem;
+    public DonoItem updateData(DonoItem novoDono, DonoItem dono) {
+        novoDono.setNome(dono.getNome());
+        novoDono.setWhatsapp(dono.getWhatsapp());
+        return novoDono;
     }
 }

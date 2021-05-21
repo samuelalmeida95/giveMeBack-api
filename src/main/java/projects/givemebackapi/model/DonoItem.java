@@ -20,25 +20,25 @@ public class DonoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idDono;
+    private Integer id;
 
     
-    @NotEmpty(message = "Campo NOME DONO é obrigatório!") 
-    @Length(min = 3, max = 100, message = "Campo NOME DONO deve ter entre 3 e 100 caracteres")
-    private String nomeDono;
+    @NotEmpty(message = "Campo NOME é obrigatório!") 
+    @Length(min = 3, max = 100, message = "Campo NOME  deve ter entre 3 e 100 caracteres")
+    private String nome;
 
     
     @NotEmpty(message = "Campo WHATSAPP é obrigatório!") 
     @Length(min = 3, max = 50, message = "Campo WHATSAPP deve ter entre 3 e 100 caracteres")
-    private String whatsappDono;
+    private String whatsapp;
 
     @OneToMany(mappedBy = "donoItem")  //um dono para muitos itens
     private List<ItemEmprestado> itensEmprestados  = new LinkedList<>();
 
     public DonoItem(Integer id, String nome, String whatsapp) {
-        this.idDono = id;
-        this.nomeDono = nome;
-        this.whatsappDono = whatsapp; 
+        this.id = id;
+        this.nome = nome;
+        this.whatsapp = whatsapp; 
     }
  
     public DonoItem() {}

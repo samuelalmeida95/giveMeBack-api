@@ -52,7 +52,7 @@ public class DonoItemController {
         URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(novoDonoItem.getIdDono())
+        .buildAndExpand(novoDonoItem.getId())
         .toUri();
 
         return ResponseEntity.created(uri).build();

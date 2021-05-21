@@ -11,5 +11,5 @@ import projects.givemebackapi.model.DonoItem;
 @Repository
 public interface DonoItemRepository extends JpaRepository<DonoItem, Integer>{
     
-   Optional<DonoItem> findByNomeDono(String nomeDono);
+   Optional<DonoItem> findByNome(String nome);
 }
