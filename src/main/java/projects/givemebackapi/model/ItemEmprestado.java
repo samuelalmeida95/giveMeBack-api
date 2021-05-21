@@ -65,4 +65,9 @@ public class ItemEmprestado {
 
     public ItemEmprestado() {
     }
+
+    public void update(ItemEmprestado novoItemEmprestado) {
+        this.nomeItem = novoItemEmprestado.nomeItem;
+        this.descricaoItem = novoItemEmprestado.descricaoItem;
+    }
 }
