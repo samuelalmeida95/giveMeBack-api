@@ -30,11 +30,11 @@ public class ItemEmprestadoController {
     private ItemEmprestadoService itemEmprestadoService;
 
     @GetMapping(value = "/{idItemEmprestado}")
-    public ResponseEntity<ItemEmprestado> findById(@PathVariable Integer idItemEmprestado) {
+    public ResponseEntity<ItemEmprestadoDTO> findById(@PathVariable Integer idItemEmprestado) {
         ItemEmprestado itemEmprestado = itemEmprestadoService.findById(idItemEmprestado);
-       // ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
+        ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
 
-        return ResponseEntity.ok().body(itemEmprestado);
+        return ResponseEntity.ok().body(itemDTO);
     }
 
     @GetMapping(value = "/search")
@@ -59,7 +59,7 @@ public class ItemEmprestadoController {
     public ItemEmprestadoDTO emprestarItem(
         @RequestParam Integer dono, 
         @RequestParam Integer idAmigoEmprestimo,
-        @Valid
+        @Valid 
         @RequestBody ItemEmprestado item) {
 
         ItemEmprestado novoItemEmprestado = itemEmprestadoService.emprestarItem(item, dono, idAmigoEmprestimo);
@@ -69,14 +69,10 @@ public class ItemEmprestadoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ItemEmprestadoDTO> update(
-        @PathVariable Integer id, 
-        @Valid
-        @RequestBody ItemEmprestado item) {
+    public ResponseEntity<ItemEmprestadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ItemEmprestado item) {
 
         ItemEmprestado novoItem = itemEmprestadoService.update(id, item);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItem);
-
 
         return ResponseEntity.ok().body(itemDTO);
     }
