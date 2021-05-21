@@ -54,6 +54,7 @@ public class ItemEmprestadoService {
         AmigoEmprestimo amigo = amigoEmprestimoService.findById(idAmigoEmprestimo);
         itemEmprestado.setAmigoEmprestimo(amigo);
         itemEmprestado.setDonoItem(dono);
+        itemEmprestado.setStatus(TipoStatus.EMPRESTADO);
         return itemEmprestadoRepository.save(itemEmprestado);
     }
 

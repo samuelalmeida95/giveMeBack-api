@@ -30,11 +30,11 @@ public class ItemEmprestadoController {
     private ItemEmprestadoService itemEmprestadoService;
 
     @GetMapping(value = "/{idItemEmprestado}")
-    public ResponseEntity<ItemEmprestadoDTO> findById(@PathVariable Integer idItemEmprestado) {
+    public ResponseEntity<ItemEmprestado> findById(@PathVariable Integer idItemEmprestado) {
         ItemEmprestado itemEmprestado = itemEmprestadoService.findById(idItemEmprestado);
-        ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
+       // ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
 
-        return ResponseEntity.ok().body(itemDTO);
+        return ResponseEntity.ok().body(itemEmprestado);
     }
 
     @GetMapping(value = "/search")
