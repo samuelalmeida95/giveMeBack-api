@@ -19,15 +19,15 @@ public class AmigoEmprestimo {
     private Integer id;
 
     @NotEmpty(message = "Campo NOME  é obrigatório!")
-    @Length(min = 3, max = 100, message = "Campo NOME DONO deve ter entre 3 e 100 caracteres")
+    @Length(min = 3, max = 100, message = "Campo NOME  deve ter entre 3 e 100 caracteres")
     private String nome;
 
     @NotEmpty(message = "Campo WHATSAPP é obrigatório!")
-    @Length(min = 3, max = 20, message = "Campo NOME DONO deve ter entre 3 e 100 caracteres")
+    @Length(min = 3, max = 20, message = "Campo WHATSAPP deve ter entre 3 e 100 caracteres")
     private String whatsapp;
 
     @NotEmpty(message = "Campo ENREDECO é obrigatório!")
-    @Length(min = 3, max = 100, message = "Campo NOME DONO deve ter entre 3 e 100 caracteres")
+    @Length(min = 3, max = 100, message = "Campo ENDEREÇO deve ter entre 3 e 100 caracteres")
     private String endereco;
 
     public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco) {
