@@ -28,7 +28,7 @@ public class ItemEmprestado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idItem;
 
-    @NotEmpty(message = "Campo NOME ITEM é obrigatório!")
+    @NotEmpty(message = "Campo NOME é obrigatório!")
     @Length(min = 3, max = 100, message = "Campo NOME ITEM deve ter entre 3 e 100 caracteres")
     private String nomeItem;
 
