@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.DonoItem;
@@ -56,5 +57,15 @@ public class DonoItemService {
         novoDono.setNome(dono.getNome());
         novoDono.setWhatsapp(dono.getWhatsapp());
         return novoDono;
+    }
+
+    public void delete(Integer id) {
+        findById(id);
+        try {
+            donoItemRepository.deleteById(id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Dono não pode ser deletado, possui amigos e itens associados.");
+        }
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
@@ -128,5 +129,16 @@ public class ItemEmprestadoService {
         itemAtualizado.setAmigoEmprestimo(amigoEncontrado);
         itemAtualizado.setStatus(TipoStatus.EMPRESTADO);
         return this.itemEmprestadoRepository.save(itemAtualizado);
+    }
+
+    
+    public void delete(Integer id) {
+        findById(id);
+        try {
+            itemEmprestadoRepository.deleteById(id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Item não pode ser deletado, possui amigos e itens associados.");
+        }
     }
 }
