@@ -50,20 +50,36 @@ public class ItemEmprestadoController {
     public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(@RequestParam TipoStatus status) {
         List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByStatus(status);
 
-        List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
-        .collect(Collectors.toList());
+        List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+                .stream()
+                .map(item -> new ItemEmprestadoDTO(item))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listDTO);
     }
 
-
     @GetMapping(value = "/list")
     public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {
         List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findAll();
-        List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
+
+        List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+                .stream()
+                .map(item -> new ItemEmprestadoDTO(item))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ItemEmprestadoDTO> update(
+        @PathVariable Integer id, 
+        @Valid 
+        @RequestBody ItemEmprestado item) {
+
+        ItemEmprestado novoItem = itemEmprestadoService.update(id, item);
+        ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItem);
+
+        return ResponseEntity.ok().body(itemDTO);
     }
 
     @PostMapping
@@ -80,19 +96,21 @@ public class ItemEmprestadoController {
         return itemDTO;
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<ItemEmprestadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ItemEmprestado item) {
-
-        ItemEmprestado novoItem = itemEmprestadoService.update(id, item);
+    @PutMapping(value = "/devolver/{idItem}")
+    public ResponseEntity<ItemEmprestadoDTO> devolver(@PathVariable Integer idItem) {
+        ItemEmprestado novoItem = itemEmprestadoService.devolver(idItem);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItem);
 
         return ResponseEntity.ok().body(itemDTO);
     }
 
-    @PutMapping(value = "/devolver/{idItem}")
-    public ResponseEntity<ItemEmprestadoDTO> devolver(@PathVariable Integer idItem) {
-        ItemEmprestado novoItem = itemEmprestadoService.devolver(idItem);
-        ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItem);
+    @PutMapping(value = "/giveInAgain")
+    public ResponseEntity<ItemEmprestadoDTO> giveInAgain(
+        @RequestParam Integer idItem,  
+        @RequestParam Integer idAmigoEmprestimo) {
+
+        ItemEmprestado novoItemEmprestado = itemEmprestadoService.giveInAgain(idItem, idAmigoEmprestimo);
+        ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItemEmprestado);
 
         return ResponseEntity.ok().body(itemDTO);
     }
