@@ -93,13 +93,13 @@ public class ItemEmprestadoService {
         return this.itemEmprestadoRepository.save(itemEmprestado);
     }
 
-    public ItemEmprestado giveInAgain(Integer id, Integer idAmigoEmprestimo) {
-        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+    public ItemEmprestado giveInAgain(Integer idItem, Integer idAmigoEmprestimo) {
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
         AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigoEmprestimo);
 
         if (!itemOptional.isPresent())
             throw new RuntimeException(
-                    "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
+                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         ItemEmprestado itemAtualizado = itemOptional.get();
         itemAtualizado.setAmigoEmprestimo(amigoEncontrado);

@@ -104,9 +104,9 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
 
-    @PutMapping(value = "/giveInAgain/{idItem}{idAmigoEmprestimo}")
+    @PutMapping(value = "/giveInAgain")
     public ResponseEntity<ItemEmprestadoDTO> giveInAgain(
-        @PathVariable Integer idItem,  
+        @RequestParam Integer idItem,  
         @RequestParam Integer idAmigoEmprestimo) {
 
         ItemEmprestado novoItemEmprestado = itemEmprestadoService.giveInAgain(idItem, idAmigoEmprestimo);
