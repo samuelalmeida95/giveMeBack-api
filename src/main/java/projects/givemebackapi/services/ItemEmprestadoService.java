@@ -34,12 +34,12 @@ public class ItemEmprestadoService {
     public ItemEmprestado findByNome(String nomeItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
-        if (itemOptional.isPresent()) {
-            ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
-            return itemEmprestadoEncontrado;
-        }
+        if (!itemOptional.isPresent())
+            throw new RuntimeException("Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
+        
 
-        throw new RuntimeException("Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
+        ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
+        return itemEmprestadoEncontrado;
     }
 
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
@@ -53,10 +53,20 @@ public class ItemEmprestadoService {
         return itensDevolvidos;
     }
 
-
-
     public List<ItemEmprestado> findAll() {
         return itemEmprestadoRepository.findAll();
+    }
+
+    public ItemEmprestado update(Integer id, ItemEmprestado novoItemEmprestado) {
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+
+        if (!itemOptional.isPresent()) 
+            throw new RuntimeException(
+                    "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
+        
+        ItemEmprestado itemAtualizado = itemOptional.get();
+        itemAtualizado.update(novoItemEmprestado);
+        return this.itemEmprestadoRepository.save(itemAtualizado);
     }
 
     public ItemEmprestado emprestarItem(ItemEmprestado itemEmprestado, Integer id, Integer idAmigoEmprestimo) {
@@ -70,32 +80,30 @@ public class ItemEmprestadoService {
         return itemEmprestadoRepository.save(itemEmprestado);
     }
 
-    public ItemEmprestado update(Integer id, ItemEmprestado novoItemEmprestado) {
-        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
-
-        if (itemOptional.isPresent()) {
-            ItemEmprestado itemAtualizado = itemOptional.get();
-            itemAtualizado.update(novoItemEmprestado);
-            return this.itemEmprestadoRepository.save(itemAtualizado);
-        }
-
-        throw new RuntimeException(
-                "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
-    }
-
     public ItemEmprestado devolver(Integer idItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
-        if (itemOptional.isPresent()) {
-            ItemEmprestado itemEmprestado = itemOptional.get();
-            itemEmprestado.setStatus(TipoStatus.DEVOLVIDO);
-            itemEmprestado.setAmigoEmprestimo(null);
+        if (!itemOptional.isPresent())
+            throw new RuntimeException(
+                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
-            return this.itemEmprestadoRepository.save(itemEmprestado);
-        }
-
-        throw new RuntimeException(
-                "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+        ItemEmprestado itemEmprestado = itemOptional.get();
+        itemEmprestado.setStatus(TipoStatus.DEVOLVIDO);
+        itemEmprestado.setAmigoEmprestimo(null);
+        return this.itemEmprestadoRepository.save(itemEmprestado);
     }
 
+    public ItemEmprestado giveInAgain(Integer id, Integer idAmigoEmprestimo) {
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+        AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigoEmprestimo);
+
+        if (!itemOptional.isPresent())
+            throw new RuntimeException(
+                    "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
+
+        ItemEmprestado itemAtualizado = itemOptional.get();
+        itemAtualizado.setAmigoEmprestimo(amigoEncontrado);
+        itemAtualizado.setStatus(TipoStatus.EMPRESTADO);
+        return this.itemEmprestadoRepository.save(itemAtualizado);
+    }
 }
