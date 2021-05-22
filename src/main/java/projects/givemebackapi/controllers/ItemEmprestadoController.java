@@ -46,19 +46,9 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
 
-    @GetMapping(value = "/devolvidos")
-    public ResponseEntity<List<ItemEmprestadoDTO>> findByStatusDevolvido(@RequestParam TipoStatus status) {
-        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findItensDevolvidos(status);
-
-        List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
-        .collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(listDTO);
-    }
-
-    @GetMapping(value = "/emprestados")
-    public ResponseEntity<List<ItemEmprestadoDTO>> findByStatusEmprestado(@RequestParam TipoStatus status) {
-        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findItensEmprestados(status);
+    @GetMapping(value = "/status_item")
+    public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(@RequestParam TipoStatus status) {
+        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByStatus(status);
 
         List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
         .collect(Collectors.toList());
