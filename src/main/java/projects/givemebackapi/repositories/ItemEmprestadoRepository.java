@@ -17,5 +17,7 @@ public interface ItemEmprestadoRepository extends JpaRepository<ItemEmprestado, 
     List<ItemEmprestado> findByStatus(TipoStatus tipo);
 
     Optional<List<ItemEmprestado>> findByAmigoEmprestimoId(Integer nomeAmigo);
+
+    Optional<List<ItemEmprestado>> findByDonoItemId(Integer idDono);
     
 }

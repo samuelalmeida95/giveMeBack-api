@@ -53,6 +53,17 @@ public class ItemEmprestadoService {
         return itemEmprestadoEncontrado;
     }
 
+    public List<ItemEmprestado> findByDono(Integer idDono) {
+        Optional<List<ItemEmprestado>> itemOptional = itemEmprestadoRepository.findByDonoItemId(idDono);
+
+        if (!itemOptional.isPresent())
+            throw new RuntimeException(
+                  "Dono: " + idDono + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
+        
+        List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
+        return itemEmprestadoEncontrado;
+    }
+
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
         List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
 
