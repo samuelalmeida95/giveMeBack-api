@@ -31,7 +31,7 @@ public class ItemEmprestadoController {
     @Autowired
     private ItemEmprestadoService itemEmprestadoService;
 
-    @GetMapping(value = "/{idItemEmprestado}")
+    @GetMapping(value = "/buscar_por_id/{idItemEmprestado}")
     public ResponseEntity<ItemEmprestadoDTO> findById(@PathVariable Integer idItemEmprestado) {
         ItemEmprestado itemEmprestado = itemEmprestadoService.findById(idItemEmprestado);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
@@ -39,7 +39,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/buscar_por_nome")
     public ResponseEntity<ItemEmprestadoDTO> findByNome(@RequestParam String nomeItem) {
         ItemEmprestado itemEmprestado = itemEmprestadoService.findByNome(nomeItem);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
@@ -71,7 +71,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/status_item")
+    @GetMapping(value = "/status_itens")
     public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(@RequestParam TipoStatus status) {
         List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByStatus(status);
 
@@ -83,7 +83,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/listar_itens")
     public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {
         List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findAll();
 
@@ -95,7 +95,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/alterar/{id}")
     public ResponseEntity<ItemEmprestadoDTO> update(
         @PathVariable Integer id, 
         @Valid 
@@ -107,7 +107,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
 
-    @PostMapping
+    @PostMapping(value="/emprestar_item")
     @ResponseStatus(HttpStatus.CREATED)
     public ItemEmprestadoDTO emprestarItem(
         @RequestParam Integer dono, 
@@ -129,7 +129,7 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
     
-    @PutMapping(value = "/giveInAgain")
+    @PutMapping(value = "/emprestar_novamente")
     public ResponseEntity<ItemEmprestadoDTO> giveInAgain(
         @RequestParam Integer idItem,  
         @RequestParam Integer idAmigoEmprestimo) {

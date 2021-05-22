@@ -27,7 +27,7 @@ public class AmigoEmprestimoController {
     @Autowired
     private AmigoEmprestimoService amigoEmprestimoService;
 
-    @GetMapping(value = "/{idAmigoEmprestimo}")
+    @GetMapping(value = "/buscar_por_id/{idAmigoEmprestimo}")
     public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer idAmigoEmprestimo) {
         AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(idAmigoEmprestimo);
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigoEmprestimo);
@@ -35,7 +35,7 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok(amigoDTO);
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/buscar_por_nome")
     public ResponseEntity<AmigoEmprestimoDTO> findByNome(@RequestParam String amigoEmprestimo) {
         AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(amigoEmprestimo);
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigo);
@@ -43,7 +43,7 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok().body(amigoDTO);
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/listar_todos")
     public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
         List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();
 
@@ -55,7 +55,7 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PostMapping
+    @PostMapping(value="/adicionar")
     @ResponseStatus(HttpStatus.CREATED)
     public AmigoEmprestimoDTO create(@RequestBody AmigoEmprestimo amigoEmprestimo) {
         AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(amigoEmprestimo);
@@ -64,7 +64,7 @@ public class AmigoEmprestimoController {
         return amigoDTO;
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/alterar/{id}")
     public ResponseEntity<AmigoEmprestimoDTO> update(
         @PathVariable Integer id,
         @RequestBody AmigoEmprestimo amigoEmprestimo) {
