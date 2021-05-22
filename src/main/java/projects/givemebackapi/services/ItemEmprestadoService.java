@@ -35,10 +35,21 @@ public class ItemEmprestadoService {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException("Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
+            throw new RuntimeException(
+                  "Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
         
-
         ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
+        return itemEmprestadoEncontrado;
+    }
+
+    public List<ItemEmprestado> findByEmprestadoPara(Integer idAmigo) {
+        Optional<List<ItemEmprestado>> itemOptional = itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
+
+        if (!itemOptional.isPresent())
+            throw new RuntimeException(
+                  "Amigo: " + idAmigo + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
+        
+        List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
         return itemEmprestadoEncontrado;
     }
 
@@ -47,7 +58,7 @@ public class ItemEmprestadoService {
 
         if (itensDevolvidos.isEmpty()) {
             throw new RuntimeException(
-                    "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
+                  "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
         }
 
         return itensDevolvidos;
@@ -62,7 +73,7 @@ public class ItemEmprestadoService {
 
         if (!itemOptional.isPresent()) 
             throw new RuntimeException(
-                    "Item Emprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
+                   "Item Emprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
         
         ItemEmprestado itemAtualizado = itemOptional.get();
         itemAtualizado.update(novoItem);
@@ -85,7 +96,7 @@ public class ItemEmprestadoService {
 
         if (!itemOptional.isPresent())
             throw new RuntimeException(
-                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+                   "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         ItemEmprestado item = itemOptional.get();
         item.setStatus(TipoStatus.DEVOLVIDO);
@@ -99,7 +110,7 @@ public class ItemEmprestadoService {
 
         if (!itemOptional.isPresent())
             throw new RuntimeException(
-                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+                   "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         ItemEmprestado itemAtualizado = itemOptional.get();
         itemAtualizado.setAmigoEmprestimo(amigoEncontrado);
