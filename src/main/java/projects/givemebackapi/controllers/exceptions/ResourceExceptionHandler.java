@@ -18,19 +18,26 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException exception,
             ServletRequest request) {
-        StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
-                exception.getMessage());
+
+        StandardError error = new StandardError(
+            System.currentTimeMillis(), 
+            HttpStatus.NOT_FOUND.value(),
+            exception.getMessage());
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<StandardError>DataIntegrityViolationException(DataIntegrityViolationException exception,
+    public ResponseEntity<StandardError> DataIntegrityViolationException(DataIntegrityViolationException exception,
             ServletRequest request) {
-        StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
-                exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
+        StandardError error = new 
+            StandardError(System.currentTimeMillis(), 
+                         HttpStatus.BAD_REQUEST.value(),
+                         exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
