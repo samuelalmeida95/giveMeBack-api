@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +28,9 @@ public class AmigoEmprestimoController {
     @Autowired
     private AmigoEmprestimoService amigoEmprestimoService;
 
-    @GetMapping(value = "/buscar_por_id/{idAmigoEmprestimo}")
-    public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer idAmigoEmprestimo) {
-        AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(idAmigoEmprestimo);
+    @GetMapping(value = "/buscar_por_id/{id}")
+    public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
+        AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(id);
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigoEmprestimo);
         
         return ResponseEntity.ok(amigoDTO);
@@ -73,6 +74,13 @@ public class AmigoEmprestimoController {
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
 
         return ResponseEntity.ok().body(amigoDTO);
+    }
+
+    @DeleteMapping(value = "/deletar/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        amigoEmprestimoService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

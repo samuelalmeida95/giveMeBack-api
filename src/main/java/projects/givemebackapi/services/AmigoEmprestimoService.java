@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
+import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class AmigoEmprestimoService {
@@ -18,7 +20,7 @@ public class AmigoEmprestimoService {
     public AmigoEmprestimo findById(Integer idAmigo) {
         Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
 
-        return amigo.orElseThrow(() -> new RuntimeException(
+        return amigo.orElseThrow(() -> new ObjectNotFoundException(
                 "Dono de item não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
     }
 
@@ -26,7 +28,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findByNome(nome);
 
         if (!amigoEmprestimoOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                     "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
@@ -47,7 +49,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigo);
 
         if (!amigoEmprestimoOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                     "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigo);
@@ -60,4 +62,15 @@ public class AmigoEmprestimoService {
         novoAmigo.setWhatsapp(amigo.getEndereco());
         return novoAmigo;
     }
+
+    public void delete(Integer id) {
+        findById(id);
+        try {
+            amigoEmprestimoRepository.deleteById(id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Amigo não pode ser deletado, possui itens emprestados associados.");
+        }
+    }
+
 }
