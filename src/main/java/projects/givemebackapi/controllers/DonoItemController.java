@@ -36,8 +36,8 @@ public class DonoItemController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<DonoItemDTO> findByNomeDono(@RequestParam String nomeDono) {
-        DonoItem donoItem = donoItemService.findByNomeDono(nomeDono);
+    public ResponseEntity<DonoItemDTO> findByNome(@RequestParam String nomeDono) {
+        DonoItem donoItem = donoItemService.findByNome(nomeDono);
         DonoItemDTO donoDTO = new DonoItemDTO(donoItem);
 
         return ResponseEntity.ok().body(donoDTO);
@@ -53,8 +53,8 @@ public class DonoItemController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DonoItemDTO createNewDono(@RequestBody DonoItem dono) {
-        DonoItem novoDonoItem = donoItemService.createNewDono(dono);
+    public DonoItemDTO create(@RequestBody DonoItem dono) {
+        DonoItem novoDonoItem = donoItemService.create(dono);
         DonoItemDTO donoDTO = new DonoItemDTO(novoDonoItem);
 
         return donoDTO;
@@ -62,7 +62,7 @@ public class DonoItemController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DonoItemDTO> update(@PathVariable Integer id, @RequestBody DonoItem dono) {
-        DonoItem novoDonoItem = donoItemService.updateDono(id, dono);
+        DonoItem novoDonoItem = donoItemService.update(id, dono);
         DonoItemDTO donoDTO = new DonoItemDTO(novoDonoItem);
 
         return ResponseEntity.ok().body(donoDTO);

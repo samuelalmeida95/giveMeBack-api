@@ -31,7 +31,7 @@ public class ItemEmprestadoService {
                 "Item não encontrado! " + idItemEmprestado + " Tipo: " + ItemEmprestado.class.getName()));
     }
 
-    public ItemEmprestado findByNomeItem(String nomeItem) {
+    public ItemEmprestado findByNome(String nomeItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
         if (itemOptional.isPresent()) {
@@ -39,8 +39,31 @@ public class ItemEmprestadoService {
             return itemEmprestadoEncontrado;
         }
 
-        throw new RuntimeException(
-                "Dono de item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
+        throw new RuntimeException("Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
+    }
+
+    public List<ItemEmprestado> findItensDevolvidos(TipoStatus tipo) {
+        List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(tipo);
+
+        if (itensDevolvidos.isEmpty()) {
+
+            throw new RuntimeException(
+                    "Não existem itens com o status: " + tipo + " , Tipo: " + ItemEmprestado.class.getName());
+        }
+
+        return itensDevolvidos;
+    }
+
+    public List<ItemEmprestado> findItensEmprestados(TipoStatus tipo) {
+        List<ItemEmprestado> itensEmprestados = itemEmprestadoRepository.findByStatus(tipo);
+
+        if (itensEmprestados.isEmpty()) {
+
+            throw new RuntimeException(
+                    "Não existem itens com o status: " + tipo + " , Tipo: " + ItemEmprestado.class.getName());
+        }
+
+        return itensEmprestados;
     }
 
     public List<ItemEmprestado> findAll() {
@@ -50,9 +73,11 @@ public class ItemEmprestadoService {
     public ItemEmprestado emprestarItem(ItemEmprestado itemEmprestado, Integer id, Integer idAmigoEmprestimo) {
         DonoItem dono = donoItemService.findById(id);
         AmigoEmprestimo amigo = amigoEmprestimoService.findById(idAmigoEmprestimo);
+
         itemEmprestado.setAmigoEmprestimo(amigo);
         itemEmprestado.setDonoItem(dono);
         itemEmprestado.setStatus(TipoStatus.EMPRESTADO);
+
         return itemEmprestadoRepository.save(itemEmprestado);
     }
 
