@@ -42,29 +42,18 @@ public class ItemEmprestadoService {
         throw new RuntimeException("Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
     }
 
-    public List<ItemEmprestado> findItensDevolvidos(TipoStatus tipo) {
-        List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(tipo);
+    public List<ItemEmprestado> findByStatus(TipoStatus status) {
+        List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
 
         if (itensDevolvidos.isEmpty()) {
-
             throw new RuntimeException(
-                    "Não existem itens com o status: " + tipo + " , Tipo: " + ItemEmprestado.class.getName());
+                    "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
         }
 
         return itensDevolvidos;
     }
 
-    public List<ItemEmprestado> findItensEmprestados(TipoStatus tipo) {
-        List<ItemEmprestado> itensEmprestados = itemEmprestadoRepository.findByStatus(tipo);
 
-        if (itensEmprestados.isEmpty()) {
-
-            throw new RuntimeException(
-                    "Não existem itens com o status: " + tipo + " , Tipo: " + ItemEmprestado.class.getName());
-        }
-
-        return itensEmprestados;
-    }
 
     public List<ItemEmprestado> findAll() {
         return itemEmprestadoRepository.findAll();
