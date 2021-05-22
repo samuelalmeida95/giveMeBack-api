@@ -31,6 +31,7 @@ public class AmigoEmprestimoController {
     public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer idAmigoEmprestimo) {
         AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(idAmigoEmprestimo);
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigoEmprestimo);
+        
         return ResponseEntity.ok(amigoDTO);
     }
 
@@ -45,7 +46,10 @@ public class AmigoEmprestimoController {
     @GetMapping(value = "/list")
     public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
         List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();
-        List<AmigoEmprestimoDTO> listDTO = listAmigos.stream().map(amigo -> new AmigoEmprestimoDTO(amigo))
+
+        List<AmigoEmprestimoDTO> listDTO = listAmigos
+                .stream()
+                .map(amigo -> new AmigoEmprestimoDTO(amigo))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listDTO);
@@ -61,8 +65,10 @@ public class AmigoEmprestimoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AmigoEmprestimoDTO> update(@PathVariable Integer id,
-            @RequestBody AmigoEmprestimo amigoEmprestimo) {
+    public ResponseEntity<AmigoEmprestimoDTO> update(
+        @PathVariable Integer id,
+        @RequestBody AmigoEmprestimo amigoEmprestimo) {
+
         AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.update(id, amigoEmprestimo);
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
 

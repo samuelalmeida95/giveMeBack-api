@@ -46,7 +46,11 @@ public class DonoItemController {
     @GetMapping(value = "/list")
     public ResponseEntity<List<DonoItemDTO>> findAll() {
         List<DonoItem> listDonos = donoItemService.findAll();
-        List<DonoItemDTO> listDTO = listDonos.stream().map(dono -> new DonoItemDTO(dono)).collect(Collectors.toList());
+
+        List<DonoItemDTO> listDTO = listDonos
+                .stream()
+                .map(dono -> new DonoItemDTO(dono))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listDTO);
     }
@@ -61,7 +65,10 @@ public class DonoItemController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<DonoItemDTO> update(@PathVariable Integer id, @RequestBody DonoItem dono) {
+    public ResponseEntity<DonoItemDTO> update(
+        @PathVariable Integer id, 
+        @RequestBody DonoItem dono) {
+            
         DonoItem novoDonoItem = donoItemService.update(id, dono);
         DonoItemDTO donoDTO = new DonoItemDTO(novoDonoItem);
 

@@ -25,13 +25,13 @@ public class AmigoEmprestimoService {
     public AmigoEmprestimo findByNome(String nome) {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findByNome(nome);
 
-        if (amigoEmprestimoOptional.isPresent()) {
-            AmigoEmprestimo amigoEmprestimo = amigoEmprestimoOptional.get();
-            return amigoEmprestimo;
-        }
+        if (amigoEmprestimoOptional.isPresent())
+            throw new RuntimeException(
+                    "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
-        throw new RuntimeException(
-                "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
+        AmigoEmprestimo amigoEmprestimo = amigoEmprestimoOptional.get();
+        return amigoEmprestimo;
+
     }
 
     public List<AmigoEmprestimo> findAll() {
@@ -46,13 +46,12 @@ public class AmigoEmprestimoService {
     public AmigoEmprestimo update(Integer idAmigoEmprestimo, AmigoEmprestimo novoAmigoEmprestimo) {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigoEmprestimo);
 
-        if (amigoEmprestimoOptional.isPresent()) {
-            AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigoEmprestimo);
-            return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
-        }
+        if (!amigoEmprestimoOptional.isPresent())
+            throw new RuntimeException(
+                    "Objeto não encontrado! Id: " + idAmigoEmprestimo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        throw new RuntimeException(
-                "Objeto não encontrado! Id: " + idAmigoEmprestimo + ", Tipo: " + AmigoEmprestimo.class.getName());
+        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigoEmprestimo);
+        return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
     }
 
     public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigoEmprestimo, AmigoEmprestimo amigoEmprestimo) {
