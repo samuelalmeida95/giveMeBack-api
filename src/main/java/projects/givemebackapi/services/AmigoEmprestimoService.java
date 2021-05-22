@@ -15,23 +15,23 @@ public class AmigoEmprestimoService {
     @Autowired
     private AmigoEmprestimoRepository amigoEmprestimoRepository;
 
-    public AmigoEmprestimo findById(Integer idAmigoEmprestimo) {
-        Optional<AmigoEmprestimo> amigoEmprestimo = amigoEmprestimoRepository.findById(idAmigoEmprestimo);
+    public AmigoEmprestimo findById(Integer idAmigo) {
+        Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
 
-        return amigoEmprestimo.orElseThrow(() -> new RuntimeException(
-                "Dono de item não encontrado! " + idAmigoEmprestimo + " Tipo: " + AmigoEmprestimo.class.getName()));
+        return amigo.orElseThrow(() -> new RuntimeException(
+                "Dono de item não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
     }
 
     public AmigoEmprestimo findByNome(String nome) {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findByNome(nome);
 
-        if (amigoEmprestimoOptional.isPresent()) {
-            AmigoEmprestimo amigoEmprestimo = amigoEmprestimoOptional.get();
-            return amigoEmprestimo;
-        }
+        if (!amigoEmprestimoOptional.isPresent())
+            throw new RuntimeException(
+                    "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
-        throw new RuntimeException(
-                "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
+        AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
+        return amigo;
+
     }
 
     public List<AmigoEmprestimo> findAll() {
@@ -43,22 +43,21 @@ public class AmigoEmprestimoService {
         return amigoEmprestimoRepository.save(dono);
     }
 
-    public AmigoEmprestimo update(Integer idAmigoEmprestimo, AmigoEmprestimo novoAmigoEmprestimo) {
-        Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigoEmprestimo);
+    public AmigoEmprestimo update(Integer idAmigo, AmigoEmprestimo novoAmigo) {
+        Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigo);
 
-        if (amigoEmprestimoOptional.isPresent()) {
-            AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigoEmprestimo);
-            return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
-        }
+        if (!amigoEmprestimoOptional.isPresent())
+            throw new RuntimeException(
+                    "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        throw new RuntimeException(
-                "Objeto não encontrado! Id: " + idAmigoEmprestimo + ", Tipo: " + AmigoEmprestimo.class.getName());
+        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigo);
+        return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
     }
 
-    public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigoEmprestimo, AmigoEmprestimo amigoEmprestimo) {
-        novoAmigoEmprestimo.setNome(amigoEmprestimo.getNome());
-        novoAmigoEmprestimo.setWhatsapp(amigoEmprestimo.getWhatsapp());
-        novoAmigoEmprestimo.setWhatsapp(amigoEmprestimo.getEndereco());
-        return novoAmigoEmprestimo;
+    public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigo, AmigoEmprestimo amigo) {
+        novoAmigo.setNome(amigo.getNome());
+        novoAmigo.setWhatsapp(amigo.getWhatsapp());
+        novoAmigo.setWhatsapp(amigo.getEndereco());
+        return novoAmigo;
     }
 }

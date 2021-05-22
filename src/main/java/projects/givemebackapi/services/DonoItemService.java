@@ -25,13 +25,11 @@ public class DonoItemService {
     public DonoItem findByNome(String nome) {
         Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
-        if (donoOptional.isPresent()){
-             DonoItem donoItem = donoOptional.get();
-             return donoItem;
-        }
+        if (!donoOptional.isPresent())
+            throw new RuntimeException("Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
 
-        throw new RuntimeException(
-            "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
+        DonoItem donoItem = donoOptional.get();
+        return donoItem;
     }
 
 
@@ -45,15 +43,13 @@ public class DonoItemService {
     }
 
     public DonoItem update(Integer id, DonoItem novoDono) {
-       Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
+        Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
-       if(donoItemOptional.isPresent()) {
-           DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
-           return this.donoItemRepository.save(donoItemAtualizado);
-       }
+        if (!donoItemOptional.isPresent())
+            throw new RuntimeException("Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
 
-       throw new RuntimeException(
-        "Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());    
+        DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
+        return this.donoItemRepository.save(donoItemAtualizado);
     }
 
     public DonoItem updateData(DonoItem novoDono, DonoItem dono) {
