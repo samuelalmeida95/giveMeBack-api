@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projects.givemebackapi.dtos.ItemEmprestadoDTO;
 import projects.givemebackapi.model.ItemEmprestado;
+import projects.givemebackapi.model.TipoStatus;
 import projects.givemebackapi.services.ItemEmprestadoService;
 
 @RestController
@@ -38,12 +39,33 @@ public class ItemEmprestadoController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<ItemEmprestadoDTO> searchByNomeItem(@RequestParam String nomeItem) {
-        ItemEmprestado itemEmprestado = itemEmprestadoService.findByNomeItem(nomeItem);
+    public ResponseEntity<ItemEmprestadoDTO> findByNome(@RequestParam String nomeItem) {
+        ItemEmprestado itemEmprestado = itemEmprestadoService.findByNome(nomeItem);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(itemEmprestado);
 
         return ResponseEntity.ok().body(itemDTO);
     }
+
+    @GetMapping(value = "/devolvidos")
+    public ResponseEntity<List<ItemEmprestadoDTO>> findByStatusDevolvido(@RequestParam TipoStatus status) {
+        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findItensDevolvidos(status);
+
+        List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
+        .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+
+    @GetMapping(value = "/emprestados")
+    public ResponseEntity<List<ItemEmprestadoDTO>> findByStatusEmprestado(@RequestParam TipoStatus status) {
+        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findItensEmprestados(status);
+
+        List<ItemEmprestadoDTO> listDTO = listItensEmprestado.stream().map(item -> new ItemEmprestadoDTO(item))
+        .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+
 
     @GetMapping(value = "/list")
     public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {

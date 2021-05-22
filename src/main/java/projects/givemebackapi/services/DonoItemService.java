@@ -22,7 +22,7 @@ public class DonoItemService {
                 "Dono de item não encontrado! " + id + " Tipo: " + DonoItem.class.getName()));
     }
 
-    public DonoItem findByNomeDono(String nome) {
+    public DonoItem findByNome(String nome) {
         Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
         if (donoOptional.isPresent()){
@@ -39,12 +39,12 @@ public class DonoItemService {
         return donoItemRepository.findAll();
     }
 
-    public DonoItem createNewDono(DonoItem dono) {
+    public DonoItem create(DonoItem dono) {
         dono.setId(null);
         return donoItemRepository.save(dono);
     }
 
-    public DonoItem updateDono(Integer id, DonoItem novoDono) {
+    public DonoItem update(Integer id, DonoItem novoDono) {
        Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
        if(donoItemOptional.isPresent()) {
