@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
+import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class AmigoEmprestimoService {
@@ -18,7 +19,7 @@ public class AmigoEmprestimoService {
     public AmigoEmprestimo findById(Integer idAmigo) {
         Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
 
-        return amigo.orElseThrow(() -> new RuntimeException(
+        return amigo.orElseThrow(() -> new ObjectNotFoundException(
                 "Dono de item não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
     }
 
@@ -26,7 +27,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findByNome(nome);
 
         if (!amigoEmprestimoOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                     "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
@@ -47,7 +48,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigo);
 
         if (!amigoEmprestimoOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                     "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigo);

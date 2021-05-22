@@ -11,6 +11,7 @@ import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.model.TipoStatus;
 import projects.givemebackapi.repositories.ItemEmprestadoRepository;
+import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ItemEmprestadoService {
@@ -27,7 +28,7 @@ public class ItemEmprestadoService {
     public ItemEmprestado findById(Integer idItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
-        return itemOptional.orElseThrow(() -> new RuntimeException(
+        return itemOptional.orElseThrow(() -> new ObjectNotFoundException(
                 "Item não encontrado! " + idItem + " Tipo: " + ItemEmprestado.class.getName()));
     }
 
@@ -35,7 +36,7 @@ public class ItemEmprestadoService {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                   "Item não encontrado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
         
         ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
@@ -46,7 +47,7 @@ public class ItemEmprestadoService {
         Optional<List<ItemEmprestado>> itemOptional = itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                   "Amigo: " + idAmigo + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
         
         List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
@@ -57,7 +58,7 @@ public class ItemEmprestadoService {
         Optional<List<ItemEmprestado>> itemOptional = itemEmprestadoRepository.findByDonoItemId(idDono);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                   "Dono: " + idDono + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
         
         List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
@@ -68,7 +69,7 @@ public class ItemEmprestadoService {
         List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
 
         if (itensDevolvidos.isEmpty()) {
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                   "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
         }
 
@@ -83,7 +84,7 @@ public class ItemEmprestadoService {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
 
         if (!itemOptional.isPresent()) 
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                    "Item Emprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
         
         ItemEmprestado itemAtualizado = itemOptional.get();
@@ -106,7 +107,7 @@ public class ItemEmprestadoService {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         ItemEmprestado item = itemOptional.get();
@@ -120,7 +121,7 @@ public class ItemEmprestadoService {
         AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
 
         if (!itemOptional.isPresent())
-            throw new RuntimeException(
+            throw new ObjectNotFoundException(
                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         ItemEmprestado itemAtualizado = itemOptional.get();

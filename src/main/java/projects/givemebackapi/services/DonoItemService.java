@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.repositories.DonoItemRepository;
+import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class DonoItemService {
@@ -18,7 +19,7 @@ public class DonoItemService {
     public DonoItem findById(Integer id) {
         Optional<DonoItem> donoItem = donoItemRepository.findById(id);
 
-        return donoItem.orElseThrow(() -> new RuntimeException(
+        return donoItem.orElseThrow(() -> new ObjectNotFoundException(
                 "Dono de item não encontrado! " + id + " Tipo: " + DonoItem.class.getName()));
     }
 
@@ -26,7 +27,7 @@ public class DonoItemService {
         Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
         if (!donoOptional.isPresent())
-            throw new RuntimeException("Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
+            throw new ObjectNotFoundException("Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItem = donoOptional.get();
         return donoItem;
@@ -45,7 +46,7 @@ public class DonoItemService {
         Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
         if (!donoItemOptional.isPresent())
-            throw new RuntimeException("Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
+            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
         return this.donoItemRepository.save(donoItemAtualizado);
