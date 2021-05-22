@@ -25,7 +25,7 @@ public class DonoItemService {
     public DonoItem findByNome(String nome) {
         Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
-        if (donoOptional.isPresent())
+        if (!donoOptional.isPresent())
             throw new RuntimeException("Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItem = donoOptional.get();
