@@ -71,7 +71,6 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-
     @GetMapping(value = "/status_item")
     public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(@RequestParam TipoStatus status) {
         List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByStatus(status);
@@ -83,7 +82,6 @@ public class ItemEmprestadoController {
 
         return ResponseEntity.ok().body(listDTO);
     }
-
 
     @GetMapping(value = "/list")
     public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {
@@ -97,7 +95,6 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<ItemEmprestadoDTO> update(
         @PathVariable Integer id, 
@@ -109,7 +106,6 @@ public class ItemEmprestadoController {
 
         return ResponseEntity.ok().body(itemDTO);
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -125,7 +121,6 @@ public class ItemEmprestadoController {
         return itemDTO;
     }
 
-
     @PutMapping(value = "/devolver/{idItem}")
     public ResponseEntity<ItemEmprestadoDTO> devolver(@PathVariable Integer idItem) {
         ItemEmprestado novoItem = itemEmprestadoService.devolver(idItem);
@@ -134,7 +129,6 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(itemDTO);
     }
     
-
     @PutMapping(value = "/giveInAgain")
     public ResponseEntity<ItemEmprestadoDTO> giveInAgain(
         @RequestParam Integer idItem,  
