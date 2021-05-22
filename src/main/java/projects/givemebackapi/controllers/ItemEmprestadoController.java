@@ -59,6 +59,18 @@ public class ItemEmprestadoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @GetMapping(value = "/meus_itens{idDono}")
+    public ResponseEntity<List<ItemEmprestadoDTO>> findByDono(@RequestParam Integer idDono) {
+        List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByDono(idDono);
+      
+       List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+       .stream()
+       .map(item -> new ItemEmprestadoDTO(item))
+       .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+
 
     @GetMapping(value = "/status_item")
     public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(@RequestParam TipoStatus status) {
