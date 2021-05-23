@@ -1,6 +1,7 @@
 package projects.givemebackapi.dtosTests;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import projects.givemebackapi.dtos.CustomItemEmprestadoDTO;
@@ -11,7 +12,8 @@ import projects.givemebackapi.util.ItemEmprestadoCreator;
 public class CustomItemEmprestadoDTOtest {
 
     @Test
-    public void criar_ItemEmprestadoVazioRetornaNullQuandoBemSucedido() {
+    @DisplayName("Criar CustomItemEmprestadoDTO vazio retorna null quando bem sucedido")
+    public void criar_CustomItemEmprestadoVazioRetornaNullQuandoBemSucedido() {
 
         CustomItemEmprestadoDTO itemEmprestadoDTO = new CustomItemEmprestadoDTO();
 
@@ -27,7 +29,8 @@ public class CustomItemEmprestadoDTOtest {
     }
 
     @Test
-    public void criar_ItemEmprestadoNaoRetornaNullQuandoBemSucedido() {
+    @DisplayName("Criar CustomItemEmprestadoDTO nao retorna null quando bem sucedido")
+    public void criar_CustomItemEmprestadoDTONaoRetornaNullQuandoBemSucedido() {
 
        ItemEmprestado item = ItemEmprestadoCreator.criarItemEmprestado();
 
@@ -44,6 +47,15 @@ public class CustomItemEmprestadoDTOtest {
         Assertions.assertThat(itemEmprestadoDTO.getStatus()).isEqualTo(TipoStatus.EMPRESTADO);
 
         Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Criar CustomItemEmprestadoDTO contem um amigo quando bem sucedido")
+    public void criar_CustomItemEmprestadoContemUmAmigoQuandoBemSucedido(){
+
+        ItemEmprestado item = ItemEmprestadoCreator.criarItemEmprestado();
+
+        CustomItemEmprestadoDTO itemEmprestadoDTO = new CustomItemEmprestadoDTO(item);
 
         Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getNome()).isEqualTo("Fulano do teste");
         
@@ -54,7 +66,6 @@ public class CustomItemEmprestadoDTOtest {
         Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getWhatsApp()).isNotEqualTo("00000000");
 
         Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getEndereco()).isNotEqualTo("rua que não é a do amigo emprestado.");
-
     }
     
 }
