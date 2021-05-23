@@ -33,3 +33,9 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
 <h2 align="center"> Diagrama não Oficial 🙋‍♂️ </h2>
 
 ![](https://github.com/samuelalmeida95/giveMeBack-api/blob/main/giveMeBackApi.png)
+
+<br>
+
+## 📝 Licença
+
+>Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
