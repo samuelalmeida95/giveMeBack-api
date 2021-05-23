@@ -3,20 +3,18 @@ package projects.givemebackapi.dtosTests;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import projects.givemebackapi.dtos.AmigoEmprestimoDTO;
+import projects.givemebackapi.dtos.CustomAmigoEmprestimoDTO;
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.util.AmigoEmprestimoCreator;
 
-public class AmigoEmprestimoDTOTest {
-    
+public class CustomAmigoEmprestimoDTOTest {
+
     @Test
-    public void criar_AmigoEmprestimoDTOVazioRetornaNullQuandoBemSucedido() {
+    public void criar_CustomAmigoEmprestimoDTOVazioRetornaNullQuandoBemSucedido() {
 
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO();
+        CustomAmigoEmprestimoDTO amigoDTO = new CustomAmigoEmprestimoDTO();
 
-        Assertions.assertThat(amigoDTO.getId()).isNull();
-
-        Assertions.assertThat(amigoDTO.getNome()).isNull();
+        Assertions.assertThat(amigoDTO.getNome()).isNull();      
 
         Assertions.assertThat(amigoDTO.getEndereco()).isNull();
 
@@ -24,13 +22,11 @@ public class AmigoEmprestimoDTOTest {
     }
 
     @Test
-    public void criar_AmigoEmprestimoDTONaoRetornaNullQuandoBemSucedido() {
+    public void criar_CustomAmigoEmprestimoDTONaoRetornaNullQuandoBemSucedido() {
 
         AmigoEmprestimo amigoFull = AmigoEmprestimoCreator.criarAmigoEmprestimo();
 
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigoFull);
-
-        Assertions.assertThat(amigoDTO.getId()).isNotNull();
+        CustomAmigoEmprestimoDTO amigoDTO = new CustomAmigoEmprestimoDTO(amigoFull);
 
         Assertions.assertThat(amigoDTO.getNome()).isNotNull();
 
@@ -38,4 +34,5 @@ public class AmigoEmprestimoDTOTest {
 
         Assertions.assertThat(amigoDTO.getWhatsApp()).isNotNull();
     }
+    
 }
