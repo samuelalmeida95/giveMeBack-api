@@ -43,4 +43,4 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
 
 <br>
 <hr>
-<p align="center">Feito com 💜 by Samuel Almeida</p>
+<p align="center">Feito com 💚 by Samuel Almeida</p>
