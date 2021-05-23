@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
-public class ResourceExceptionHandler {
+public class ControllerExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException exception,
@@ -25,8 +25,8 @@ public class ResourceExceptionHandler {
             exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-
     }
+
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> DataIntegrityViolationException(DataIntegrityViolationException exception,
@@ -39,6 +39,7 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validationError(MethodArgumentNotValidException e, ServletRequest request) {
@@ -54,7 +55,4 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
-   
-
 }
