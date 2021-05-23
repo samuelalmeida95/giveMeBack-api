@@ -34,13 +34,13 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
 
 ![](https://github.com/samuelalmeida95/giveMeBack-api/blob/main/giveMeBackApi.png)
 
-<br>
+
 
 ## 📝 Licença
 
->Esse projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+Esse projeto está sob a licença MIT. Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
 
 
-<br>
 <hr>
 <p align="center">Feito com 💚 by Samuel Almeida</p>
