@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.repositories.DonoItemRepository;
+import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,6 +41,12 @@ public class DonoItemService {
 
     public DonoItem create(DonoItem dono) {
         dono.setId(null);
+
+        if (this.donoItemRepository.findByNome(dono.getNome()).isPresent()) {
+            throw new ObjectAlreadyExistsException("Já existe um Dono com este nome, por favor entre com outro,  Nome: "
+                    + dono.getNome() + ", Tipo: " + DonoItem.class.getName());
+        }
+
         return donoItemRepository.save(dono);
     }
 
