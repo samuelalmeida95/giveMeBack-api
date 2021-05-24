@@ -18,15 +18,27 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException exception,
-            ServletRequest request) {
-
+    ServletRequest request) {
+        
         StandardError error = new StandardError(
             System.currentTimeMillis(), 
             HttpStatus.NOT_FOUND.value(),
             exception.getMessage());
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }
+            
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+        
+        @ExceptionHandler(ObjectAlreadyExistsException.class)
+        public ResponseEntity<StandardError> ObjectAlreadyExistsExcpetion(ObjectAlreadyExistsException exception,
+                ServletRequest request) {
+    
+            StandardError error = new 
+                StandardError(System.currentTimeMillis(), 
+                             HttpStatus.BAD_REQUEST.value(),
+                             exception.getMessage());
+    
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
 
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -56,19 +68,4 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
-    @ExceptionHandler(ObjectAlreadyExistsException.class)
-    public ResponseEntity<StandardError> ObjectAlreadyExistsExcpetion(ObjectAlreadyExistsException exception,
-            ServletRequest request) {
-
-        StandardError error = new 
-            StandardError(System.currentTimeMillis(), 
-                         HttpStatus.BAD_REQUEST.value(),
-                         exception.getMessage());
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-
-
-
 }
