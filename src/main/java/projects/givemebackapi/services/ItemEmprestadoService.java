@@ -84,12 +84,17 @@ public class ItemEmprestadoService {
 
     public ItemEmprestado update(Integer id, ItemEmprestado novoItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+        ItemEmprestado item = itemOptional.get();
 
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "Item Emprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
 
-        ItemEmprestado item = itemOptional.get();
+        if (item.getStatus() == TipoStatus.EMPRESTADO)
+            throw new ObjectAlreadyExistsException("Este item está emprestado, não pode ser alterado! Nome item: "
+                    + item.getNomeItem() + ", Emprestado para: " + item.getAmigoEmprestimo().getNome() + " , Tipo: "
+                    + ItemEmprestado.class.getName());
+
         item.update(novoItem);
         return this.itemEmprestadoRepository.save(item);
     }
@@ -129,8 +134,9 @@ public class ItemEmprestadoService {
 
     public ItemEmprestado giveInAgain(Integer idItem, Integer idAmigo) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
-        AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
         ItemEmprestado item = itemOptional.get();
+       
+        AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
 
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
@@ -146,7 +152,14 @@ public class ItemEmprestadoService {
     }
 
     public void delete(Integer id) {
-        findById(id);
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+        ItemEmprestado item = itemOptional.get();
+
+        if (item.getStatus() == TipoStatus.EMPRESTADO)
+            throw new ObjectAlreadyExistsException("Este item está emprestado, não pode ser deletado! Nome item: "
+                    + item.getNomeItem() + ", Emprestado para: " + item.getAmigoEmprestimo().getNome() + " , Tipo: "
+                    + ItemEmprestado.class.getName());
+
         try {
             itemEmprestadoRepository.deleteById(id);
 
