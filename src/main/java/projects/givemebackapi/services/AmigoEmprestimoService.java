@@ -40,6 +40,7 @@ public class AmigoEmprestimoService {
         return amigoEmprestimoRepository.findAll();
     }
 
+    //um novo amigo não deve existir assim como um novo dono não deve existir.
     public AmigoEmprestimo create(AmigoEmprestimo dono) {
         dono.setId(null);
         return amigoEmprestimoRepository.save(dono);
