@@ -53,11 +53,11 @@ public class AmigoEmprestimoService {
             throw new ObjectNotFoundException(
                     "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        if (this.amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent()) {
+        if (this.amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent()) 
             throw new ObjectAlreadyExistsException(
                     "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
                             + novoAmigo.getNome() + ", Tipo: " + AmigoEmprestimo.class.getName());
-        }
+        
 
         AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigo);
         return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
