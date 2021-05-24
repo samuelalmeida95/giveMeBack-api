@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -55,4 +56,19 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
+    public ResponseEntity<StandardError> ObjectAlreadyExistsExcpetion(ObjectAlreadyExistsException exception,
+            ServletRequest request) {
+
+        StandardError error = new 
+            StandardError(System.currentTimeMillis(), 
+                         HttpStatus.BAD_REQUEST.value(),
+                         exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+
+
 }
