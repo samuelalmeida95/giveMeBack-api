@@ -21,7 +21,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
 
         return amigo.orElseThrow(() -> new ObjectNotFoundException(
-                "Dono de item não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
+                "Amigo não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
     }
 
     public AmigoEmprestimo findByNome(String nome) {
@@ -29,11 +29,10 @@ public class AmigoEmprestimoService {
 
         if (!amigoEmprestimoOptional.isPresent())
             throw new ObjectNotFoundException(
-                    "Dono de item não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
+                    "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
         return amigo;
-
     }
 
     public List<AmigoEmprestimo> findAll() {
@@ -73,5 +72,4 @@ public class AmigoEmprestimoService {
             throw new DataIntegrityViolationException("Amigo não pode ser deletado, possui itens emprestados associados.");
         }
     }
-
 }
