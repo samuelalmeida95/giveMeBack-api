@@ -12,6 +12,7 @@ import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.model.TipoStatus;
 import projects.givemebackapi.repositories.ItemEmprestadoRepository;
+import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -96,6 +97,11 @@ public class ItemEmprestadoService {
     public ItemEmprestado emprestarItem(ItemEmprestado item, Integer id, Integer idAmigo) {
         DonoItem dono = donoItemService.findById(id);
         AmigoEmprestimo amigo = amigoEmprestimoService.findById(idAmigo);
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
+
+        if (itemOptional.isPresent())
+            throw new ObjectAlreadyExistsException(
+                    "Este item já existe!  Nome: " + item.getNomeItem() + ", Tipo: " + ItemEmprestado.class.getName());
 
         item.setAmigoEmprestimo(amigo);
         item.setDonoItem(dono);
@@ -113,7 +119,7 @@ public class ItemEmprestadoService {
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         if (item.getStatus() == TipoStatus.DEVOLVIDO)
-            throw new ObjectNotFoundException(
+            throw new ObjectAlreadyExistsException(
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         item.setStatus(TipoStatus.DEVOLVIDO);
@@ -131,7 +137,7 @@ public class ItemEmprestadoService {
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         if (item.getStatus() == TipoStatus.EMPRESTADO)
-            throw new ObjectNotFoundException("Este item já está emprestado! Id: " + item.getIdItem() + ", Tipo: "
+            throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: " + item.getIdItem() + ", Tipo: "
                     + ItemEmprestado.class.getName());
 
         item.setAmigoEmprestimo(amigoEncontrado);
