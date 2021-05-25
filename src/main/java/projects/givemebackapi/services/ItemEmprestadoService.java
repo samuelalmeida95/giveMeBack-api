@@ -51,10 +51,15 @@ public class ItemEmprestadoService {
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "Amigo: " + idAmigo + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
-        
+
         amigoEmprestimoService.findById(idAmigo);
 
         List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
+
+        if (itemEmprestadoEncontrado.isEmpty())
+            throw new ObjectNotFoundException(
+                    "Amigo não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
+
         return itemEmprestadoEncontrado;
     }
 
