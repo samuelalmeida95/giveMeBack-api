@@ -59,9 +59,7 @@ public class ItemEmprestadoService {
     public List<ItemEmprestado> findByDono(Integer idDono) {
         Optional<List<ItemEmprestado>> itemOptional = itemEmprestadoRepository.findByDonoItemId(idDono);
 
-        if (!itemOptional.isPresent())
-            throw new ObjectNotFoundException(
-                    "Dono: " + idDono + ", não encontrado,  Tipo: " + ItemEmprestado.class.getName());
+        donoItemService.findById(idDono);
 
         List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
         return itemEmprestadoEncontrado;
@@ -70,10 +68,9 @@ public class ItemEmprestadoService {
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
         List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
 
-        if (itensDevolvidos.isEmpty()) {
+        if (itensDevolvidos.isEmpty())
             throw new ObjectNotFoundException(
                     "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
-        }
 
         return itensDevolvidos;
     }
@@ -84,19 +81,18 @@ public class ItemEmprestadoService {
 
     public ItemEmprestado update(Integer id, ItemEmprestado novoItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
-        ItemEmprestado item = itemOptional.get();
 
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "Item Emprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
 
+        ItemEmprestado item = itemOptional.get();
 
         if (item.getStatus() == TipoStatus.EMPRESTADO)
             throw new ObjectAlreadyExistsException("Este item está emprestado, não pode ser alterado! Nome item: "
                     + item.getNomeItem() + ", Emprestado para: " + item.getAmigoEmprestimo().getNome() + " , Tipo: "
                     + ItemEmprestado.class.getName());
 
-           
         if (itemEmprestadoRepository.findByNomeItem(novoItem.getNomeItem()).isPresent())
             throw new ObjectAlreadyExistsException(
                     "Você não pode alterar o Nome deste Item porque é igual ao existente, por favor entre com dados diferentes, Nome item: "
@@ -124,17 +120,16 @@ public class ItemEmprestadoService {
 
     public ItemEmprestado devolver(Integer idItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
-        ItemEmprestado item = itemOptional.get();
 
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
+        ItemEmprestado item = itemOptional.get();
 
         if (item.getStatus() == TipoStatus.DEVOLVIDO)
             throw new ObjectAlreadyExistsException(
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
-
 
         item.setStatus(TipoStatus.DEVOLVIDO);
         item.setAmigoEmprestimo(null);
@@ -143,7 +138,6 @@ public class ItemEmprestadoService {
 
     public ItemEmprestado giveInAgain(Integer idItem, Integer idAmigo) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
-        ItemEmprestado item = itemOptional.get();
 
         AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
 
@@ -151,11 +145,11 @@ public class ItemEmprestadoService {
             throw new ObjectNotFoundException(
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
+        ItemEmprestado item = itemOptional.get();
 
         if (item.getStatus() == TipoStatus.EMPRESTADO)
             throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: " + item.getIdItem() + ", Tipo: "
                     + ItemEmprestado.class.getName());
-                    
 
         item.setAmigoEmprestimo(amigoEncontrado);
         item.setStatus(TipoStatus.EMPRESTADO);
@@ -164,6 +158,11 @@ public class ItemEmprestadoService {
 
     public void delete(Integer id) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
+
+        if (!itemOptional.isPresent())
+            throw new ObjectNotFoundException(
+                    "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
+
         ItemEmprestado item = itemOptional.get();
 
         if (item.getStatus() == TipoStatus.EMPRESTADO)
