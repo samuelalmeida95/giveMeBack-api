@@ -59,15 +59,15 @@ public class AmigoEmprestimoService {
                             + novoAmigo.getNome() + ", Tipo: " + AmigoEmprestimo.class.getName());
         
 
-        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(amigoEmprestimoOptional.get(), novoAmigo);
+        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(novoAmigo, amigoEmprestimoOptional.get());
         return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
     }
 
     public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigo, AmigoEmprestimo amigo) {
-        novoAmigo.setNome(amigo.getNome());
-        novoAmigo.setWhatsapp(amigo.getWhatsapp());
-        novoAmigo.setWhatsapp(amigo.getEndereco());
-        return novoAmigo;
+        amigo.setNome(novoAmigo.getNome());
+        amigo.setWhatsapp(novoAmigo.getWhatsapp());
+        amigo.setWhatsapp(novoAmigo.getEndereco());
+        return amigo;
     }
 
     public void delete(Integer id) {
