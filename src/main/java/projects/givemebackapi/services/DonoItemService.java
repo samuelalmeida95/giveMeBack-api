@@ -57,7 +57,7 @@ public class DonoItemService {
 
         if (!donoItemOptional.isPresent())
             throw new ObjectNotFoundException(
-                    "Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
+                    "Dono não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
 
         if (this.donoItemRepository.findByNome(novoDono.getNome()).isPresent())
             throw new ObjectAlreadyExistsException(
