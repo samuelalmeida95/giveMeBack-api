@@ -29,7 +29,8 @@ public class DonoItemService {
         Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
 
         if (!donoOptional.isPresent())
-            throw new ObjectNotFoundException("Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
+            throw new ObjectNotFoundException(
+                    "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItem = donoOptional.get();
         return donoItem;
@@ -50,16 +51,18 @@ public class DonoItemService {
         return donoItemRepository.save(dono);
     }
 
-    //um dono nao pode ser alterado caso o nome passado seja existente.
+    // um dono nao pode ser alterado caso o nome passado seja existente.
     public DonoItem update(Integer id, DonoItem novoDono) {
         Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
         if (!donoItemOptional.isPresent())
-            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
-        
-        if (this.donoItemRepository.findByNome(novoDono.getNome()).isPresent()) 
+            throw new ObjectNotFoundException(
+                    "Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
+
+        if (this.donoItemRepository.findByNome(novoDono.getNome()).isPresent())
             throw new ObjectAlreadyExistsException(
-            "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: " + novoDono.getNome() + ", Tipo: " + DonoItem.class.getName());
+                    "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
+                            + novoDono.getNome() + ", Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
         return this.donoItemRepository.save(donoItemAtualizado);
