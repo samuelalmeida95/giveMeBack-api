@@ -56,6 +56,10 @@ public class DonoItemService {
 
         if (!donoItemOptional.isPresent())
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
+        
+        if (this.donoItemRepository.findByNome(novoDono.getNome()).isPresent()) 
+            throw new ObjectAlreadyExistsException(
+            "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: " + novoDono.getNome() + ", Tipo: " + DonoItem.class.getName());
 
         DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
         return this.donoItemRepository.save(donoItemAtualizado);
