@@ -1,6 +1,8 @@
 package projects.givemebackapi.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,12 +32,16 @@ public class AmigoEmprestimo {
     @Length(min = 3, max = 100, message = "Campo ENDEREÇO deve ter entre 3 e 100 caracteres")
     private String endereco;
 
+    @Enumerated(value = EnumType.STRING)
+    private AvaliacaoStatus experienciaStatus;
+
     public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco) {
-        
+
         this.id = id;
         this.nome = nome;
         this.whatsapp = whatsapp;
         this.endereco = endereco;
+        this.experienciaStatus = AvaliacaoStatus.NAO_AVALIADO;
     }
 
     public AmigoEmprestimo() {
