@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projects.givemebackapi.dtos.CustomItemEmprestadoDTO;
 import projects.givemebackapi.dtos.ItemEmprestadoDTO;
+import projects.givemebackapi.model.AvaliacaoStatus;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.model.TipoStatus;
 import projects.givemebackapi.services.ItemEmprestadoService;
@@ -123,8 +124,11 @@ public class ItemEmprestadoController {
     }
 
     @PutMapping(value = "/devolver/{idItem}")
-    public ResponseEntity<ItemEmprestadoDTO> devolver(@PathVariable Integer idItem) {
-        ItemEmprestado novoItem = itemEmprestadoService.devolver(idItem);
+    public ResponseEntity<ItemEmprestadoDTO> devolverAvaliar(
+        @PathVariable Integer idItem,
+        @RequestParam String nomeAmigo,
+        @RequestParam AvaliacaoStatus avaliacao) {
+        ItemEmprestado novoItem = itemEmprestadoService.devolverAvaliar(idItem, nomeAmigo, avaliacao);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItem);
 
         return ResponseEntity.ok().body(itemDTO);

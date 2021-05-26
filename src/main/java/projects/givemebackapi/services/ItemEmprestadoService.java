@@ -8,9 +8,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
+import projects.givemebackapi.model.AvaliacaoStatus;
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
 import projects.givemebackapi.model.TipoStatus;
+import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
 import projects.givemebackapi.repositories.ItemEmprestadoRepository;
 import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
@@ -20,6 +22,9 @@ public class ItemEmprestadoService {
 
     @Autowired
     private ItemEmprestadoRepository itemEmprestadoRepository;
+
+    @Autowired
+    private AmigoEmprestimoRepository amigoEmprestimoRepository;
 
     @Autowired
     private DonoItemService donoItemService;
@@ -130,7 +135,7 @@ public class ItemEmprestadoService {
         return itemEmprestadoRepository.save(item);
     }
 
-    public ItemEmprestado devolver(Integer idItem) {
+    public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo, AvaliacaoStatus avaliacao) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
         if (!itemOptional.isPresent())
@@ -143,6 +148,11 @@ public class ItemEmprestadoService {
             throw new ObjectAlreadyExistsException(
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
+         AmigoEmprestimo amigoEncontrado = this.amigoEmprestimoService.findByNome(nomeAmigo);
+         amigoEncontrado.setExperienciaStatus(avaliacao);
+         this.amigoEmprestimoRepository.save(amigoEncontrado);
+
+         
         item.setStatus(TipoStatus.DEVOLVIDO);
         item.setAmigoEmprestimo(null);
         return this.itemEmprestadoRepository.save(item);
