@@ -40,10 +40,10 @@ public class AmigoEmprestimoService {
         return amigoEmprestimoRepository.findAll();
     }
 
-    // um novo amigo não deve existir assim como um novo dono não deve existir.
-    public AmigoEmprestimo create(AmigoEmprestimo dono) {
-        dono.setId(null);
-        return amigoEmprestimoRepository.save(dono);
+    // um novo amigo não deve existir assim como um novo amigo não deve existir.
+    public AmigoEmprestimo create(AmigoEmprestimo amigo) {
+        amigo.setId(null);
+        return amigoEmprestimoRepository.save(amigo);
     }
 
     public AmigoEmprestimo update(Integer idAmigo, AmigoEmprestimo novoAmigo) {
