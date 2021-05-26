@@ -69,6 +69,11 @@ public class ItemEmprestadoService {
         donoItemService.findById(idDono);
 
         List<ItemEmprestado> itemEmprestadoEncontrado = itemOptional.get();
+
+        if (itemEmprestadoEncontrado.isEmpty())
+            throw new ObjectNotFoundException(
+                    "Dono não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
+
         return itemEmprestadoEncontrado;
     }
 
