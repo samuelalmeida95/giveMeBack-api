@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
 import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
@@ -43,6 +45,10 @@ public class AmigoEmprestimoService {
     // um novo amigo não deve existir assim como um novo amigo não deve existir.
     public AmigoEmprestimo create(AmigoEmprestimo amigo) {
         amigo.setId(null);
+        if(this.amigoEmprestimoRepository.findByNome(amigo.getNome()).isPresent()){
+            throw new ObjectNotFoundException(
+                    "amigo ja existe!");
+        }
         return amigoEmprestimoRepository.save(amigo);
     }
 
