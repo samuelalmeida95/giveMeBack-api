@@ -44,6 +44,18 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok().body(amigoDTO);
     }
 
+    @GetMapping(value = "/buscar_melhores_avaliados")
+    public ResponseEntity<List<AmigoEmprestimoDTO>> findByAvaliacao() {
+        List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByAvaliacao();
+
+        List<AmigoEmprestimoDTO> listDTO = listAmigos
+                .stream()
+                .map(amigo -> new AmigoEmprestimoDTO(amigo))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+
     @GetMapping(value = "/listar_todos")
     public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
         List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();

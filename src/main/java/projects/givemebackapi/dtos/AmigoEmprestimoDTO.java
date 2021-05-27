@@ -18,7 +18,7 @@ public class AmigoEmprestimoDTO {
       this.nome = amigo.getNome();
       this.whatsApp = amigo.getWhatsapp();  
       this.endereco = amigo.getEndereco();
-      this.avaliacao = amigo.getExperienciaStatus();
+      this.avaliacao = amigo.getAvaliacao();
     }
 
     public AmigoEmprestimoDTO(){}    

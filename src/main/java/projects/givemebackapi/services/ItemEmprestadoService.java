@@ -149,7 +149,7 @@ public class ItemEmprestadoService {
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
          AmigoEmprestimo amigoEncontrado = this.amigoEmprestimoService.findByNome(nomeAmigo);
-         amigoEncontrado.setExperienciaStatus(avaliacao);
+         amigoEncontrado.setAvaliacao(avaliacao);
          this.amigoEmprestimoRepository.save(amigoEncontrado);
 
          
