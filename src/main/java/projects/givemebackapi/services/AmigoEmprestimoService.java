@@ -57,11 +57,10 @@ public class AmigoEmprestimoService {
             throw new ObjectNotFoundException(
                     "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        if (this.amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent()) 
+        if (this.amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent())
             throw new ObjectAlreadyExistsException(
                     "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
                             + novoAmigo.getNome() + ", Tipo: " + AmigoEmprestimo.class.getName());
-        
 
         AmigoEmprestimo amigoEmprestimoAtualizado = updateData(novoAmigo, amigoEmprestimoOptional.get());
         return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
@@ -88,10 +87,9 @@ public class AmigoEmprestimoService {
     public List<AmigoEmprestimo> findByAvaliacao() {
         List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacao();
 
-        if(amigos.isEmpty()) {
-            throw new ObjectNotFoundException(
-                    "Não existem amigos bem avaliados. " + AmigoEmprestimo.class.getName());
-        }
+        if (amigos.isEmpty())
+            throw new ObjectNotFoundException("Não existem amigos bem avaliados. " + AmigoEmprestimo.class.getName());
+
         return amigos;
     }
 }
