@@ -51,7 +51,6 @@ public class DonoItemService {
         return donoItemRepository.save(dono);
     }
 
-    // um dono nao pode ser alterado caso o nome passado seja existente.
     public DonoItem update(Integer id, DonoItem novoDono) {
         Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
 
