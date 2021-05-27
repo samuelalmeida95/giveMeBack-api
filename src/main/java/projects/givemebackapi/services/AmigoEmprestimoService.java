@@ -84,4 +84,14 @@ public class AmigoEmprestimoService {
                     "Amigo não pode ser deletado, possui itens emprestados associados.");
         }
     }
+
+    public List<AmigoEmprestimo> findByAvaliacao() {
+        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacao();
+
+        if(amigos.isEmpty()) {
+            throw new ObjectNotFoundException(
+                    "Não existem amigos bem avaliados. " + AmigoEmprestimo.class.getName());
+        }
+        return amigos;
+    }
 }

@@ -33,7 +33,7 @@ public class AmigoEmprestimo {
     private String endereco;
 
     @Enumerated(value = EnumType.STRING)
-    private AvaliacaoStatus experienciaStatus;
+    private AvaliacaoStatus avaliacao;
 
     public AmigoEmprestimo(Integer id, String nome, String whatsapp, String endereco) {
 
@@ -41,7 +41,7 @@ public class AmigoEmprestimo {
         this.nome = nome;
         this.whatsapp = whatsapp;
         this.endereco = endereco;
-        this.experienciaStatus = AvaliacaoStatus.NAO_AVALIADO;
+        this.avaliacao = AvaliacaoStatus.NAO_AVALIADO;
     }
 
     public AmigoEmprestimo() {
