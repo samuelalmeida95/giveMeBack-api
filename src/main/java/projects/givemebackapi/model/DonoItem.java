@@ -20,19 +20,11 @@ public class DonoItem {
   private Integer id;
 
   @NotEmpty(message = "Campo NOME é obrigatório!")
-  @Length(
-    min = 3,
-    max = 100,
-    message = "Campo NOME  deve ter entre 3 e 100 caracteres"
-  )
+  @Length(min = 3, max = 100, message = "Campo NOME  deve ter entre 3 e 100 caracteres")
   private String nome;
 
   @NotEmpty(message = "Campo WHATSAPP é obrigatório!")
-  @Length(
-    min = 3,
-    max = 50,
-    message = "Campo WHATSAPP deve ter entre 3 e 100 caracteres"
-  )
+  @Length(min = 3, max = 50, message = "Campo WHATSAPP deve ter entre 3 e 100 caracteres")
   private String whatsapp;
 
   @OneToMany(mappedBy = "donoItem") // um dono para muitos itens
@@ -44,5 +36,6 @@ public class DonoItem {
     this.whatsapp = whatsapp;
   }
 
-  public DonoItem() {}
+  public DonoItem() {
+  }
 }
