@@ -1,7 +1,5 @@
 package projects.givemebackapi.util;
 
-import java.time.LocalDate;
-
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.model.ItemEmprestado;
@@ -14,8 +12,7 @@ public class ItemEmprestadoCreator {
         AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "Fulano do teste", "887513474",
                 "rua das palmeiras");
 
-        ItemEmprestado itemEmprestado = new ItemEmprestado(null, "Meia", "uma meia", donoItem,
-                LocalDate.of(2022, 2, 15), amigoEmprestimo);
+        ItemEmprestado itemEmprestado = new ItemEmprestado(null, "Meia", "uma meia", donoItem, amigoEmprestimo);
 
         return itemEmprestado;
     }

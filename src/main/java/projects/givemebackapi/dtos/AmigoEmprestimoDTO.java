@@ -6,20 +6,20 @@ import projects.givemebackapi.model.AvaliacaoStatus;
 
 @Data
 public class AmigoEmprestimoDTO {
-    
-    private Integer id;
-    private String nome;
-    private String whatsApp;
-    private String endereco;
-    private AvaliacaoStatus avaliacao;
 
-    public AmigoEmprestimoDTO(AmigoEmprestimo amigo) {
-      this.id = amigo.getId();
-      this.nome = amigo.getNome();
-      this.whatsApp = amigo.getWhatsapp();  
-      this.endereco = amigo.getEndereco();
-      this.avaliacao = amigo.getAvaliacao();
-    }
+  private Integer id;
+  private String nome;
+  private String whatsApp;
+  private String endereco;
+  private AvaliacaoStatus avaliacao;
 
-    public AmigoEmprestimoDTO(){}    
+  public AmigoEmprestimoDTO(AmigoEmprestimo amigo) {
+    this.id = amigo.getId();
+    this.nome = amigo.getNome();
+    this.whatsApp = amigo.getWhatsapp();
+    this.endereco = amigo.getEndereco();
+    this.avaliacao = amigo.getAvaliacao();
+  }
+
+  public AmigoEmprestimoDTO() {}
 }

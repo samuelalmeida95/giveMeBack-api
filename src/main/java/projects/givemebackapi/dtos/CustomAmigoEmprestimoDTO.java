@@ -6,15 +6,15 @@ import projects.givemebackapi.model.AmigoEmprestimo;
 @Data
 public class CustomAmigoEmprestimoDTO {
 
-    private String nome;
-    private String whatsApp;
-    private String endereco;
+  private String nome;
+  private String whatsApp;
+  private String endereco;
 
-    public  CustomAmigoEmprestimoDTO(AmigoEmprestimo amigo) {
-      this.nome = amigo.getNome();
-      this.whatsApp = amigo.getWhatsapp();  
-      this.endereco = amigo.getEndereco();
-    }
+  public CustomAmigoEmprestimoDTO(AmigoEmprestimo amigo) {
+    this.nome = amigo.getNome();
+    this.whatsApp = amigo.getWhatsapp();
+    this.endereco = amigo.getEndereco();
+  }
 
-    public CustomAmigoEmprestimoDTO(){}    
+  public CustomAmigoEmprestimoDTO() {}
 }

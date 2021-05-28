@@ -1,5 +1,6 @@
 package projects.givemebackapi.services;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,6 +132,7 @@ public class ItemEmprestadoService {
         item.setAmigoEmprestimo(amigo);
         item.setDonoItem(dono);
         item.setStatus(TipoStatus.EMPRESTADO);
+        item.setDataDevolucaoItem(Calendar.getInstance());
 
         return itemEmprestadoRepository.save(item);
     }
@@ -155,6 +157,7 @@ public class ItemEmprestadoService {
          
         item.setStatus(TipoStatus.DEVOLVIDO);
         item.setAmigoEmprestimo(null);
+        item.setDataDevolucaoItem(Calendar.getInstance());
         return this.itemEmprestadoRepository.save(item);
     }
 
