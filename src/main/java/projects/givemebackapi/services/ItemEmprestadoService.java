@@ -132,7 +132,8 @@ public class ItemEmprestadoService {
         item.setAmigoEmprestimo(amigo);
         item.setDonoItem(dono);
         item.setStatus(TipoStatus.EMPRESTADO);
-        item.setDataDevolucaoItem(Calendar.getInstance());
+        amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
+        item.setDataEmprestimoItem(Calendar.getInstance());
 
         return itemEmprestadoRepository.save(item);
     }
@@ -170,12 +171,21 @@ public class ItemEmprestadoService {
             throw new ObjectNotFoundException(
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
+        if (amigoEncontrado.getAvaliacao() == AvaliacaoStatus.NAO_AVALIADO)
+
+            throw new ObjectAlreadyExistsException(
+                    "Emprestimo inválido! esse amigo nunca foi avaliado," 
+                    + "você deve emprestar um item somente a"
+                    + "amigos que já tenham recebido alguma avaliação . Amigo: " + amigoEncontrado.getNome()
+                    + ", Tipo: " + ItemEmprestado.class.getName());
+
         ItemEmprestado item = itemOptional.get();
 
         if (item.getStatus() == TipoStatus.EMPRESTADO)
             throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: " + item.getIdItem() + ", Tipo: "
                     + ItemEmprestado.class.getName());
 
+        item.setDataDevolucaoItem(null);
         item.setAmigoEmprestimo(amigoEncontrado);
         item.setStatus(TipoStatus.EMPRESTADO);
         return this.itemEmprestadoRepository.save(item);

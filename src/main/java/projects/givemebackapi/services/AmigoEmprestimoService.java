@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
+import projects.givemebackapi.model.AvaliacaoStatus;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
 import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
@@ -46,6 +47,8 @@ public class AmigoEmprestimoService {
         if (this.amigoEmprestimoRepository.findByNome(amigo.getNome()).isPresent())
             throw new ObjectNotFoundException("Já existe um amigo com esse nome, por favor entre com outro, Nome: "
                     + amigo + " Tipo: " + AmigoEmprestimo.class.getName());
+                    
+        amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
 
         return amigoEmprestimoRepository.save(amigo);
     }
@@ -85,10 +88,19 @@ public class AmigoEmprestimoService {
     }
 
     public List<AmigoEmprestimo> findByAvaliacao() {
-        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacao();
+        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacaoBoaOrOtima();
 
         if (amigos.isEmpty())
             throw new ObjectNotFoundException("Não existem amigos bem avaliados. " + AmigoEmprestimo.class.getName());
+
+        return amigos;
+    }
+
+    public List<AmigoEmprestimo> findByPioresAvaliados() {
+        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacaoPessimaOrRuim();
+
+        if (amigos.isEmpty())
+            throw new ObjectNotFoundException("Não existem amigos piores avaliados. " + AmigoEmprestimo.class.getName());
 
         return amigos;
     }

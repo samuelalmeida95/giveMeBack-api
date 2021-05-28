@@ -15,5 +15,8 @@ public interface AmigoEmprestimoRepository extends JpaRepository<AmigoEmprestimo
     Optional<AmigoEmprestimo> findByNome(String nome);
     
     @Query(value = "select * from  public.amigo_emprestimo where avaliacao = 'BOA' or avaliacao = 'OTIMA'" , nativeQuery = true)
-    List<AmigoEmprestimo> findByAvaliacao();
+    List<AmigoEmprestimo> findByAvaliacaoBoaOrOtima();
+
+    @Query(value = "select * from  public.amigo_emprestimo where avaliacao = 'PESSIMA' or avaliacao = 'RUIM'" , nativeQuery = true)
+    List<AmigoEmprestimo> findByAvaliacaoPessimaOrRuim();
 }
