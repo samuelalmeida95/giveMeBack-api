@@ -1,6 +1,6 @@
 package projects.givemebackapi.model;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.validator.constraints.Length;
@@ -36,8 +34,9 @@ public class ItemEmprestado {
     @Length(min = 3, max = 100, message = "Campo DESCRIÇÃO deve ter entre 3 e 100 caracteres")
     private String descricaoItem;
 
-    @JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
-    private LocalDate dataDevolucaoItem;
+    private Calendar dataDevolucaoItem;
+
+    private Calendar dataEmprestimoItem;
 
     @Enumerated(value = EnumType.STRING)
     private TipoStatus status;
@@ -51,13 +50,14 @@ public class ItemEmprestado {
     @JoinColumn(name = "amigoEmprestimo_id")
     private AmigoEmprestimo amigoEmprestimo;
 
-    public ItemEmprestado(Integer id, String nome, String desc, DonoItem dono, LocalDate dataDev,
+    public ItemEmprestado(Integer id, String nome, String desc, DonoItem dono,
             AmigoEmprestimo amigoEmp) {
 
         this.idItem = id;
         this.nomeItem = nome;
         this.descricaoItem = desc;
-        this.dataDevolucaoItem = dataDev;
+        this.dataEmprestimoItem = Calendar.getInstance();
+        this.dataDevolucaoItem = null;
         this.status = TipoStatus.EMPRESTADO;
         this.donoItem = dono;
         this.amigoEmprestimo = amigoEmp;
@@ -70,4 +70,5 @@ public class ItemEmprestado {
         this.nomeItem = novoItemEmprestado.nomeItem;
         this.descricaoItem = novoItemEmprestado.descricaoItem;
     }
+
 }

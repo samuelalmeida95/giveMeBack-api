@@ -1,6 +1,5 @@
 package projects.givemebackapi.services;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +35,13 @@ public class DBService {
         AmigoEmprestimo amigoEmprestimo1 = new AmigoEmprestimo(null, "Pedro", "987", "rua do Pedro");
         AmigoEmprestimo amigoEmprestimo2 = new AmigoEmprestimo(null, "João", "987", "avenida do João");
 
-        ItemEmprestado itemEmprestado = new ItemEmprestado(null, "video game", "um video game", donoItem ,LocalDate.of(2022, 2, 15), amigoEmprestimo);
-        ItemEmprestado itemEmprestado1 = new ItemEmprestado(null, "relogio", "um relogio", donoItem2 ,LocalDate.of(2022, 2, 15), amigoEmprestimo1);
-        ItemEmprestado itemEmprestado2 = new ItemEmprestado(null, "tenis", "um tenis", donoItem1 ,LocalDate.of(2022, 2, 15), amigoEmprestimo2);
+        ItemEmprestado itemEmprestado = new ItemEmprestado(null, "video game", "um video game", donoItem , amigoEmprestimo);
+        ItemEmprestado itemEmprestado1 = new ItemEmprestado(null, "relogio", "um relogio", donoItem2 , amigoEmprestimo1);
+        ItemEmprestado itemEmprestado2 = new ItemEmprestado(null, "tenis", "um tenis", donoItem1 , amigoEmprestimo2);
 
-        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone", donoItem1 ,LocalDate.of(2022, 2, 15), amigoEmprestimo1);
-        ItemEmprestado itemEmprestado4 = new ItemEmprestado(null, "pipa", "uma pipa", donoItem1 ,LocalDate.of(2022, 2, 15), amigoEmprestimo2);
-        ItemEmprestado itemEmprestado5 = new ItemEmprestado(null, "caneta", "uma caneta", donoItem1 ,LocalDate.of(2022, 2, 15), amigoEmprestimo2);
+        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone", donoItem1 , amigoEmprestimo1);
+        ItemEmprestado itemEmprestado4 = new ItemEmprestado(null, "pipa", "uma pipa", donoItem1 , amigoEmprestimo2);
+        ItemEmprestado itemEmprestado5 = new ItemEmprestado(null, "caneta", "uma caneta", donoItem1 , amigoEmprestimo2);
 
 
         donoItem.getItensEmprestados().addAll(Arrays.asList(itemEmprestado, itemEmprestado1, itemEmprestado2));
