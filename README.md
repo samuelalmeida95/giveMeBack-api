@@ -29,12 +29,7 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
 
  >### Status do Desafio: `Em Construção 🚧`
  
-
- <h2 align="center"> Diagrama não Oficial 🙋‍♂️ </h2>
-
-<!-- ![](https://github.com/samuelalmeida95/giveMeBack-api/blob/main/diagrama-giveMeBack.png)  -->
-
-
+<br> 
 
 ## 📝 Licença
 
