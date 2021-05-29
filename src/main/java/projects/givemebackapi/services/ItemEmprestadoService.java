@@ -112,9 +112,9 @@ public class ItemEmprestadoService {
                     + ItemEmprestado.class.getName());
 
         if (itemEmprestadoRepository.findByNomeItem(novoItem.getNomeItem()).isPresent())
-            throw new ObjectAlreadyExistsException(
-                    "Você não pode alterar o Nome deste Item porque é igual ao existente, por favor entre com dados diferentes, Nome item: "
-                            + novoItem.getNomeItem() + ItemEmprestado.class.getName());
+            throw new ObjectAlreadyExistsException("Você não pode alterar o Nome deste Item porque é igual ao"
+                    + "existente, por favor entre com dados diferentes, Nome item: " + novoItem.getNomeItem()
+                    + ItemEmprestado.class.getName());
 
         item.update(novoItem);
         return this.itemEmprestadoRepository.save(item);
