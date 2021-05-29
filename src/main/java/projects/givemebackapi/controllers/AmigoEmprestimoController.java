@@ -28,6 +28,7 @@ public class AmigoEmprestimoController {
     @Autowired
     private AmigoEmprestimoService amigoEmprestimoService;
 
+
     @GetMapping(value = "/buscar_por_id/{id}")
     public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
         AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(id);
@@ -92,10 +93,14 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PostMapping(value="/adicionar")
+    @PostMapping(value = "/adicionar")
     @ResponseStatus(HttpStatus.CREATED)
-    public AmigoEmprestimoDTO create(@RequestBody AmigoEmprestimo amigoEmprestimo) {
-        AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(amigoEmprestimo);
+    public AmigoEmprestimoDTO create(
+        @RequestBody AmigoEmprestimo amigoEmprestimo, 
+        @RequestParam String nomeDono) {
+
+        AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(amigoEmprestimo, nomeDono);
+
         AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
 
         return amigoDTO;

@@ -3,13 +3,17 @@ package projects.givemebackapi.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.model.AvaliacaoStatus;
+import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
+import projects.givemebackapi.repositories.DonoItemRepository;
 import projects.givemebackapi.services.exceptions.NoSuchElementException;
 import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
@@ -19,6 +23,9 @@ public class AmigoEmprestimoService {
 
     @Autowired
     private AmigoEmprestimoRepository amigoEmprestimoRepository;
+
+    @Autowired
+    private DonoItemRepository donoItemRepository;
 
     public AmigoEmprestimo findById(Integer idAmigo) {
         Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
@@ -55,14 +62,18 @@ public class AmigoEmprestimoService {
         return amigoEmprestimoRepository.findAll();
     }
 
-    public AmigoEmprestimo create(AmigoEmprestimo amigo) {
+    @Transactional
+    public AmigoEmprestimo create(AmigoEmprestimo amigo, String nomeDono) {
         amigo.setId(null);
+
+        Optional<DonoItem> dono = this.donoItemRepository.findByNome(nomeDono);
 
         if (this.amigoEmprestimoRepository.findByNome(amigo.getNome()).isPresent())
             throw new ObjectNotFoundException("Já existe um amigo com esse nome, por favor entre com outro, Nome: "
                     + amigo + " Tipo: " + AmigoEmprestimo.class.getName());
                     
         amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
+        amigo.setDonoItem(dono.get());
 
         return amigoEmprestimoRepository.save(amigo);
     }

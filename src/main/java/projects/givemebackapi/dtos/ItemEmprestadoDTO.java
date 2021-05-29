@@ -31,7 +31,6 @@ public class ItemEmprestadoDTO {
             this.emprestado_para = "ninguém";
         else
             this.emprestado_para = item.getAmigoEmprestimo().getNome();
-
     }
 
     public ItemEmprestadoDTO() {
