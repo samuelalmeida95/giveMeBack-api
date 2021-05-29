@@ -120,9 +120,12 @@ public class ItemEmprestadoService {
         return this.itemEmprestadoRepository.save(item);
     }
 
-    public ItemEmprestado emprestarItem(ItemEmprestado item, Integer id, Integer idAmigo) {
-        DonoItem dono = donoItemService.findById(id);
+    public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
+        this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
+
+        DonoItem dono = donoItemService.findById(idDono);
         AmigoEmprestimo amigo = amigoEmprestimoService.findById(idAmigo);
+
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
 
         if (itemOptional.isPresent())
@@ -163,7 +166,11 @@ public class ItemEmprestadoService {
     }
 
     public ItemEmprestado giveInAgain(Integer idItem, Integer idAmigo) {
+
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
+        
+        Integer idDono = itemOptional.get().getDonoItem().getId();
+        this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
 
         AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
 
