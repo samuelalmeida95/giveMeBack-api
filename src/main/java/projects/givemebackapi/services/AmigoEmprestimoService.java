@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.model.AvaliacaoStatus;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
+import projects.givemebackapi.services.exceptions.NoSuchElementException;
 import projects.givemebackapi.services.exceptions.ObjectAlreadyExistsException;
 import projects.givemebackapi.services.exceptions.ObjectNotFoundException;
 
@@ -34,6 +35,19 @@ public class AmigoEmprestimoService {
                     "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
         AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
+        return amigo;
+    }
+
+    public AmigoEmprestimo findyByIdDonoAndIdAmigoEmprestimo(Integer idDono, Integer idAmigo) {
+
+        Optional<AmigoEmprestimo> amigoDeUmDono = this.amigoEmprestimoRepository
+                .findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono);
+
+        if (!amigoDeUmDono.isPresent())
+            throw new NoSuchElementException(
+                    "AmigoEmprestimo não está associado a este DonoItem");
+
+        AmigoEmprestimo amigo = amigoDeUmDono.get();
         return amigo;
     }
 

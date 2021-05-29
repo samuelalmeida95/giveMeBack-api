@@ -44,6 +44,18 @@ public class AmigoEmprestimoController {
         return ResponseEntity.ok().body(amigoDTO);
     }
 
+    @GetMapping(value = "/buscar_por_dono_item")
+    public ResponseEntity<AmigoEmprestimoDTO> findyByIdDonoAndIdAmigoEmprestimo(
+        @RequestParam Integer idAmigo,
+        @RequestParam Integer idDono) {
+
+        AmigoEmprestimo amigo = amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono);
+
+        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigo);
+
+        return ResponseEntity.ok().body(amigoDTO);
+    }
+
     @GetMapping(value = "/buscar_melhores_avaliados")
     public ResponseEntity<List<AmigoEmprestimoDTO>> findByAvaliacao() {
         List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByAvaliacao();

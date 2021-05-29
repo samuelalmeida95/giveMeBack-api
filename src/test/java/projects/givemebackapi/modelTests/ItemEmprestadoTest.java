@@ -29,7 +29,7 @@ public class ItemEmprestadoTest {
 
         DonoItem donoItem = new DonoItem(1, "Samuel", "996172418");
 
-        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "Fulano do teste", "855789548", "rua da areia");
+        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(1, "Fulano do teste", "855789548", "rua da areia", donoItem);
 
         ItemEmprestado item = new ItemEmprestado(1, "Bola de baskete", "Uma bola", donoItem, amigoEmprestimo);
 

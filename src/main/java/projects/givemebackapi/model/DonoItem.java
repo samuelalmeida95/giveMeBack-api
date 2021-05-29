@@ -30,6 +30,9 @@ public class DonoItem {
   @OneToMany(mappedBy = "donoItem") // um dono para muitos itens
   private List<ItemEmprestado> itensEmprestados = new LinkedList<>();
 
+  @OneToMany // um dono para muitos amigos
+  private List<AmigoEmprestimo> amigosEmprestimo = new LinkedList<>();
+
   public DonoItem(Integer id, String nome, String whatsapp) {
     this.id = id;
     this.nome = nome;

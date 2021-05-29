@@ -10,7 +10,7 @@ public class ItemEmprestadoCreator {
         DonoItem donoItem = new DonoItem(null, "Fulano do teste", "887513");
 
         AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "Fulano do teste", "887513474",
-                "rua das palmeiras");
+                "rua das palmeiras", donoItem);
 
         ItemEmprestado itemEmprestado = new ItemEmprestado(null, "Meia", "uma meia", donoItem, amigoEmprestimo);
 
