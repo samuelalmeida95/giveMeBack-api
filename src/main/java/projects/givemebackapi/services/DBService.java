@@ -32,19 +32,19 @@ public class DBService {
         DonoItem donoItem1 = new DonoItem(null, "Ellon Musk", "666-999-323");
         DonoItem donoItem2 = new DonoItem(null, "Steve Jobs", "112-346-978");
     
-        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua do Jose");
-        AmigoEmprestimo amigoEmprestimo1 = new AmigoEmprestimo(null, "Pedro", "123", "rua do Pedro");
-        AmigoEmprestimo amigoEmprestimo2 = new AmigoEmprestimo(null, "Marcos", "634", "avenida do Marcos");
-        AmigoEmprestimo amigoEmprestimo3 = new AmigoEmprestimo(null, "Flavio", "023", "avenida do Flavio");
-        AmigoEmprestimo amigoEmprestimo4 = new AmigoEmprestimo(null, "Alexa", "819", "avenida da Alexa");
-        AmigoEmprestimo amigoEmprestimo5 = new AmigoEmprestimo(null, "Ronaldo", "379", "avenida do Ronaldo");
-        AmigoEmprestimo amigoEmprestimo6 = new AmigoEmprestimo(null, "Robbin", "951", "rua do Robbin");
+        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua do Jose", donoItem);
+        AmigoEmprestimo amigoEmprestimo1 = new AmigoEmprestimo(null, "Pedro", "123", "rua do Pedro", donoItem2);
+        AmigoEmprestimo amigoEmprestimo2 = new AmigoEmprestimo(null, "Marcos", "634", "avenida do Marcos", donoItem1);
+        AmigoEmprestimo amigoEmprestimo3 = new AmigoEmprestimo(null, "Flavio", "023", "avenida do Flavio", donoItem);
+        AmigoEmprestimo amigoEmprestimo4 = new AmigoEmprestimo(null, "Alexa", "819", "avenida da Alexa", donoItem2);
+        AmigoEmprestimo amigoEmprestimo5 = new AmigoEmprestimo(null, "Ronaldo", "379", "avenida do Ronaldo", donoItem1);
+        AmigoEmprestimo amigoEmprestimo6 = new AmigoEmprestimo(null, "Robbin", "951", "rua do Robbin", donoItem2);
 
         ItemEmprestado itemEmprestado = new ItemEmprestado(null, "video game", "um video game", donoItem , amigoEmprestimo);
         ItemEmprestado itemEmprestado1 = new ItemEmprestado(null, "relogio", "um relogio", donoItem2 , amigoEmprestimo1);
         ItemEmprestado itemEmprestado2 = new ItemEmprestado(null, "tenis", "um tenis", donoItem1 , amigoEmprestimo2);
 
-        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone", donoItem1 , amigoEmprestimo1);
+        ItemEmprestado itemEmprestado3 = new ItemEmprestado(null, "bone", "um bone", donoItem1 , amigoEmprestimo2);
         ItemEmprestado itemEmprestado4 = new ItemEmprestado(null, "pipa", "uma pipa", donoItem1 , amigoEmprestimo2);
         ItemEmprestado itemEmprestado5 = new ItemEmprestado(null, "caneta", "uma caneta", donoItem1 , amigoEmprestimo2);
 

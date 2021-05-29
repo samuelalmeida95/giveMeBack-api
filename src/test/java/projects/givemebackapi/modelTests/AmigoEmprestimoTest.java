@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
+import projects.givemebackapi.model.DonoItem;
 
 public class AmigoEmprestimoTest {
     
@@ -24,7 +25,9 @@ public class AmigoEmprestimoTest {
     @Test
     void cria_AmigoEmprestimoQuandoBemSucedido() {
 
-        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x");
+        DonoItem donoItem = new DonoItem(null, "Dono teste", "223");
+
+        AmigoEmprestimo amigoEmprestimo = new AmigoEmprestimo(null, "José", "987", "rua x", donoItem);
 
         Assertions.assertThat(amigoEmprestimo.getNome()).isNotNull();
 

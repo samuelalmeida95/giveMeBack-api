@@ -11,6 +11,7 @@ public class AmigoEmprestimoDTO {
   private String nome;
   private String whatsApp;
   private String endereco;
+  private String amigoDono;
   private AvaliacaoStatus avaliacao;
 
   public AmigoEmprestimoDTO(AmigoEmprestimo amigo) {
@@ -18,6 +19,7 @@ public class AmigoEmprestimoDTO {
     this.nome = amigo.getNome();
     this.whatsApp = amigo.getWhatsapp();
     this.endereco = amigo.getEndereco();
+    this.amigoDono = amigo.getDonoItem().getNome();
     this.avaliacao = amigo.getAvaliacao();
   }
 
