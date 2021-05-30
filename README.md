@@ -31,6 +31,8 @@ Quando algo for devolvido, deve ser marcado no sistema que irá salvar a data
  
 <br> 
 
+### 🎯 Diagrama UML
+<img align="center" src="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/diagramaUML.png"></img>
 ## 📝 Licença
 
 
