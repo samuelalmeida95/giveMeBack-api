@@ -12,10 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-
-import lombok.Data;
-
-@Data
 @Entity
 public class AmigoEmprestimo {
 
@@ -54,4 +50,80 @@ public class AmigoEmprestimo {
 
   public AmigoEmprestimo() {
   }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getWhatsapp() {
+    return whatsapp;
+  }
+
+  public void setWhatsapp(String whatsapp) {
+    this.whatsapp = whatsapp;
+  }
+
+  public String getEndereco() {
+    return endereco;
+  }
+
+  public void setEndereco(String endereco) {
+    this.endereco = endereco;
+  }
+
+  public AvaliacaoStatus getAvaliacao() {
+    return avaliacao;
+  }
+
+  public void setAvaliacao(AvaliacaoStatus avaliacao) {
+    this.avaliacao = avaliacao;
+  }
+
+  public DonoItem getDonoItem() {
+    return donoItem;
+  }
+
+  public void setDonoItem(DonoItem donoItem) {
+    this.donoItem = donoItem;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    AmigoEmprestimo other = (AmigoEmprestimo) obj;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    return true;
+  }
+  
+  
+  
 }

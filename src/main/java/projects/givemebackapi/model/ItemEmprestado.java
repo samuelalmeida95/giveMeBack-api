@@ -15,10 +15,6 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.validator.constraints.Length;
-
-import lombok.Data;
-
-@Data
 @Entity
 public class ItemEmprestado {
 
@@ -71,4 +67,100 @@ public class ItemEmprestado {
         this.descricaoItem = novoItemEmprestado.descricaoItem;
     }
 
+    public Integer getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(Integer idItem) {
+        this.idItem = idItem;
+    }
+
+    public String getNomeItem() {
+        return nomeItem;
+    }
+
+    public void setNomeItem(String nomeItem) {
+        this.nomeItem = nomeItem;
+    }
+
+    public String getDescricaoItem() {
+        return descricaoItem;
+    }
+
+    public void setDescricaoItem(String descricaoItem) {
+        this.descricaoItem = descricaoItem;
+    }
+
+    public LocalDate getDataDevolucaoItem() {
+        return dataDevolucaoItem;
+    }
+
+    public void setDataDevolucaoItem(LocalDate dataDevolucaoItem) {
+        this.dataDevolucaoItem = dataDevolucaoItem;
+    }
+
+    public LocalDate getDataEmprestimoItem() {
+        return dataEmprestimoItem;
+    }
+
+    public void setDataEmprestimoItem(LocalDate dataEmprestimoItem) {
+        this.dataEmprestimoItem = dataEmprestimoItem;
+    }
+
+    public TipoStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TipoStatus status) {
+        this.status = status;
+    }
+
+    public DonoItem getDonoItem() {
+        return donoItem;
+    }
+
+    public void setDonoItem(DonoItem donoItem) {
+        this.donoItem = donoItem;
+    }
+
+    public AmigoEmprestimo getAmigoEmprestimo() {
+        return amigoEmprestimo;
+    }
+
+    public void setAmigoEmprestimo(AmigoEmprestimo amigoEmprestimo) {
+        this.amigoEmprestimo = amigoEmprestimo;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((donoItem == null) ? 0 : donoItem.hashCode());
+        result = prime * result + ((idItem == null) ? 0 : idItem.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ItemEmprestado other = (ItemEmprestado) obj;
+        if (donoItem == null) {
+            if (other.donoItem != null)
+                return false;
+        } else if (!donoItem.equals(other.donoItem))
+            return false;
+        if (idItem == null) {
+            if (other.idItem != null)
+                return false;
+        } else if (!idItem.equals(other.idItem))
+            return false;
+        return true;
+    }
+
+    
 }
