@@ -42,7 +42,7 @@ public class ItemEmprestadoDTOTest {
 
         Assertions.assertThat(itemDTO.getDesc()).isNotNull();
 
-        Assertions.assertThat(itemDTO.getDataDevolucao()).isNull();
+        Assertions.assertThat(itemDTO.getDataDevolucao()).isNotNull();
 
         Assertions.assertThat(itemDTO.getStatus()).isNotNull();
 

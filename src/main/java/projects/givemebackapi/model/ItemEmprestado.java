@@ -1,6 +1,6 @@
 package projects.givemebackapi.model;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,9 +34,9 @@ public class ItemEmprestado {
     @Length(min = 3, max = 100, message = "Campo DESCRIÇÃO deve ter entre 3 e 100 caracteres")
     private String descricaoItem;
 
-    private Calendar dataDevolucaoItem;
+    private LocalDate dataDevolucaoItem;
 
-    private Calendar dataEmprestimoItem;
+    private LocalDate dataEmprestimoItem;
 
     @Enumerated(value = EnumType.STRING)
     private TipoStatus status;
@@ -56,8 +56,8 @@ public class ItemEmprestado {
         this.idItem = id;
         this.nomeItem = nome;
         this.descricaoItem = desc;
-        this.dataEmprestimoItem = Calendar.getInstance();
-        this.dataDevolucaoItem = null;
+        this.dataEmprestimoItem = LocalDate.now();
+        this.dataDevolucaoItem = LocalDate.now();
         this.status = TipoStatus.EMPRESTADO;
         this.donoItem = dono;
         this.amigoEmprestimo = amigoEmp;

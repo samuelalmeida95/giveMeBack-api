@@ -1,6 +1,6 @@
 package projects.givemebackapi.services;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -136,7 +136,8 @@ public class ItemEmprestadoService {
         item.setDonoItem(dono);
         item.setStatus(TipoStatus.EMPRESTADO);
         amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
-        item.setDataEmprestimoItem(Calendar.getInstance());
+        item.setDataEmprestimoItem(LocalDate.now());
+        item.setDataDevolucaoItem(LocalDate.now().plusDays(20));
 
         return itemEmprestadoRepository.save(item);
     }
@@ -169,7 +170,7 @@ public class ItemEmprestadoService {
 
         item.setStatus(TipoStatus.DEVOLVIDO);
         item.setAmigoEmprestimo(null);
-        item.setDataDevolucaoItem(Calendar.getInstance());
+        item.setDataDevolucaoItem(LocalDate.now());
         return this.itemEmprestadoRepository.save(item);
     }
 

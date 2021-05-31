@@ -1,6 +1,6 @@
 package projects.givemebackapi.dtos;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import lombok.Data;
 import projects.givemebackapi.model.ItemEmprestado;
@@ -15,8 +15,9 @@ public class ItemEmprestadoDTO {
     private String nomeDono;
     private TipoStatus status;
     private String emprestado_para;
-    private Calendar dataEmprestimo;
-    private Calendar dataDevolucao;
+    private String prazoPadrao = "Cada emprestimo tem 20 dias de prazo.";
+    private LocalDate dataEmprestimo;
+    private LocalDate dataDevolucao;
 
     public ItemEmprestadoDTO(ItemEmprestado item) {
         this.id = item.getIdItem();
