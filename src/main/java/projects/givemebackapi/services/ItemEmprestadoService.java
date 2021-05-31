@@ -144,6 +144,15 @@ public class ItemEmprestadoService {
     public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo, AvaliacaoStatus avaliacao) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
+        AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(nomeAmigo);
+        Integer idAmigo = amigo.getId();
+
+        Optional<ItemEmprestado> itemOptionalComAmigo = itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo,idItem);
+
+        if (!itemOptionalComAmigo.isPresent())
+            throw new ObjectNotFoundException("Este item não está emprestado para o amigo: " + nomeAmigo + ", idItem: "
+                    + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+
         if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
@@ -154,11 +163,10 @@ public class ItemEmprestadoService {
             throw new ObjectAlreadyExistsException(
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
-         AmigoEmprestimo amigoEncontrado = this.amigoEmprestimoService.findByNome(nomeAmigo);
-         amigoEncontrado.setAvaliacao(avaliacao);
-         this.amigoEmprestimoRepository.save(amigoEncontrado);
+        AmigoEmprestimo amigoEncontrado = this.amigoEmprestimoService.findByNome(nomeAmigo);
+        amigoEncontrado.setAvaliacao(avaliacao);
+        this.amigoEmprestimoRepository.save(amigoEncontrado);
 
-         
         item.setStatus(TipoStatus.DEVOLVIDO);
         item.setAmigoEmprestimo(null);
         item.setDataDevolucaoItem(Calendar.getInstance());
