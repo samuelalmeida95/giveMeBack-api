@@ -14,7 +14,8 @@
 
 
 
-``` Olá! Este é um desafio SpringBoot + JPA + postgresSQL para gerenciar seus pertences emprestados!
+``` 
+ Olá! Este é um desafio SpringBoot + JPA + postgresSQL para gerenciar seus pertences emprestados!
 
  O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
 
@@ -92,7 +93,7 @@
  <br> 
  [✔] Remoção de um Item
 
-## 🥇 Aplicação disponivel em:
+## 🥇 Aplicação disponivel no Heroku:
 
 https://givemeback-api.herokuapp.com
 
