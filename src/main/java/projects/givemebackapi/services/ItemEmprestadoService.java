@@ -188,7 +188,6 @@ public class ItemEmprestadoService {
                     "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
         if (amigoEncontrado.getAvaliacao() == AvaliacaoStatus.NAO_AVALIADO)
-
             throw new ObjectAlreadyExistsException(
                     "Emprestimo inválido! esse amigo nunca foi avaliado," 
                     + "você deve emprestar um item somente a"
