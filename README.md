@@ -193,15 +193,15 @@ https://givemeback-api.herokuapp.com
 ### Item quando devolvido:
 
 ```json
-      "id": 1,
-      "nome": "video game",
-      "desc": "um video game",
-      "nomeDono": "Samuel Almeida",
-      "status": "DEVOLVIDO",
-      "emprestado_para": "ninguém",
-      "prazoPadrao": "Cada emprestimo tem 20 dias de prazo.",
-      "dataEmprestimo": "2021-06-01",
-      "dataDevolucao": "2021-06-01"
+   "id": 7,
+   "nome": "Sapato",
+   "desc": "um sapato Nike",
+   "nomeDono": "Samuel",
+   "status": "DEVOLVIDO",
+   "emprestado_para": "ninguém",
+   "prazoPadrao": "Cada emprestimo tem 20 dias de prazo.",
+   "dataEmprestimo": "2021-06-01",
+   "dataDevolucao": "2021-06-01"
 ```
 <br>
 
