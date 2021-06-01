@@ -106,6 +106,12 @@ https://givemeback-api.herokuapp.com
 **[GET]** https://givemeback-api.herokuapp.com/donos/buscar_por_id/4
 <br>
 **[GET]** https://givemeback-api.herokuapp.com/donos/listar_todos
+<br>
+**[POST]** https://givemeback-api.herokuapp.com/donos/adicionar
+<br>
+**[PUT]** https://givemeback-api.herokuapp.com/donos/alterar/3
+<br>
+**[DELETE]** https://givemeback-api.herokuapp.com/donos/deletar/1
 
 ```json
    "id": 1,
