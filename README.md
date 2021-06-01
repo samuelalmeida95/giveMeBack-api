@@ -101,11 +101,11 @@ https://givemeback-api.herokuapp.com
 
 ### 👨‍💻 Dono:
 
-[GET] https://givemeback-api.herokuapp.com/donos/buscar_por_nome?nomeDono=Samuel 
+**[GET]** https://givemeback-api.herokuapp.com/donos/buscar_por_nome?nomeDono=Samuel 
 <br>
-[GET] https://givemeback-api.herokuapp.com/donos/buscar_por_id/4
+**[GET]** https://givemeback-api.herokuapp.com/donos/buscar_por_id/4
 <br>
-[GET] https://givemeback-api.herokuapp.com/donos/listar_todos
+**[GET]** https://givemeback-api.herokuapp.com/donos/listar_todos
 
 ```json
    "id": 1,
@@ -115,23 +115,23 @@ https://givemeback-api.herokuapp.com
 
 ### 🙅‍♂️ Amigo:
 
-[GET] https://givemeback-api.herokuapp.com/amigos/buscar_por_nome?amigoEmprestimo=José
+**[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_por_nome?amigoEmprestimo=José
 <br>
-[GET] https://givemeback-api.herokuapp.com/amigos/buscar_por_id/8
+**[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_por_id/8
 <br>
-[GET] https://givemeback-api.herokuapp.com/amigos/buscar_por_dono_item?idAmigo=2&idDono=2
+**[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_por_dono_item?idAmigo=2&idDono=2
 <br>
-[GET] https://givemeback-api.herokuapp.com/amigos/listar_todos
+**[GET]** https://givemeback-api.herokuapp.com/amigos/listar_todos
 <br>
-[GET] https://givemeback-api.herokuapp.com/amigos/buscar_melhores_avaliados
+**[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_melhores_avaliados
 <br>
-[GET] https://givemeback-api.herokuapp.com/amigos/buscar_piores_avaliados
+**[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_piores_avaliados
 <br>
-[POST] https://givemeback-api.herokuapp.com/amigos/amigos/adicionar?nomeDono=Alladin
+**[POST]** https://givemeback-api.herokuapp.com/amigos/amigos/adicionar?nomeDono=Alladin
 <br>
-[PUT] https://givemeback-api.herokuapp.com/amigos/amigos/alterar/1
+**[PUT]** https://givemeback-api.herokuapp.com/amigos/amigos/alterar/1
 <br>
-[DELETE] https://givemeback-api.herokuapp.com/amigos/deletar/1
+**[DELETE]** https://givemeback-api.herokuapp.com/amigos/deletar/1
 
 ```json
 
@@ -145,29 +145,29 @@ https://givemeback-api.herokuapp.com
 
 ### 🎁 Item:
 
-[GET] https://givemeback-api.herokuapp.com/itens/buscar_por_id/1
+**[GET]** https://givemeback-api.herokuapp.com/itens/buscar_por_id/1
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/buscar_por_nome?nomeItem=bone
+**[GET]** https://givemeback-api.herokuapp.com/itens/buscar_por_nome?nomeItem=bone
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/listar_itens
+**[GET]** https://givemeback-api.herokuapp.com/itens/listar_itens
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/status_itens?status=EMPRESTADO
+**[GET]** https://givemeback-api.herokuapp.com/itens/status_itens?status=EMPRESTADO
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/status_itens?status=DEVOLVIDO
+**[GET]** https://givemeback-api.herokuapp.com/itens/status_itens?status=DEVOLVIDO
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/emprestados_para?idAmigo=3
+**[GET]** https://givemeback-api.herokuapp.com/itens/emprestados_para?idAmigo=3
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/meus_itens?idDono=2
+**[GET]** https://givemeback-api.herokuapp.com/itens/meus_itens?idDono=2
 <br>
-[GET] https://givemeback-api.herokuapp.com/itens/meus_itens?idDono=2
+**[GET]** https://givemeback-api.herokuapp.com/itens/meus_itens?idDono=2
 <br>
-[POST] https://givemeback-api.herokuapp.com/itens/emprestar_item?dono=1&idAmigoEmprestimo=1
+**[POST]** https://givemeback-api.herokuapp.com/itens/emprestar_item?dono=1&idAmigoEmprestimo=1
 <br>
-[PUT] https://givemeback-api.herokuapp.com/itens/emprestar_novamente?idItem=7&idAmigoEmprestimo=1
+**[PUT]** https://givemeback-api.herokuapp.com/itens/emprestar_novamente?idItem=7&idAmigoEmprestimo=1
 <br>
-[PUT] https://givemeback-api.herokuapp.com/itens/devolver/7?nomeAmigo=José&avaliacao=OTIMA
+**[PUT]** https://givemeback-api.herokuapp.com/itens/devolver/7?nomeAmigo=José&avaliacao=OTIMA
 <br>
-[DELETE] https://givemeback-api.herokuapp.com/itens/itens/deletar/7
+**[DELETE]** https://givemeback-api.herokuapp.com/itens/itens/deletar/7
 
 
 ### Item quando Emprestado:
