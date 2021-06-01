@@ -28,7 +28,7 @@ public class DBService {
 
     public void instanciaBaseDeDados(){
 
-        DonoItem donoItem = new DonoItem(null, "Samuel Almeida", "555-777-522");
+        DonoItem donoItem = new DonoItem(null, "Samuel", "555-777-522");
         DonoItem donoItem1 = new DonoItem(null, "Ellon Musk", "666-999-323");
         DonoItem donoItem2 = new DonoItem(null, "Steve Jobs", "112-346-978");
     
