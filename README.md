@@ -182,9 +182,9 @@ https://givemeback-api.herokuapp.com
    "id": 7,
    "nome": "Sapato",
    "desc": "um sapato Nike",
-   "nomeDono": "Samuel Almeida",
+   "nomeDono": "Samuel",
    "status": "EMPRESTADO",
-   "emprestado_para": "Silvestre Stallone Cobra 22",
+   "emprestado_para": "José",
    "prazoPadrao": "Cada emprestimo tem 20 dias de prazo.",
    "dataEmprestimo": "2021-06-01",
    "dataDevolucao": "2021-06-21"
