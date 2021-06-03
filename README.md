@@ -180,28 +180,28 @@ https://givemeback-api.herokuapp.com
 
 ```json
    "id": 7,
-   "nome": "Sapato",
-   "desc": "um sapato Nike",
-   "nomeDono": "Samuel",
+   "nome": "Bicicleta",
+   "nomeDono": "Steve Jobs",
+   "descricao": "uma bicicleta",
    "status": "EMPRESTADO",
-   "emprestado_para": "José",
-   "prazoPadrao": "Cada emprestimo tem 20 dias de prazo.",
-   "dataEmprestimo": "2021-06-01",
-   "dataDevolucao": "2021-06-21"
+   "emprestado_para": "Pedro",
+   "prazoDevolucao": "Cada emprestimo tem 20 dias de prazo.",
+   "dataEmprestimo": "2021-06-03",
+   "dataDevolucao": "2021-06-23"
 ```
 
 ### Item quando devolvido:
 
 ```json
    "id": 7,
-   "nome": "Sapato",
-   "desc": "um sapato Nike",
-   "nomeDono": "Samuel",
+   "nome": "Bicicleta",
+   "nomeDono": "Steve Jobs",
+   "descricao": "uma bicicleta",
    "status": "DEVOLVIDO",
    "emprestado_para": "ninguém",
-   "prazoPadrao": "Cada emprestimo tem 20 dias de prazo.",
-   "dataEmprestimo": "2021-06-01",
-   "dataDevolucao": "2021-06-01"
+   "prazoDevolucao": "Cada emprestimo tem 20 dias de prazo.",
+   "dataEmprestimo": "2021-06-03",
+   "dataDevolucao": "2021-06-03"
 ```
 <br>
 
