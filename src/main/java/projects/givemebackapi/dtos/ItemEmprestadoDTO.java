@@ -12,7 +12,7 @@ public class ItemEmprestadoDTO {
     private String descricao;
     private TipoStatus status;
     private String emprestado_para;
-    private String prazoPadrao = "Cada emprestimo tem 20 dias de prazo.";
+    private String prazoDevolucao = "Cada emprestimo tem 20 dias de prazo.";
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucao;
 
@@ -82,12 +82,12 @@ public class ItemEmprestadoDTO {
         this.emprestado_para = emprestado_para;
     }
 
-    public String getPrazoPadrao() {
-        return prazoPadrao;
+    public String getPrazoDevolucao() {
+        return prazoDevolucao; 
     }
 
-    public void setPrazoPadrao(String prazoPadrao) {
-        this.prazoPadrao = prazoPadrao;
+    public void setPrazoDevolucao(String prazoDevolucao) {
+        this.prazoDevolucao = prazoDevolucao; 
     }
 
     public LocalDate getDataEmprestimo() {
