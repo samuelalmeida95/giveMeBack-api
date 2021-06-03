@@ -139,7 +139,7 @@ public class ItemEmprestadoController {
         @RequestParam Integer idItem,  
         @RequestParam Integer idAmigoEmprestimo) {
 
-        ItemEmprestado novoItemEmprestado = itemEmprestadoService.giveInAgain(idItem, idAmigoEmprestimo);
+        ItemEmprestado novoItemEmprestado = itemEmprestadoService.emprestarItemNovamente(idItem, idAmigoEmprestimo);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItemEmprestado);
 
         return ResponseEntity.ok().body(itemDTO);
