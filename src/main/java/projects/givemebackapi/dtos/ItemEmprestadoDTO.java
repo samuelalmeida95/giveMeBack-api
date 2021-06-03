@@ -8,8 +8,8 @@ public class ItemEmprestadoDTO {
 
     private Integer id;
     private String nome;
-    private String desc;
     private String nomeDono;
+    private String descricao;
     private TipoStatus status;
     private String emprestado_para;
     private String prazoPadrao = "Cada emprestimo tem 20 dias de prazo.";
@@ -19,7 +19,7 @@ public class ItemEmprestadoDTO {
     public ItemEmprestadoDTO(ItemEmprestado item) {
         this.id = item.getIdItem();
         this.nome = item.getNomeItem();
-        this.desc = item.getDescricaoItem();
+        this.descricao = item.getDescricaoItem();
         this.status = item.getStatus();
         this.nomeDono = item.getDonoItem().getNome();
         this.dataEmprestimo = item.getDataEmprestimoItem();
@@ -50,12 +50,12 @@ public class ItemEmprestadoDTO {
         this.nome = nome;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescricao(String desc) {
+        this.descricao = desc;
     }
 
     public String getNomeDono() {

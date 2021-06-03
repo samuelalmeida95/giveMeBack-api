@@ -25,7 +25,7 @@ public class ItemEmprestadoDTOTest {
 
         Assertions.assertThat(itemEmprestadoDTO.getStatus()).isNull();
 
-        Assertions.assertThat(itemEmprestadoDTO.getDesc()).isNull();
+        Assertions.assertThat(itemEmprestadoDTO.getDescricao()).isNull();
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ItemEmprestadoDTOTest {
 
         Assertions.assertThat(itemDTO.getNome()).isNotNull();
 
-        Assertions.assertThat(itemDTO.getDesc()).isNotNull();
+        Assertions.assertThat(itemDTO.getDescricao()).isNotNull();
 
         Assertions.assertThat(itemDTO.getDataDevolucao()).isNotNull();
 
