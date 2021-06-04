@@ -40,6 +40,7 @@ public class ItemEmprestadoService {
                 "Item não existe ou não está emprestado! " + idItem + " Tipo: " + ItemEmprestado.class.getName()));
     }
 
+
     public ItemEmprestado findByNome(String nomeItem) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
 
@@ -50,6 +51,7 @@ public class ItemEmprestadoService {
         ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
         return itemEmprestadoEncontrado;
     }
+
 
     public List<ItemEmprestado> findByEmprestadoPara(Integer idAmigo) {
         Optional<List<ItemEmprestado>> itemEmprestado = itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
@@ -69,11 +71,10 @@ public class ItemEmprestadoService {
         return itemEmprestadoEncontrado;
     }
 
+
     public List<ItemEmprestado> findByDono(Integer idDono) {
         Optional<List<ItemEmprestado>> itemDeUmDono = itemEmprestadoRepository.findByDonoItemId(idDono);
-
         donoItemService.findById(idDono);
-
         List<ItemEmprestado> itensDeUmDono = itemDeUmDono.get();
 
         if (itensDeUmDono.isEmpty())
@@ -82,6 +83,7 @@ public class ItemEmprestadoService {
 
         return itensDeUmDono;
     }
+
 
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
         List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
@@ -93,9 +95,11 @@ public class ItemEmprestadoService {
         return itensDevolvidos;
     }
 
+
     public List<ItemEmprestado> findAll() {
         return itemEmprestadoRepository.findAll();
     }
+
 
     public ItemEmprestado update(Integer id, ItemEmprestado novoItem) {
         ItemEmprestado item = this.findById(id);
@@ -114,6 +118,7 @@ public class ItemEmprestadoService {
         return this.itemEmprestadoRepository.save(item);
     }
 
+
     public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
 
@@ -125,9 +130,9 @@ public class ItemEmprestadoService {
         return itemEmprestadoRepository.save(item);
     }
 
+
     public ItemEmprestado emprestar(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
-
         AmigoEmprestimo amigoParaEmprestar = amigoEmprestimoService.findById(idAmigo);
         DonoItem donoItem = donoItemService.findById(idDono);
 
@@ -140,9 +145,9 @@ public class ItemEmprestadoService {
         return item;
     }
 
+
     public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo, AvaliacaoStatus avaliacao) {
         ItemEmprestado itemDevolvido = findById(idItem);
-
         AmigoEmprestimo amigoComItemEmprestado = amigoEmprestimoService.findByNome(nomeAmigo);
 
         verificaSeItemEstaDevolvido(idItem);
@@ -153,6 +158,7 @@ public class ItemEmprestadoService {
         return this.itemEmprestadoRepository.save(itemDevolvido);
     }
 
+
     public void verificaSeItemEstaDevolvido(Integer idItem) {
         ItemEmprestado itemDevolvido = findById(idItem);
 
@@ -161,11 +167,13 @@ public class ItemEmprestadoService {
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
     }
 
+
     public void devolver(ItemEmprestado itemDevolvido) {
         itemDevolvido.setStatus(TipoStatus.DEVOLVIDO);
         itemDevolvido.setAmigoEmprestimo(null);
         itemDevolvido.setDataDevolucaoItem(LocalDate.now());
     }
+
 
     public ItemEmprestado buscarItemEmprestadoParaUmAmigo(Integer idAmigo, Integer idItem) {
         Optional<ItemEmprestado> itemComAmigo = itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem);
@@ -178,12 +186,14 @@ public class ItemEmprestadoService {
         return itemComAmigo.get();
     }
 
+
     public AmigoEmprestimo avaliarAmigo(String nomeAmigo, AvaliacaoStatus avaliacao) {
         AmigoEmprestimo amigoParaAvaliar = amigoEmprestimoService.findByNome(nomeAmigo);
         amigoParaAvaliar.setAvaliacao(avaliacao);
 
         return this.amigoEmprestimoRepository.save(amigoParaAvaliar);
     }
+
 
     public ItemEmprestado emprestarItemNovamente(Integer idItem, Integer idAmigo) {
         ItemEmprestado itemParaEmprestarNovamente = findById(idItem);
@@ -196,6 +206,7 @@ public class ItemEmprestadoService {
         return this.itemEmprestadoRepository.save(itemParaEmprestarNovamente);
     }
 
+
     public ItemEmprestado verificaSeEstaEmprestado(Integer idItem) {
         ItemEmprestado itemParaEmprestarNovamente = findById(idItem);
 
@@ -206,9 +217,11 @@ public class ItemEmprestadoService {
         return itemParaEmprestarNovamente;
     }
 
+
     public AmigoEmprestimo verificaSeDonoEAmigoSeConhecem(Integer idDono, Integer idAmigo) {
         return amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
     }
+
 
     public AmigoEmprestimo verificaSeTemAvaliacao(Integer idAmigo) {
         AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
@@ -220,6 +233,7 @@ public class ItemEmprestadoService {
 
         return amigoEncontrado;
     }
+    
 
     public void delete(Integer id) {
         ItemEmprestado itemParaDeletar = findById(id);
