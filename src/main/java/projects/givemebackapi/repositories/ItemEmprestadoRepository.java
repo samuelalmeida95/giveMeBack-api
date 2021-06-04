@@ -18,9 +18,9 @@ public interface ItemEmprestadoRepository
 
   List<ItemEmprestado> findByStatus(TipoStatus tipo);
 
-  Optional<List<ItemEmprestado>> findByAmigoEmprestimoId(Integer nomeAmigo);
+ List<ItemEmprestado> findByAmigoEmprestimoId(Integer nomeAmigo);
 
-  Optional<List<ItemEmprestado>> findByDonoItemId(Integer idDono);
+ List<ItemEmprestado> findByDonoItemId(Integer idDono);
 
   
   @Query(value = "select * from public.item_emprestado where id_item=:idItem and amigo_emprestimo_id=:amigoBuscadoId", nativeQuery = true)
