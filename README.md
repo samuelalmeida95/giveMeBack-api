@@ -23,7 +23,8 @@
 
  A aplicação deve receber o item emprestado, a data de devolução prevista, e contato do amigo
 
- Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o sistema deve salvar a data atual
+ Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o
+ sistema deve salvar a data atual
 
  Ao devolver um Item o sistema deve salvar a data da devolução do Item 
 
