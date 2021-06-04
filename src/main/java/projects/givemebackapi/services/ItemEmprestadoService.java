@@ -179,19 +179,10 @@ public class ItemEmprestadoService {
 
         verificaSeTemAvaliacao(idAmigo);
         verificaSeDonoEAmigoSeConhecem(itemParaEmprestar.getDonoItem().getId(), idAmigo);
-        verificaSeEstaEmprestado(itemParaEmprestar.getDonoItem().getId());
+        verificaSeItemEstaEmprestado(itemParaEmprestar.getDonoItem().getId());
         emprestar(itemParaEmprestar, itemParaEmprestar.getIdItem(), idAmigo);
 
         return this.itemEmprestadoRepository.save(itemParaEmprestar);
-    }
-
-
-    public ItemEmprestado verificaSeEstaEmprestado(Integer idItem) {
-        if (findById(idItem).getStatus() == TipoStatus.EMPRESTADO)
-            throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: "
-                    + idItem + ", Tipo: " + ItemEmprestado.class.getName());
-
-        return findById(idItem);
     }
 
 
@@ -212,7 +203,7 @@ public class ItemEmprestadoService {
 
     public void delete(Integer idItem) {
          findById(idItem);
-         verificaSeEstaEmprestado(idItem);
+         verificaSeItemEstaEmprestado(idItem);
 
         try {
             itemEmprestadoRepository.deleteById(idItem);
