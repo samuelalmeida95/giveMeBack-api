@@ -40,69 +40,86 @@ public class ItemEmprestadoService {
                 "Item não existe ou não está emprestado! " + idItem + " Tipo: " + ItemEmprestado.class.getName()));
     }
 
-
     public ItemEmprestado findByNome(String nomeItem) {
-        if (!itemEmprestadoRepository.findByNomeItem(nomeItem).isPresent())
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(nomeItem);
+
+        if (!itemOptional.isPresent())
             throw new ObjectNotFoundException(
                     "Item não existe ou não está emprestado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
 
-        return itemEmprestadoRepository.findByNomeItem(nomeItem).get();
+        ItemEmprestado itemEmprestadoEncontrado = itemOptional.get();
+        return itemEmprestadoEncontrado;
     }
 
-
     public List<ItemEmprestado> findByEmprestadoPara(Integer idAmigo) {
-        if (itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo).isEmpty())
+        List<ItemEmprestado> itemEmprestado = itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
+
+        amigoEmprestimoService.findById(idAmigo);
+
+        if (itemEmprestado.isEmpty())
             throw new ObjectNotFoundException(
                     "Amigo não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
 
-        return itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
+        return itemEmprestado;
     }
 
-
     public List<ItemEmprestado> findByDono(Integer idDono) {
-        if (itemEmprestadoRepository.findByDonoItemId(idDono).isEmpty())
+        List<ItemEmprestado> itensDeUmDono = itemEmprestadoRepository.findByDonoItemId(idDono);
+
+        donoItemService.findById(idDono);
+
+        if (itensDeUmDono.isEmpty())
             throw new ObjectNotFoundException(
                     "Dono não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
 
-        return itemEmprestadoRepository.findByDonoItemId(idDono);
+        return itensDeUmDono;
     }
 
-
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
-        if (itemEmprestadoRepository.findByStatus(status).isEmpty())
+        List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
+
+        if (itensDevolvidos.isEmpty())
             throw new ObjectNotFoundException(
                     "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
 
-        return itemEmprestadoRepository.findByStatus(status);
+        return itensDevolvidos;
     }
-
 
     public List<ItemEmprestado> findAll() {
         return itemEmprestadoRepository.findAll();
     }
 
-
     public ItemEmprestado update(Integer id, ItemEmprestado novoItem) {
         ItemEmprestado item = this.findById(id);
-        verificaSeItemEstaEmprestado(item.getIdItem());
-        verificaSeItemJaExiste(item);
+
+        if (item.getStatus() == TipoStatus.EMPRESTADO)
+            throw new ObjectAlreadyExistsException("Este item está emprestado, não pode ser alterado! Nome item: "
+                    + item.getNomeItem() + ", Emprestado para: " + item.getAmigoEmprestimo().getNome() + " , Tipo: "
+                    + ItemEmprestado.class.getName());
+
+        if (itemEmprestadoRepository.findByNomeItem(novoItem.getNomeItem()).isPresent())
+            throw new ObjectAlreadyExistsException("Você não pode alterar o Nome deste Item porque é igual ao"
+                    + "existente, por favor entre com dados diferentes, Nome item: " + novoItem.getNomeItem()
+                    + ItemEmprestado.class.getName());
 
         item.update(novoItem);
         return this.itemEmprestadoRepository.save(item);
     }
 
-
     public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
-        verificaSeItemJaExiste(itemOptional.get());
+
+        if (itemOptional.isPresent())
+            throw new ObjectAlreadyExistsException(
+                    "Este item já existe!  Nome: " + item.getNomeItem() + ", Tipo: " + ItemEmprestado.class.getName());
 
         emprestar(item, idDono, idAmigo);
         return itemEmprestadoRepository.save(item);
     }
 
-
     public ItemEmprestado emprestar(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
+
         AmigoEmprestimo amigoParaEmprestar = amigoEmprestimoService.findById(idAmigo);
         DonoItem donoItem = donoItemService.findById(idDono);
 
@@ -115,100 +132,89 @@ public class ItemEmprestadoService {
         return item;
     }
 
-
-    public ItemEmprestado verificaSeItemJaExiste(ItemEmprestado item) {
-        if (itemEmprestadoRepository.findByNomeItem(item.getNomeItem()).isPresent())
-            throw new ObjectAlreadyExistsException(
-                    "Este item já existe!  Nome: " + item.getNomeItem() + ", Tipo: " + ItemEmprestado.class.getName());
-
-        return item;
-    }
-
-
     public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo, AvaliacaoStatus avaliacao) {
-        ItemEmprestado itemDevolvido = findById(idItem);
-        AmigoEmprestimo amigoComItemEmprestado = amigoEmprestimoService.findByNome(nomeAmigo);
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
-        verificaSeItemEstaDevolvido(idItem);
-        buscarItemEmprestadoParaUmAmigo(amigoComItemEmprestado.getId(), idItem);
-        devolver(itemDevolvido);
-        avaliarAmigo(nomeAmigo, avaliacao);
+        AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(nomeAmigo);
+        Integer idAmigo = amigo.getId();
 
-        return this.itemEmprestadoRepository.save(itemDevolvido);
-    }
+        Optional<ItemEmprestado> itemOptionalComAmigo = itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem);
 
-
-    public void verificaSeItemEstaDevolvido(Integer idItem) {
-        if (findById(idItem).getStatus() == TipoStatus.DEVOLVIDO)
-            throw new ObjectAlreadyExistsException(
-                    "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
-    }
-
-
-    public ItemEmprestado buscarItemEmprestadoParaUmAmigo(Integer idAmigo, Integer idItem) {
-        if (!itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem).isPresent())
-            throw new ObjectNotFoundException("Este item não está emprestado para o amigo: " + idAmigo + ", idItem: "
+        if (!itemOptionalComAmigo.isPresent())
+            throw new ObjectNotFoundException("Este item não está emprestado para o amigo: " + nomeAmigo + ", idItem: "
                     + idItem + ", Tipo: " + ItemEmprestado.class.getName());
 
-        return itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem).get();
+        if (!itemOptional.isPresent())
+            throw new ObjectNotFoundException(
+                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+
+        ItemEmprestado item = itemOptional.get();
+
+        if (item.getStatus() == TipoStatus.DEVOLVIDO)
+            throw new ObjectAlreadyExistsException(
+                    "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+
+        item.setStatus(TipoStatus.DEVOLVIDO);
+        item.setAmigoEmprestimo(null);
+        item.setDataDevolucaoItem(LocalDate.now());
+
+        avaliarAmigo(nomeAmigo, avaliacao);
+
+        return this.itemEmprestadoRepository.save(item);
     }
-
-
-    public void devolver(ItemEmprestado itemDevolvido) {
-        itemDevolvido.setStatus(TipoStatus.DEVOLVIDO);
-        itemDevolvido.setAmigoEmprestimo(null);
-        itemDevolvido.setDataDevolucaoItem(LocalDate.now());
-    }
-
 
     public AmigoEmprestimo avaliarAmigo(String nomeAmigo, AvaliacaoStatus avaliacao) {
-        AmigoEmprestimo amigoParaAvaliar = amigoEmprestimoService.findByNome(nomeAmigo);
-        amigoParaAvaliar.setAvaliacao(avaliacao);
-
-        return this.amigoEmprestimoRepository.save(amigoParaAvaliar);
+        AmigoEmprestimo amigoAvaliado = amigoEmprestimoService.findByNome(nomeAmigo);
+        amigoAvaliado.setAvaliacao(avaliacao);
+        return this.amigoEmprestimoRepository.save(amigoAvaliado);
     }
-
 
     public ItemEmprestado emprestarItemNovamente(Integer idItem, Integer idAmigo) {
-        ItemEmprestado itemParaEmprestar = findById(idItem);
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
 
-        verificaSeAmigoTemAvaliacao(idAmigo);
-        verificaSeDonoEAmigoSeConhecem(itemParaEmprestar.getDonoItem().getId(), idAmigo);
-        verificaSeItemEstaEmprestado(itemParaEmprestar.getDonoItem().getId());
-        emprestar(itemParaEmprestar, itemParaEmprestar.getIdItem(), idAmigo);
+        Integer idDono = itemOptional.get().getDonoItem().getId();
 
-        return this.itemEmprestadoRepository.save(itemParaEmprestar);
-    }
+        this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
 
+        AmigoEmprestimo amigoEncontrado = amigoEmprestimoService.findById(idAmigo);
 
-    public AmigoEmprestimo verificaSeAmigoTemAvaliacao(Integer idAmigo) {
-        if (findById(idAmigo).getAmigoEmprestimo().getAvaliacao() == AvaliacaoStatus.NAO_AVALIADO)
+        if (!itemOptional.isPresent())
+            throw new ObjectNotFoundException(
+                    "ItemEmprestado não encontrado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
+
+        if (amigoEncontrado.getAvaliacao() == AvaliacaoStatus.NAO_AVALIADO)
             throw new ObjectAlreadyExistsException(
-                    "Você deve emprestar um item somente para amigos que já tenham recebido alguma avaliação, Tipo: "
-                            + ItemEmprestado.class.getName());
+                    "Emprestimo inválido! esse amigo nunca foi avaliado," + "você deve emprestar um item somente a"
+                            + "amigos que já tenham recebido alguma avaliação . Amigo: " + amigoEncontrado.getNome()
+                            + ", Tipo: " + ItemEmprestado.class.getName());
 
-        return findById(idAmigo).getAmigoEmprestimo();
+        ItemEmprestado item = itemOptional.get();
+
+        if (item.getStatus() == TipoStatus.EMPRESTADO)
+            throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: " + item.getIdItem() + ", Tipo: "
+                    + ItemEmprestado.class.getName());
+
+        emprestar(item, idDono, idAmigo);
+        
+        return this.itemEmprestadoRepository.save(item);
     }
 
+    public void delete(Integer id) {
+        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(id);
 
-    public AmigoEmprestimo verificaSeDonoEAmigoSeConhecem(Integer idDono, Integer idAmigo) {
-        return amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
-    }
+        if (!itemOptional.isPresent())
+            throw new ObjectNotFoundException(
+                    "ItemEmprestado não encontrado! Id: " + id + ", Tipo: " + ItemEmprestado.class.getName());
 
+        ItemEmprestado item = itemOptional.get();
 
-    public void verificaSeItemEstaEmprestado(Integer idItem) {
-        if (findById(idItem).getStatus() == TipoStatus.EMPRESTADO)
-            throw new ObjectAlreadyExistsException(
-                    "Este item já está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
-    }
-    
-
-    public void delete(Integer idItem) {
-        findById(idItem);
-        verificaSeItemEstaEmprestado(idItem);
+        if (item.getStatus() == TipoStatus.EMPRESTADO)
+            throw new ObjectAlreadyExistsException("Este item está emprestado, não pode ser deletado! Nome item: "
+                    + item.getNomeItem() + ", Emprestado para: " + item.getAmigoEmprestimo().getNome() + " , Tipo: "
+                    + ItemEmprestado.class.getName());
 
         try {
-            itemEmprestadoRepository.deleteById(idItem);
+            itemEmprestadoRepository.deleteById(id);
 
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Item não pode ser deletado, possui amigos e itens associados.");
