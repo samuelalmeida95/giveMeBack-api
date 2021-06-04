@@ -13,14 +13,14 @@ import projects.givemebackapi.model.TipoStatus;
 @Repository
 public interface ItemEmprestadoRepository
   extends JpaRepository<ItemEmprestado, Integer> {
-      
+    
   Optional<ItemEmprestado> findByNomeItem(String nomeItem);
 
   List<ItemEmprestado> findByStatus(TipoStatus tipo);
 
- List<ItemEmprestado> findByAmigoEmprestimoId(Integer nomeAmigo);
+  List<ItemEmprestado> findByAmigoEmprestimoId(Integer nomeAmigo);
 
- List<ItemEmprestado> findByDonoItemId(Integer idDono);
+  List<ItemEmprestado> findByDonoItemId(Integer idDono);
 
   
   @Query(value = "select * from public.item_emprestado where id_item=:idItem and amigo_emprestimo_id=:amigoBuscadoId", nativeQuery = true)
