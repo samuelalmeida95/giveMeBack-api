@@ -39,10 +39,9 @@ public class ItemEmprestadoService {
         return itemOptional.orElseThrow(() -> new ObjectNotFoundException(
                 "Item não existe ou não está emprestado! " + idItem + " Tipo: " + ItemEmprestado.class.getName()));
     }
-    
+
 
     public ItemEmprestado findByNome(String nomeItem) {
-
         if (!itemEmprestadoRepository.findByNomeItem(nomeItem).isPresent())
             throw new ObjectNotFoundException(
                     "Item não existe ou não está emprestado! " + nomeItem + " Tipo: " + ItemEmprestado.class.getName());
@@ -52,7 +51,6 @@ public class ItemEmprestadoService {
     
 
     public List<ItemEmprestado> findByEmprestadoPara(Integer idAmigo) {
-
         if (itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo).isEmpty())
             throw new ObjectNotFoundException(
                     "Amigo não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
@@ -62,7 +60,6 @@ public class ItemEmprestadoService {
 
 
     public List<ItemEmprestado> findByDono(Integer idDono) {
-
         if (itemEmprestadoRepository.findByDonoItemId(idDono).isEmpty())
             throw new ObjectNotFoundException(
                     "Dono não tem itens emprestados no momento,  Tipo: " + ItemEmprestado.class.getName());
@@ -72,7 +69,6 @@ public class ItemEmprestadoService {
 
 
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
-
         if (itemEmprestadoRepository.findByStatus(status).isEmpty())
             throw new ObjectNotFoundException(
                     "Não existem itens com o status: " + status + " , Tipo: " + ItemEmprestado.class.getName());
@@ -141,7 +137,6 @@ public class ItemEmprestadoService {
 
 
     public void verificaSeItemEstaDevolvido(Integer idItem) {
-
         if (findById(idItem).getStatus() == TipoStatus.DEVOLVIDO)
             throw new ObjectAlreadyExistsException(
                     "Este item não está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
@@ -149,7 +144,6 @@ public class ItemEmprestadoService {
 
 
     public void verificaSeItemEstaEmprestado(Integer idItem) {
-
         if (findById(idItem).getStatus() == TipoStatus.EMPRESTADO)
             throw new ObjectAlreadyExistsException(
                     "Este item já está emprestado! Id: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
@@ -164,7 +158,6 @@ public class ItemEmprestadoService {
 
 
     public ItemEmprestado buscarItemEmprestadoParaUmAmigo(Integer idAmigo, Integer idItem) {
-
         if (!itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem).isPresent())
             throw new ObjectNotFoundException("Este item não está emprestado para o amigo: " + idAmigo
                     + ", idItem: " + idItem + ", Tipo: " + ItemEmprestado.class.getName());
@@ -194,7 +187,6 @@ public class ItemEmprestadoService {
 
 
     public ItemEmprestado verificaSeEstaEmprestado(Integer idItem) {
-
         if (findById(idItem).getStatus() == TipoStatus.EMPRESTADO)
             throw new ObjectAlreadyExistsException("Este item já está emprestado! Id: "
                     + idItem + ", Tipo: " + ItemEmprestado.class.getName());
@@ -209,7 +201,6 @@ public class ItemEmprestadoService {
 
 
     public AmigoEmprestimo verificaSeTemAvaliacao(Integer idAmigo) {
-
         if (findById(idAmigo).getAmigoEmprestimo().getAvaliacao() == AvaliacaoStatus.NAO_AVALIADO)
             throw new ObjectAlreadyExistsException(
                     "Você deve emprestar um item somente para amigos que já tenham recebido alguma avaliação, Tipo: "
