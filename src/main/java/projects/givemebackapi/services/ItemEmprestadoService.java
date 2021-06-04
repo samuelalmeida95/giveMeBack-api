@@ -85,23 +85,24 @@ public class ItemEmprestadoService {
     public ItemEmprestado update(Integer id, ItemEmprestado novoItem) {
         ItemEmprestado item = this.findById(id);
         verificaSeItemEstaEmprestado(item.getIdItem());
-
-        if (itemEmprestadoRepository.findByNomeItem(novoItem.getNomeItem()).isPresent())
-            throw new ObjectAlreadyExistsException("Você não pode alterar o Nome deste Item porque é igual ao"
-                    + "existente, por favor entre com dados diferentes, Nome item: " + novoItem.getNomeItem()
-                    + ItemEmprestado.class.getName());
+        verificaSeItemJaExiste(item);
 
         item.update(novoItem);
         return this.itemEmprestadoRepository.save(item);
     }
 
+    public ItemEmprestado verificaSeItemJaExiste(ItemEmprestado item) {
+        if (itemEmprestadoRepository.findByNomeItem(item.getNomeItem()).isPresent())
+            throw new ObjectAlreadyExistsException(
+                    "Este item já existe!  Nome: " + item.getNomeItem() + ", Tipo: " + ItemEmprestado.class.getName());
+
+        return item;
+    }
+
 
     public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
-
-        if (itemOptional.isPresent())
-            throw new ObjectAlreadyExistsException(
-                    "Este item já existe!  Nome: " + item.getNomeItem() + ", Tipo: " + ItemEmprestado.class.getName());
+        verificaSeItemJaExiste(itemOptional.get());
 
         emprestar(item, idDono, idAmigo);
         return itemEmprestadoRepository.save(item);
