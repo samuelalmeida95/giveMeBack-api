@@ -11,7 +11,7 @@ public class ItemEmprestadoDTO {
     private String nomeDono;
     private String descricao;
     private TipoStatus status;
-    private String emprestado_para;
+    private String emprestadoPara;
     private String prazoDevolucao = "Cada emprestimo tem 20 dias de prazo.";
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucao;
@@ -26,9 +26,9 @@ public class ItemEmprestadoDTO {
         this.dataDevolucao = item.getDataDevolucaoItem();
 
         if (item.getAmigoEmprestimo() == null)
-            this.emprestado_para = "ninguém";
+            this.emprestadoPara = "ninguém";
         else
-            this.emprestado_para = item.getAmigoEmprestimo().getNome();
+            this.emprestadoPara = item.getAmigoEmprestimo().getNome();
     }
 
     public ItemEmprestadoDTO() {
@@ -74,12 +74,12 @@ public class ItemEmprestadoDTO {
         this.status = status;
     }
 
-    public String getEmprestado_para() {
-        return emprestado_para;
+    public String getEmprestadoPara() {
+        return emprestadoPara;
     }
 
-    public void setEmprestado_para(String emprestado_para) {
-        this.emprestado_para = emprestado_para;
+    public void setEmprestadoPara(String emprestadoPara) {
+        this.emprestadoPara = emprestadoPara;
     }
 
     public String getPrazoDevolucao() {

@@ -25,7 +25,7 @@ public class CustomItemEmprestadoDTOtest {
 
         Assertions.assertThat(itemEmprestadoDTO.getStatus()).isNull();
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para()).isNull();
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara()).isNull();
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CustomItemEmprestadoDTOtest {
 
         Assertions.assertThat(itemEmprestadoDTO.getStatus()).isEqualTo(TipoStatus.EMPRESTADO);
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para()).isNotNull();
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara()).isNotNull();
     }
 
     @Test
@@ -57,15 +57,15 @@ public class CustomItemEmprestadoDTOtest {
 
         CustomItemEmprestadoDTO itemEmprestadoDTO = new CustomItemEmprestadoDTO(item);
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getNome()).isEqualTo("Fulano do teste");
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara().getNome()).isEqualTo("Fulano do teste");
         
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getWhatsApp()).isEqualTo("887513474");
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara().getWhatsApp()).isEqualTo("887513474");
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getEndereco()).isEqualTo("rua das palmeiras");
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara().getEndereco()).isEqualTo("rua das palmeiras");
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getWhatsApp()).isNotEqualTo("00000000");
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara().getWhatsApp()).isNotEqualTo("00000000");
 
-        Assertions.assertThat(itemEmprestadoDTO.getEmprestado_para().getEndereco()).isNotEqualTo("rua que não é a do amigo emprestado.");
+        Assertions.assertThat(itemEmprestadoDTO.getEmprestadoPara().getEndereco()).isNotEqualTo("rua que não é a do amigo emprestado.");
     }
     
 }

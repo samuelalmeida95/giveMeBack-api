@@ -11,7 +11,7 @@ public class CustomItemEmprestadoDTO {
     private TipoStatus status;
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucao;
-    private CustomAmigoEmprestimoDTO emprestado_para;
+    private CustomAmigoEmprestimoDTO emprestadoPara;
 
     public CustomItemEmprestadoDTO(ItemEmprestado item) {
        this.id = item.getIdItem();
@@ -19,7 +19,7 @@ public class CustomItemEmprestadoDTO {
        this.dataEmprestimo = item.getDataEmprestimoItem();
        this.dataDevolucao = item.getDataDevolucaoItem();
        this.status = item.getStatus();
-       this.emprestado_para = new CustomAmigoEmprestimoDTO(item.getAmigoEmprestimo()); 
+       this.emprestadoPara = new CustomAmigoEmprestimoDTO(item.getAmigoEmprestimo()); 
     }
 
     public CustomItemEmprestadoDTO() {}
@@ -64,12 +64,12 @@ public class CustomItemEmprestadoDTO {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public CustomAmigoEmprestimoDTO getEmprestado_para() {
-        return emprestado_para;
+    public CustomAmigoEmprestimoDTO getEmprestadoPara() {
+        return emprestadoPara;
     }
 
-    public void setEmprestado_para(CustomAmigoEmprestimoDTO emprestado_para) {
-        this.emprestado_para = emprestado_para;
+    public void setEmprestadoPara(CustomAmigoEmprestimoDTO emprestadoPara) {
+        this.emprestadoPara = emprestadoPara;
     }
 
     @Override
