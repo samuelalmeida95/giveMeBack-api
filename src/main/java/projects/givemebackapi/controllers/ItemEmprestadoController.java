@@ -117,7 +117,7 @@ public class ItemEmprestadoController {
         @Valid 
         @RequestBody ItemEmprestado item) {
 
-        ItemEmprestado novoItemEmprestado = itemEmprestadoService.emprestarItem(item, dono, idAmigoEmprestimo);
+        ItemEmprestado novoItemEmprestado = itemEmprestadoService.criarEmprestarNovoItem(item, dono, idAmigoEmprestimo);
         ItemEmprestadoDTO itemDTO = new ItemEmprestadoDTO(novoItemEmprestado);
 
         return itemDTO;
