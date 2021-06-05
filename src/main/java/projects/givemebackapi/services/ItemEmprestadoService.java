@@ -128,11 +128,11 @@ public class ItemEmprestadoService {
                     + ", Tipo: "
                     + ItemEmprestado.class.getName());
 
-        emprestar(item, idDono, idAmigo);
+        emprestarItem(item, idDono, idAmigo);
         return itemEmprestadoRepository.save(item);
     }
 
-    public ItemEmprestado emprestar(ItemEmprestado item, Integer idDono, Integer idAmigo) {
+    public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
         this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
 
         AmigoEmprestimo amigoParaEmprestar = amigoEmprestimoService.findById(idAmigo);
@@ -205,7 +205,7 @@ public class ItemEmprestadoService {
         verificaSeDonoConheceAmigo(idDono, idAmigo);
         verificaSeAmigoTemAvaliacao(idAmigo);
         verificaSeItemEstaEmprestado(idItem);
-        emprestar(itemParaEmprestarNovamente, idDono, idAmigo);
+        emprestarItem(itemParaEmprestarNovamente, idDono, idAmigo);
 
         return itemEmprestadoRepository.save(itemParaEmprestarNovamente);
     }
