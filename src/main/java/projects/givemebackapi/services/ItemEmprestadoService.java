@@ -146,9 +146,9 @@ public class ItemEmprestadoService {
         Optional<ItemEmprestado> itemComAmigo = itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem);
         if (!itemComAmigo.isPresent())
             throw new ObjectNotFoundException(
-                "Este item não está emprestado para o amigo: " + idAmigo 
-                + ", idItem: " + idItem 
-                + ", Tipo: " + ItemEmprestado.class.getName());
+                    "Este item não está emprestado para o amigo: " + idAmigo 
+                    + ", idItem: " + idItem 
+                    + ", Tipo: " + ItemEmprestado.class.getName());
         return itemComAmigo.get();
     }
 
