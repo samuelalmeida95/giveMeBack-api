@@ -34,7 +34,8 @@ public class ItemEmprestadoService {
     private AmigoEmprestimoService amigoEmprestimoService;
 
     public ItemEmprestado findById(Integer idItem) {
-        Optional<ItemEmprestado> itemOptional = itemEmprestadoRepository.findById(idItem);
+        Optional<ItemEmprestado> itemOptional = 
+                                        itemEmprestadoRepository.findById(idItem);
 
         return itemOptional.orElseThrow(() -> new ObjectNotFoundException(
                 "Item não existe ou não está emprestado! " 
@@ -44,7 +45,8 @@ public class ItemEmprestadoService {
     }
 
     public ItemEmprestado findByNome(String nomeItem) {
-        Optional<ItemEmprestado> itemEmprestadoEncontrado = itemEmprestadoRepository.findByNomeItem(nomeItem);
+        Optional<ItemEmprestado> itemEmprestadoEncontrado =
+                                         itemEmprestadoRepository.findByNomeItem(nomeItem);
 
         if (!itemEmprestadoEncontrado.isPresent())
             throw new ObjectNotFoundException(
@@ -58,7 +60,8 @@ public class ItemEmprestadoService {
 
     public List<ItemEmprestado> findByEmprestadoPara(Integer idAmigo) {
         amigoEmprestimoService.findById(idAmigo);
-        List<ItemEmprestado> itemEmprestado = itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
+        List<ItemEmprestado> itemEmprestado = 
+                                itemEmprestadoRepository.findByAmigoEmprestimoId(idAmigo);
 
         if (itemEmprestado.isEmpty())
             throw new ObjectNotFoundException(
@@ -69,7 +72,8 @@ public class ItemEmprestadoService {
     }
 
     public List<ItemEmprestado> findByDono(Integer idDono) {
-        List<ItemEmprestado> itensDeUmDono = itemEmprestadoRepository.findByDonoItemId(idDono);
+        List<ItemEmprestado> itensDeUmDono = 
+                                    itemEmprestadoRepository.findByDonoItemId(idDono);
 
         donoItemService.findById(idDono);
 
@@ -82,7 +86,8 @@ public class ItemEmprestadoService {
     }
 
     public List<ItemEmprestado> findByStatus(TipoStatus status) {
-        List<ItemEmprestado> itensDevolvidos = itemEmprestadoRepository.findByStatus(status);
+        List<ItemEmprestado> itensDevolvidos = 
+                                    itemEmprestadoRepository.findByStatus(status);
 
         if (itensDevolvidos.isEmpty())
             throw new ObjectNotFoundException(
@@ -119,7 +124,8 @@ public class ItemEmprestadoService {
     }
 
     public ItemEmprestado criarEmprestarNovoItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
-        Optional<ItemEmprestado> novoItemCriado = itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
+        Optional<ItemEmprestado> novoItemCriado = 
+                                       itemEmprestadoRepository.findByNomeItem(item.getNomeItem());
 
         if (novoItemCriado.isPresent())
             throw new ObjectAlreadyExistsException(
@@ -133,7 +139,7 @@ public class ItemEmprestadoService {
     }
 
     public ItemEmprestado emprestarItem(ItemEmprestado item, Integer idDono, Integer idAmigo) {
-        this.amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono, idAmigo);
+        verificaSeDonoConheceAmigo(idDono, idAmigo);
 
         AmigoEmprestimo amigoParaEmprestar = amigoEmprestimoService.findById(idAmigo);
         DonoItem donoItem = donoItemService.findById(idDono);
@@ -164,8 +170,8 @@ public class ItemEmprestadoService {
     }
 
     public ItemEmprestado verificaSeItemEstaComEsteAmigo(Integer idAmigo, Integer idItem) {
-        Optional<ItemEmprestado> itemComAmigo = itemEmprestadoRepository
-                                                .findByIdItemAndAmigoId(idAmigo, idItem);
+        Optional<ItemEmprestado> itemComAmigo = 
+                                    itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem);
 
         if (!itemComAmigo.isPresent())
             throw new ObjectNotFoundException(
@@ -211,8 +217,8 @@ public class ItemEmprestadoService {
     }
 
     public AmigoEmprestimo verificaSeDonoConheceAmigo(Integer idDono, Integer idAmigo) {
-        AmigoEmprestimo amigoDeUmDonoBuscado = amigoEmprestimoService
-                                              .findyByIdDonoAndIdAmigoEmprestimo(idDono,idAmigo);
+        AmigoEmprestimo amigoDeUmDonoBuscado = 
+                            amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idDono,idAmigo);
 
         return amigoDeUmDonoBuscado;
     }
