@@ -142,7 +142,8 @@ public class ItemEmprestadoService {
         return itemEmprestadoRepository.save(itemDevolvido);
     }
 
-    public ItemEmprestado verificaSeItemEstaComEsteAmigo(Integer idAmigo, Integer idItem){
+    public ItemEmprestado verificaSeItemEstaComEsteAmigo(Integer idAmigo, Integer idItem)
+    {
         Optional<ItemEmprestado> itemComAmigo = itemEmprestadoRepository.findByIdItemAndAmigoId(idAmigo, idItem);
         if (!itemComAmigo.isPresent())
             throw new ObjectNotFoundException(
@@ -152,7 +153,8 @@ public class ItemEmprestadoService {
         return itemComAmigo.get();
     }
 
-    public ItemEmprestado verificaSeItemEstaDevolvido(Integer idItem){
+    public ItemEmprestado verificaSeItemEstaDevolvido(Integer idItem)
+    {
         ItemEmprestado item = findById(idItem);
         if (item.getStatus() == TipoStatus.DEVOLVIDO)
             throw new ObjectAlreadyExistsException(
