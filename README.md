@@ -215,8 +215,9 @@ Esse projeto está sob a licença MIT.  Veja o arquivo <a href="https://github.c
 <hr>
 <p align="center">Feito com 💚 by Samuel Almeida</p>
 
+<br>
 <div align="right">
-    <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#12EAEA>.svg"/>
     <img src="https://img.shields.io/badge/License-MIT-blue.svg"/>
+    <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#12EAEA>.svg" align="left"/>
 </div>
     
