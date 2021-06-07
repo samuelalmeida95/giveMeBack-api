@@ -13,7 +13,6 @@
 <br> 
 
 
-
 ``` 
  Olá! Este é um desafio SpringBoot + JPA + postgresSQL para gerenciar seus pertences emprestados!
 
@@ -208,11 +207,15 @@ https://givemeback-api.herokuapp.com
 
 ### 🎯 Diagrama UML
 <img align="center" src="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/diagramaUML.png"></img>
-## 📝 Licença
 
+## 📝 Licença  
 
-Esse projeto está sob a licença MIT. Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
-
+Esse projeto está sob a licença MIT.  Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
 
 <hr>
 <p align="center">Feito com 💚 by Samuel Almeida</p>
+
+<div align="right">
+    <img src="https://img.shields.io/github/license/Naereen/StrapDown.js.svg"/>
+</div>
+    
