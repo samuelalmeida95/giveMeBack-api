@@ -12,38 +12,40 @@
 
 <br> 
 
+```php 
+Olá! Este é um desafio SpringBoot + JPA + PostgresSQL para gerenciar seus pertences emprestados!
+```
 
-``` 
- Olá! Este é um desafio SpringBoot + JPA + postgresSQL para gerenciar seus pertences emprestados!
+<i>
+    
+ * O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
 
- O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
+ * O usuário se cadastra e seus dados ficam salvos
 
- O usuário se cadastra e seus dados ficam salvos
+ * A aplicação deve receber o item emprestado, a data de devolução prevista, e contato do amigo
 
- A aplicação deve receber o item emprestado, a data de devolução prevista, e contato do amigo
+ * Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o sistema deve salvar a data atual
 
- Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o
- sistema deve salvar a data atual
+ * Ao devolver um Item o sistema deve salvar a data da devolução do Item 
 
- Ao devolver um Item o sistema deve salvar a data da devolução do Item 
+ * O sistema deve permitir avaliar um amigo após a devolução do empréstimo
 
- O sistema deve permitir avaliar um amigo após a devolução do empréstimo
+ * Um Item só pode ser emprestado novamente caso o Amigo tenha recebido alguma avaliação
 
- Um Item só pode ser emprestado novamente caso o Amigo tenha recebido alguma avaliação
+ * Um Amigo deve ter um Dono associado
 
- Um Amigo deve ter um Dono associado
+ * Um Item emprestado precisa ter um Dono e um Amigo emprestimo associado
 
- Um Item emprestado precisa ter um Dono e um Amigo emprestimo associado
-
- Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
- ```
+ * Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
+</i>
+ 
 <br> 
 
- ### Status do Desafio: **`Concluido`** ✔
+ ### <i>Status do Desafio: **`Concluido`** ✔</i>
 
  <h2 align="center">🏁 A API deve disponibilizar: </h2>
   
- ### 🚀 Funcionalidades 
+ ### 🚀 <i>Funcionalidades</i>
  
  [✔] Cadastro de Dono
  <br> 
@@ -93,13 +95,13 @@
  <br> 
  [✔] Remoção de um Item
 
-## 🥇 Aplicação disponivel no Heroku:
+## 🥇 <i>Aplicação disponivel no Heroku:</i>
 
 https://givemeback-api.herokuapp.com
 
-## Serviços disponíveis 
+## 🛠  <i>Serviços disponíveis</i> 
 
-### 👨‍💻 Dono:
+### 👨‍💻 <i>Dono:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/donos/buscar_por_nome?nomeDono=Samuel 
 <br>
@@ -119,7 +121,7 @@ https://givemeback-api.herokuapp.com
    "whatsapp": "555-777-522"
 ``` 
 
-### 🙅‍♂️ Amigo:
+### 🙅‍♂️ <i>Amigo:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_por_nome?amigoEmprestimo=José
 <br>
@@ -149,7 +151,7 @@ https://givemeback-api.herokuapp.com
    "avaliacao": "OTIMA"
 ``` 
 
-### 🎁 Item:
+### 🎁 <i>Item:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/itens/buscar_por_id/1
 <br>
@@ -176,7 +178,7 @@ https://givemeback-api.herokuapp.com
 **[DELETE]** https://givemeback-api.herokuapp.com/itens/itens/deletar/7
 
 
-### Item quando Emprestado:
+### <i>Item quando Emprestado:</i>
 
 ```json
    "id": 7,
@@ -190,7 +192,7 @@ https://givemeback-api.herokuapp.com
    "dataDevolucao": "2021-06-23"
 ```
 
-### Item quando devolvido:
+### <i>Item quando devolvido:</i>
 
 ```json
    "id": 7,
@@ -205,10 +207,10 @@ https://givemeback-api.herokuapp.com
 ```
 <br>
 
-### 🎯 Diagrama UML
+### 🎯 <i>Diagrama UML</i>
 <img align="center" src="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/diagramaUML.png"></img>
 
-## 📝 Licença  
+## 📝 <i>Licença</i>
 
 Esse projeto está sob a licença MIT.  Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
 
