@@ -39,13 +39,14 @@ Olá! Este é um desafio SpringBoot + JPA + PostgresSQL para gerenciar seus pert
  * Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
 </i>
  
-<br> 
+##
 
- ### <i>Status do Desafio: **`Concluido`** ✔</i>
+### ⌛ <i>Status do Desafio: **`Concluido`** ✔</i>
+ 
+##
 
- <h2 align="center">🏁 A API deve disponibilizar: </h2>
   
- ### 🚀 <i>Funcionalidades</i>
+ ### 🚀 <i>Funcionalidades disponiveis</i>
  
  [✔] Cadastro de Dono
  <br> 
@@ -178,7 +179,7 @@ https://givemeback-api.herokuapp.com
 **[DELETE]** https://givemeback-api.herokuapp.com/itens/itens/deletar/7
 
 
-### <i>Item quando Emprestado:</i>
+### 👉 <i>Item quando Emprestado:</i>
 
 ```json
    "id": 7,
@@ -192,7 +193,7 @@ https://givemeback-api.herokuapp.com
    "dataDevolucao": "2021-06-23"
 ```
 
-### <i>Item quando devolvido:</i>
+### 👈 <i>Item quando devolvido:</i>
 
 ```json
    "id": 7,
