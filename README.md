@@ -1,7 +1,5 @@
 <h1 align="center"> 💻 Sobre o desafio </h1> 
 
-
-
 <div align="center" > 
     <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>
     <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/>
@@ -12,39 +10,41 @@
 
 <br> 
 
+```php 
+Olá! Este é um desafio SpringBoot + JPA + PostgresSQL para gerenciar seus pertences emprestados!
+```
 
+<i>
+    
+ * O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
 
-``` 
- Olá! Este é um desafio SpringBoot + JPA + postgresSQL para gerenciar seus pertences emprestados!
+ * O usuário se cadastra e seus dados ficam salvos
 
- O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
+ * A aplicação deve receber o item emprestado, a data de devolução prevista, e contato do amigo
 
- O usuário se cadastra e seus dados ficam salvos
+ * Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o sistema deve salvar a data atual
 
- A aplicação deve receber o item emprestado, a data de devolução prevista, e contato do amigo
+ * Ao devolver um Item o sistema deve salvar a data da devolução do Item 
 
- Cada empréstimo tem 20 dias de prazo, ao cadastrar um item emprestado o
- sistema deve salvar a data atual
+ * O sistema deve permitir avaliar um amigo após a devolução do empréstimo
 
- Ao devolver um Item o sistema deve salvar a data da devolução do Item 
+ * Um Item só pode ser emprestado novamente caso o Amigo tenha recebido alguma avaliação
 
- O sistema deve permitir avaliar um amigo após a devolução do empréstimo
+ * Um Amigo deve ter um Dono associado
 
- Um Item só pode ser emprestado novamente caso o Amigo tenha recebido alguma avaliação
+ * Um Item emprestado precisa ter um Dono e um Amigo emprestimo associado
 
- Um Amigo deve ter um Dono associado
+ * Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
+</i>
+ 
+##
 
- Um Item emprestado precisa ter um Dono e um Amigo emprestimo associado
+### ⌛ <i>Status do Desafio: **`Concluido`** ✔</i>
+ 
+##
 
- Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
- ```
-<br> 
-
- ### Status do Desafio: **`Concluido`** ✔
-
- <h2 align="center">🏁 A API deve disponibilizar: </h2>
   
- ### 🚀 Funcionalidades 
+ ### 🚀 <i>Funcionalidades disponiveis</i>
  
  [✔] Cadastro de Dono
  <br> 
@@ -94,13 +94,13 @@
  <br> 
  [✔] Remoção de um Item
 
-## 🥇 Aplicação disponivel no Heroku:
+## 🥇 <i>Aplicação disponivel no Heroku:</i>
 
 https://givemeback-api.herokuapp.com
 
-## Serviços disponíveis 
+## 🛠  <i>Serviços disponíveis</i> 
 
-### 👨‍💻 Dono:
+### 👨‍💻 <i>Dono:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/donos/buscar_por_nome?nomeDono=Samuel 
 <br>
@@ -120,7 +120,7 @@ https://givemeback-api.herokuapp.com
    "whatsapp": "555-777-522"
 ``` 
 
-### 🙅‍♂️ Amigo:
+### 🙅‍♂️ <i>Amigo:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/amigos/buscar_por_nome?amigoEmprestimo=José
 <br>
@@ -150,7 +150,7 @@ https://givemeback-api.herokuapp.com
    "avaliacao": "OTIMA"
 ``` 
 
-### 🎁 Item:
+### 🎁 <i>Item:</i>
 
 **[GET]** https://givemeback-api.herokuapp.com/itens/buscar_por_id/1
 <br>
@@ -177,7 +177,7 @@ https://givemeback-api.herokuapp.com
 **[DELETE]** https://givemeback-api.herokuapp.com/itens/itens/deletar/7
 
 
-### Item quando Emprestado:
+### 👉 <i>Item quando Emprestado:</i>
 
 ```json
    "id": 7,
@@ -191,7 +191,7 @@ https://givemeback-api.herokuapp.com
    "dataDevolucao": "2021-06-23"
 ```
 
-### Item quando devolvido:
+### 👈 <i>Item quando devolvido:</i>
 
 ```json
    "id": 7,
@@ -206,13 +206,19 @@ https://givemeback-api.herokuapp.com
 ```
 <br>
 
-### 🎯 Diagrama UML
+### 🎯 <i>Diagrama UML</i>
 <img align="center" src="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/diagramaUML.png"></img>
-## 📝 Licença
 
+## 📝 <i>Licença</i>
 
-Esse projeto está sob a licença MIT. Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
-
+Esse projeto está sob a licença MIT.  Veja o arquivo <a href="https://github.com/samuelalmeida95/giveMeBack-api/blob/main/LICENSE">LICENSE</a> para mais detalhes.
 
 <hr>
 <p align="center">Feito com 💚 by Samuel Almeida</p>
+
+<br>
+<div align="right">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg"/>
+    <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#12EAEA>.svg" align="left"/>
+</div>
+    
