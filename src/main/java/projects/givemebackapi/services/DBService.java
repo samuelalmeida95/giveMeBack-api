@@ -17,10 +17,10 @@ import projects.givemebackapi.repositories.ItemEmprestadoRepository;
 public class DBService {
 
     @Autowired
-    private DonoItemRepository donoItemRepositorie;
+    private DonoItemRepository donoItemRepository;
 
     @Autowired
-    private ItemEmprestadoRepository itemEmprestadoRepositorie;
+    private ItemEmprestadoRepository itemEmprestadoRepository;
 
     @Autowired
     private AmigoEmprestimoRepository amigoEmprestimoRepository;
@@ -73,13 +73,13 @@ public class DBService {
                amigoEmprestimo5, 
                amigoEmprestimo6));
 
-        donoItemRepositorie
+        donoItemRepository
         .saveAll(Arrays
         .asList(donoItem, 
                donoItem1, 
                donoItem2));
 
-        itemEmprestadoRepositorie
+        itemEmprestadoRepository
         .saveAll(Arrays
         .asList(itemEmprestado, 
                 itemEmprestado1, 
