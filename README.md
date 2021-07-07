@@ -221,4 +221,4 @@ Esse projeto está sob a licença MIT.  Veja o arquivo <a href="https://github.c
     <img src="https://img.shields.io/badge/License-MIT-blue.svg"/>
     <img src="https://img.shields.io/badge/STATUS-CONCLUIDO-<#12EAEA>.svg" align="left"/>
 </div>
-    
+   
