@@ -33,6 +33,7 @@ Olá! Este é um desafio SpringBoot + JPA + PostgresSQL para gerenciar seus pert
  * Um Amigo deve ter um Dono associado
 
  * Um Item emprestado precisa ter um Dono e um Amigo emprestimo associado
+    
 
  * Um Item deve ter um status atual definido como EMPRESTADO ou DEVOLVIDO
 </i>
