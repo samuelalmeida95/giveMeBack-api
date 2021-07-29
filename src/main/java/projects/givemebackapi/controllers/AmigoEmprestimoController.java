@@ -2,7 +2,6 @@ package projects.givemebackapi.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import projects.givemebackapi.dtos.AmigoEmprestimoDTO;
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.services.AmigoEmprestimoService;
@@ -25,103 +23,102 @@ import projects.givemebackapi.services.AmigoEmprestimoService;
 @RequestMapping(value = "/amigos")
 public class AmigoEmprestimoController {
 
-    @Autowired
-    private AmigoEmprestimoService amigoEmprestimoService;
+  @Autowired
+  private AmigoEmprestimoService amigoEmprestimoService;
 
+  @GetMapping(value = "/buscar_por_id/{id}")
+  public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
+    AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(id);
+    return ResponseEntity.ok(new AmigoEmprestimoDTO(amigoEmprestimo));
+  }
 
-    @GetMapping(value = "/buscar_por_id/{id}")
-    public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
-        AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(id);
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigoEmprestimo);
-        
-        return ResponseEntity.ok(amigoDTO);
-    }
+  @GetMapping(value = "/buscar_por_nome")
+  public ResponseEntity<AmigoEmprestimoDTO> findByNome(
+    @RequestParam String amigoEmprestimo
+  ) {
+    AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(amigoEmprestimo);
+    return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
+  }
 
-    @GetMapping(value = "/buscar_por_nome")
-    public ResponseEntity<AmigoEmprestimoDTO> findByNome(@RequestParam String amigoEmprestimo) {
-        AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(amigoEmprestimo);
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigo);
+  @GetMapping(value = "/buscar_por_dono_item")
+  public ResponseEntity<AmigoEmprestimoDTO> findyByIdDonoAndIdAmigoEmprestimo(
+    @RequestParam Integer idAmigo,
+    @RequestParam Integer idDono
+  ) {
+    AmigoEmprestimo amigo = amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(
+      idAmigo,
+      idDono
+    );
+    return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
+  }
 
-        return ResponseEntity.ok().body(amigoDTO);
-    }
+  @GetMapping(value = "/buscar_melhores_avaliados")
+  public ResponseEntity<List<AmigoEmprestimoDTO>> findByAvaliacao() {
+    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByAvaliacao();
 
-    @GetMapping(value = "/buscar_por_dono_item")
-    public ResponseEntity<AmigoEmprestimoDTO> findyByIdDonoAndIdAmigoEmprestimo(
-        @RequestParam Integer idAmigo,
-        @RequestParam Integer idDono) {
+    List<AmigoEmprestimoDTO> listDTO = listAmigos
+      .stream()
+      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .collect(Collectors.toList());
 
-        AmigoEmprestimo amigo = amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono);
+    return ResponseEntity.ok().body(listDTO);
+  }
 
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(amigo);
+  @GetMapping(value = "/buscar_piores_avaliados")
+  public ResponseEntity<List<AmigoEmprestimoDTO>> findByPioresAvaliados() {
+    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByPioresAvaliados();
 
-        return ResponseEntity.ok().body(amigoDTO);
-    }
+    List<AmigoEmprestimoDTO> listDTO = listAmigos
+      .stream()
+      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .collect(Collectors.toList());
 
-    @GetMapping(value = "/buscar_melhores_avaliados")
-    public ResponseEntity<List<AmigoEmprestimoDTO>> findByAvaliacao() {
-        List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByAvaliacao();
+    return ResponseEntity.ok().body(listDTO);
+  }
 
-        List<AmigoEmprestimoDTO> listDTO = listAmigos
-                .stream()
-                .map(amigo -> new AmigoEmprestimoDTO(amigo))
-                .collect(Collectors.toList());
+  @GetMapping(value = "/listar_todos")
+  public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
+    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();
 
-        return ResponseEntity.ok().body(listDTO);
-    }
+    List<AmigoEmprestimoDTO> listDTO = listAmigos
+      .stream()
+      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .collect(Collectors.toList());
 
-    @GetMapping(value = "/buscar_piores_avaliados")
-    public ResponseEntity<List<AmigoEmprestimoDTO>> findByPioresAvaliados() {
-        List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByPioresAvaliados();
+    return ResponseEntity.ok().body(listDTO);
+  }
 
-        List<AmigoEmprestimoDTO> listDTO = listAmigos
-                .stream()
-                .map(amigo -> new AmigoEmprestimoDTO(amigo))
-                .collect(Collectors.toList());
+  @PostMapping(value = "/adicionar")
+  @ResponseStatus(HttpStatus.CREATED)
+  public AmigoEmprestimoDTO create(
+    @RequestBody AmigoEmprestimo amigoEmprestimo,
+    @RequestParam String nomeDono
+  ) {
+    AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(
+      amigoEmprestimo,
+      nomeDono
+    );
+    return new AmigoEmprestimoDTO(novoAmigoEmprestimo);
+  }
 
-        return ResponseEntity.ok().body(listDTO);
-    }
+  @PutMapping(value = "/alterar/{id}")
+  public ResponseEntity<AmigoEmprestimoDTO> update(
+    @PathVariable Integer id,
+    @RequestBody AmigoEmprestimo amigoEmprestimo
+  ) {
+    AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.update(
+      id,
+      amigoEmprestimo
+    );
+    return ResponseEntity
+      .ok()
+      .body(new AmigoEmprestimoDTO(novoAmigoEmprestimo));
+  }
 
-    @GetMapping(value = "/listar_todos")
-    public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
-        List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();
+  @DeleteMapping(value = "/deletar/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    amigoEmprestimoService.delete(id);
 
-        List<AmigoEmprestimoDTO> listDTO = listAmigos
-                .stream()
-                .map(amigo -> new AmigoEmprestimoDTO(amigo))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(listDTO);
-    }
-
-    @PostMapping(value = "/adicionar")
-    @ResponseStatus(HttpStatus.CREATED)
-    public AmigoEmprestimoDTO create(
-        @RequestBody AmigoEmprestimo amigoEmprestimo, 
-        @RequestParam String nomeDono) {
-
-        AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(amigoEmprestimo, nomeDono);
-
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
-
-        return amigoDTO;
-    }
-
-    @PutMapping(value = "/alterar/{id}")
-    public ResponseEntity<AmigoEmprestimoDTO> update(
-        @PathVariable Integer id,
-        @RequestBody AmigoEmprestimo amigoEmprestimo) {
-
-        AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.update(id, amigoEmprestimo);
-        AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
-
-        return ResponseEntity.ok().body(amigoDTO);
-    }
-
-    @DeleteMapping(value = "/deletar/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        amigoEmprestimoService.delete(id);
-
-        return ResponseEntity.noContent().build();
-    }
-
+    return ResponseEntity.noContent().build();
+  }
 }
