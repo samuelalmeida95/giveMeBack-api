@@ -15,6 +15,7 @@ Olá! Este é um desafio SpringBoot + JPA + PostgresSQL para gerenciar seus pert
 ```
 
 <i>
+
     
  * O objetivo é construir uma API para você não esquecer para quem emprestou cada coisa.
 
