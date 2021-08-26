@@ -23,4 +23,6 @@ public interface AmigoEmprestimoRepository extends JpaRepository<AmigoEmprestimo
     
     @Query(value = "select * from  public.amigo_emprestimo where id =:idAmigo and dono_item_id =:idDono", nativeQuery = true)
     Optional<AmigoEmprestimo> findyByIdDonoAndIdAmigoEmprestimo(Integer idAmigo, Integer idDono);
+
+    Optional <AmigoEmprestimo> findByWhatsapp(String whatsapp);
 }

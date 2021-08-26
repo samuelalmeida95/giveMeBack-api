@@ -1,5 +1,6 @@
 package projects.givemebackapi.services;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.model.AvaliacaoStatus;
-import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.repositories.AmigoEmprestimoRepository;
 import projects.givemebackapi.repositories.DonoItemRepository;
 import projects.givemebackapi.services.exceptions.NoSuchElementException;
@@ -60,18 +60,24 @@ public class AmigoEmprestimoService {
         return amigoEmprestimoRepository.findAll();
     }
 
+    public void findByWhatsapp(String whatsAmigo){
+
+        Optional<AmigoEmprestimo> whatsappAmigo = amigoEmprestimoRepository.findByWhatsapp(whatsAmigo);
+
+        if(whatsappAmigo.isPresent())
+            throw new ObjectNotFoundException(
+                "Amigo já cadastrado, Whatsapp: " + whatsAmigo + " Tipo: " + AmigoEmprestimo.class.getName());
+       
+    }
+
     @Transactional
     public AmigoEmprestimo create(AmigoEmprestimo amigo, String nomeDono) {
-        amigo.setId(null);
+        amigo.setId(null);   
 
-        Optional<DonoItem> dono = this.donoItemRepository.findByNome(nomeDono);
+        findByWhatsapp(amigo.getWhatsapp());
 
-        if (this.amigoEmprestimoRepository.findByNome(amigo.getNome()).isPresent())
-            throw new ObjectNotFoundException("Já existe um amigo com esse nome, por favor entre com outro, Nome: "
-                    + amigo + " Tipo: " + AmigoEmprestimo.class.getName());
-                    
         amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
-        amigo.setDonoItem(dono.get());
+        amigo.setDonoItem(donoItemRepository.findByNome(nomeDono).get());
 
         return amigoEmprestimoRepository.save(amigo);
     }
