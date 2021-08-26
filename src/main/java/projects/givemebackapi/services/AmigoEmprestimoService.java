@@ -31,7 +31,7 @@ public class AmigoEmprestimoService {
         Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
 
         return amigo.orElseThrow(() -> new ObjectNotFoundException(
-                "Amigo não encontrado! " + idAmigo + " Tipo: " + AmigoEmprestimo.class.getName()));
+                "Amigo não encontrado! " + idAmigo + " Tipo:  " + AmigoEmprestimo.class.getName()));
     }
 
     public AmigoEmprestimo findByNome(String nome) {
@@ -41,8 +41,7 @@ public class AmigoEmprestimoService {
             throw new ObjectNotFoundException(
                     "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
-        AmigoEmprestimo amigo = amigoEmprestimoOptional.get();
-        return amigo;
+         return amigoEmprestimoOptional.get();   
     }
 
     public AmigoEmprestimo findyByIdDonoAndIdAmigoEmprestimo(Integer idDono, Integer idAmigo) {
@@ -54,10 +53,9 @@ public class AmigoEmprestimoService {
             throw new NoSuchElementException(
                     "AmigoEmprestimo não está associado a este DonoItem");
 
-        AmigoEmprestimo amigo = amigoDeUmDono.get();
-        return amigo;
+         return amigoDeUmDono.get();
     }
-
+        
     public List<AmigoEmprestimo> findAll() {
         return amigoEmprestimoRepository.findAll();
     }
