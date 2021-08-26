@@ -22,7 +22,7 @@ public class DonoItemService {
         Optional<DonoItem> donoItem = donoItemRepository.findById(id);
 
         return donoItem.orElseThrow(() -> new ObjectNotFoundException(
-                "Dono de item não encontrado! " + id + " Tipo: " + DonoItem.class.getName()));
+                "Dono de item não encontrado! " + id + " Tipo:  " + DonoItem.class.getName()));
     }
 
     public DonoItem findByNome(String nome) {
@@ -32,8 +32,7 @@ public class DonoItemService {
             throw new ObjectNotFoundException(
                     "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
 
-        DonoItem donoItem = donoOptional.get();
-        return donoItem;
+        return donoOptional.get();
     }
 
     public List<DonoItem> findAll() {
@@ -45,7 +44,7 @@ public class DonoItemService {
 
         if (this.donoItemRepository.findByNome(dono.getNome()).isPresent()) {
             throw new ObjectAlreadyExistsException("Já existe um Dono com este nome, por favor entre com outro,  Nome: "
-                    + dono.getNome() + ", Tipo: " + DonoItem.class.getName());
+                    + dono.getNome() + " Tipo: " + DonoItem.class.getName());
         }
 
         return donoItemRepository.save(dono);
