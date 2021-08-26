@@ -1,6 +1,5 @@
 package projects.givemebackapi.services;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,25 +34,24 @@ public class AmigoEmprestimoService {
     }
 
     public AmigoEmprestimo findByNome(String nome) {
-        Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findByNome(nome);
+        Optional<AmigoEmprestimo> amigoEmprestimo = amigoEmprestimoRepository.findByNome(nome);
 
-        if (!amigoEmprestimoOptional.isPresent())
+        if (!amigoEmprestimo.isPresent())
             throw new ObjectNotFoundException(
                     "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
 
-         return amigoEmprestimoOptional.get();   
+         return amigoEmprestimo.get();   
     }
 
     public AmigoEmprestimo findyByIdDonoAndIdAmigoEmprestimo(Integer idDono, Integer idAmigo) {
-
-        Optional<AmigoEmprestimo> amigoDeUmDono = this.amigoEmprestimoRepository
+        Optional<AmigoEmprestimo> amigoDono = amigoEmprestimoRepository
                 .findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono);
 
-        if (!amigoDeUmDono.isPresent())
+        if (!amigoDono.isPresent())
             throw new NoSuchElementException(
                     "AmigoEmprestimo não está associado a este DonoItem");
 
-         return amigoDeUmDono.get();
+         return amigoDono.get();
     }
         
     public List<AmigoEmprestimo> findAll() {
@@ -61,21 +59,17 @@ public class AmigoEmprestimoService {
     }
 
     public void findByWhatsapp(String whatsAmigo){
-
         Optional<AmigoEmprestimo> whatsappAmigo = amigoEmprestimoRepository.findByWhatsapp(whatsAmigo);
-
+        
         if(whatsappAmigo.isPresent())
             throw new ObjectNotFoundException(
-                "Amigo já cadastrado, Whatsapp: " + whatsAmigo + " Tipo: " + AmigoEmprestimo.class.getName());
-       
+                "Amigo já cadastrado, Whatsapp: " + whatsAmigo + " Tipo: " + AmigoEmprestimo.class.getName());   
     }
 
     @Transactional
     public AmigoEmprestimo create(AmigoEmprestimo amigo, String nomeDono) {
         amigo.setId(null);   
-
         findByWhatsapp(amigo.getWhatsapp());
-
         amigo.setAvaliacao(AvaliacaoStatus.NAO_AVALIADO);
         amigo.setDonoItem(donoItemRepository.findByNome(nomeDono).get());
 
@@ -83,19 +77,19 @@ public class AmigoEmprestimoService {
     }
 
     public AmigoEmprestimo update(Integer idAmigo, AmigoEmprestimo novoAmigo) {
-        Optional<AmigoEmprestimo> amigoEmprestimoOptional = amigoEmprestimoRepository.findById(idAmigo);
+        Optional<AmigoEmprestimo> amigoEmprestimo = amigoEmprestimoRepository.findById(idAmigo);
 
-        if (!amigoEmprestimoOptional.isPresent())
+        if (!amigoEmprestimo.isPresent())
             throw new ObjectNotFoundException(
                     "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        if (this.amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent())
+        if (amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent())
             throw new ObjectAlreadyExistsException(
                     "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
                             + novoAmigo.getNome() + ", Tipo: " + AmigoEmprestimo.class.getName());
 
-        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(novoAmigo, amigoEmprestimoOptional.get());
-        return this.amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
+        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(novoAmigo, amigoEmprestimo.get());
+        return amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
     }
 
     public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigo, AmigoEmprestimo amigo) {
@@ -117,20 +111,20 @@ public class AmigoEmprestimoService {
     }
 
     public List<AmigoEmprestimo> findByAvaliacao() {
-        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacaoBoaOrOtima();
+        List<AmigoEmprestimo> amigosPorAvaliacao = amigoEmprestimoRepository.findByAvaliacaoBoaOrOtima();
 
-        if (amigos.isEmpty())
+        if (amigosPorAvaliacao.isEmpty())
             throw new ObjectNotFoundException("Não existem amigos bem avaliados. " + AmigoEmprestimo.class.getName());
 
-        return amigos;
+        return amigosPorAvaliacao;
     }
 
     public List<AmigoEmprestimo> findByPioresAvaliados() {
-        List<AmigoEmprestimo> amigos = this.amigoEmprestimoRepository.findByAvaliacaoPessimaOrRuim();
+        List<AmigoEmprestimo> pioresAvaliados = amigoEmprestimoRepository.findByAvaliacaoPessimaOrRuim();
 
-        if (amigos.isEmpty())
+        if (pioresAvaliados.isEmpty())
             throw new ObjectNotFoundException("Não existem amigos piores avaliados. " + AmigoEmprestimo.class.getName());
 
-        return amigos;
+        return pioresAvaliados;
     }
 }
