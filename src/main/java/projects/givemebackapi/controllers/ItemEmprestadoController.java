@@ -28,7 +28,7 @@ import projects.givemebackapi.services.ItemEmprestadoService;
 public class ItemEmprestadoController {
 
   @Autowired
-  private ItemEmprestadoService itemEmprestadoService;
+  private ItemEmprestadoService service;
 
   @GetMapping(value = "/buscar_por_id/{idItemEmprestado}")
   public ResponseEntity<ItemEmprestadoDTO> findById(
@@ -37,7 +37,7 @@ public class ItemEmprestadoController {
     return ResponseEntity
       .ok()
       .body(
-        new ItemEmprestadoDTO(itemEmprestadoService.findById(idItemEmprestado))
+        new ItemEmprestadoDTO(service.findById(idItemEmprestado))
       );
   }
 
@@ -47,14 +47,14 @@ public class ItemEmprestadoController {
   ) {
     return ResponseEntity
       .ok()
-      .body(new ItemEmprestadoDTO(itemEmprestadoService.findByNome(nomeItem)));
+      .body(new ItemEmprestadoDTO(service.findByNome(nomeItem)));
   }
 
   @GetMapping(value = "/emprestados_para{idAmigo}")
   public ResponseEntity<List<CustomItemEmprestadoDTO>> findByEmprestadoPara(
     @RequestParam Integer idAmigo
   ) {
-    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByEmprestadoPara(
+    List<ItemEmprestado> itensEmprestados = service.findByEmprestadoPara(
       idAmigo
     );
 
@@ -70,7 +70,7 @@ public class ItemEmprestadoController {
   public ResponseEntity<List<ItemEmprestadoDTO>> findByDono(
     @RequestParam Integer idDono
   ) {
-    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByDono(
+    List<ItemEmprestado> itensEmprestados = service.findByDono(
       idDono
     );
 
@@ -86,7 +86,7 @@ public class ItemEmprestadoController {
   public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(
     @RequestParam TipoStatus status
   ) {
-    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByStatus(
+    List<ItemEmprestado> itensEmprestados = service.findByStatus(
       status
     );
 
@@ -100,7 +100,7 @@ public class ItemEmprestadoController {
 
   @GetMapping(value = "/listar_itens")
   public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {
-    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findAll();
+    List<ItemEmprestado> itensEmprestados = service.findAll();
 
     List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
@@ -117,7 +117,7 @@ public class ItemEmprestadoController {
   ) {
     return ResponseEntity
       .ok()
-      .body(new ItemEmprestadoDTO(itemEmprestadoService.update(id, item)));
+      .body(new ItemEmprestadoDTO(service.update(id, item)));
   }
 
   @PostMapping(value = "/emprestar_item")
@@ -128,7 +128,7 @@ public class ItemEmprestadoController {
     @Valid @RequestBody ItemEmprestado item
   ) {
     return new ItemEmprestadoDTO(
-      itemEmprestadoService.criarEmprestarNovoItem(
+      service.criarEmprestarNovoItem(
         item,
         dono,
         idAmigoEmprestimo
@@ -146,7 +146,7 @@ public class ItemEmprestadoController {
       .ok()
       .body(
         new ItemEmprestadoDTO(
-          itemEmprestadoService.devolverAvaliar(idItem, nomeAmigo, avaliacao)
+          service.devolverAvaliar(idItem, nomeAmigo, avaliacao)
         )
       );
   }
@@ -156,7 +156,7 @@ public class ItemEmprestadoController {
     @RequestParam Integer idItem,
     @RequestParam Integer idAmigoEmprestimo
   ) {
-    ItemEmprestado novoItemEmprestado = itemEmprestadoService.emprestarItemNovamente(
+    ItemEmprestado novoItemEmprestado = service.emprestarItemNovamente(
       idItem,
       idAmigoEmprestimo
     );
@@ -165,7 +165,7 @@ public class ItemEmprestadoController {
 
   @DeleteMapping(value = "/deletar/{id}")
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
-    itemEmprestadoService.delete(id);
+    service.delete(id);
     return ResponseEntity.noContent().build();
   }
 }

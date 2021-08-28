@@ -24,26 +24,26 @@ import projects.givemebackapi.services.DonoItemService;
 public class DonoItemController {
 
   @Autowired
-  private DonoItemService donoItemService;
+  private DonoItemService service;
 
   @GetMapping(value = "/buscar_por_id/{idDonoItem}")
   public ResponseEntity<DonoItemDTO> findById(
     @PathVariable Integer idDonoItem
   ) {
-    DonoItem donoItem = donoItemService.findById(idDonoItem);
+    DonoItem donoItem = service.findById(idDonoItem);
     return ResponseEntity.ok(new DonoItemDTO(donoItem));
   }
 
   @GetMapping(value = "/buscar_por_nome")
   public ResponseEntity<DonoItemDTO> findByNome(@RequestParam String nomeDono) {
-    DonoItem donoItem = donoItemService.findByNome(nomeDono);
+    DonoItem donoItem = service.findByNome(nomeDono);
 
     return ResponseEntity.ok().body(new DonoItemDTO(donoItem));
   }
 
   @GetMapping(value = "/listar_todos")
   public ResponseEntity<List<DonoItemDTO>> findAll() {
-    List<DonoItem> listDonos = donoItemService.findAll();
+    List<DonoItem> listDonos = service.findAll();
 
     List<DonoItemDTO> listDTO = listDonos
       .stream()
@@ -56,7 +56,7 @@ public class DonoItemController {
   @PostMapping(value = "/adicionar")
   @ResponseStatus(HttpStatus.CREATED)
   public DonoItemDTO create(@RequestBody DonoItem dono) {
-    DonoItem novoDonoItem = donoItemService.create(dono);
+    DonoItem novoDonoItem = service.create(dono);
     return new DonoItemDTO(novoDonoItem);
   }
 
@@ -65,13 +65,13 @@ public class DonoItemController {
     @PathVariable Integer id,
     @RequestBody DonoItem dono
   ) {
-    DonoItem novoDonoItem = donoItemService.update(id, dono);
+    DonoItem novoDonoItem = service.update(id, dono);
     return ResponseEntity.ok().body(new DonoItemDTO(novoDonoItem));
   }
 
   @DeleteMapping(value = "/deletar/{id}")
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
-    donoItemService.delete(id);
+    service.delete(id);
 
     return ResponseEntity.noContent().build();
   }

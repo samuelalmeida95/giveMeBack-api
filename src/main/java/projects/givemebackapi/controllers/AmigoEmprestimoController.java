@@ -26,12 +26,12 @@ import projects.givemebackapi.services.AmigoEmprestimoService;
 public class AmigoEmprestimoController {
 
   @Autowired
-  private AmigoEmprestimoService amigoEmprestimoService;
+  private AmigoEmprestimoService service;
 
   @GetMapping(value = "/buscar_por_id/{id}")
   public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
 
-    AmigoEmprestimo amigoEmprestimo = amigoEmprestimoService.findById(id);
+    AmigoEmprestimo amigoEmprestimo = service.findById(id);
 
     return ResponseEntity.ok(new AmigoEmprestimoDTO(amigoEmprestimo));
   }
@@ -40,7 +40,7 @@ public class AmigoEmprestimoController {
   public ResponseEntity<AmigoEmprestimoDTO> findByNome(
     @RequestParam String amigoEmprestimo) {
 
-    AmigoEmprestimo amigo = amigoEmprestimoService.findByNome(amigoEmprestimo);
+    AmigoEmprestimo amigo = service.findByNome(amigoEmprestimo);
 
     return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
   }
@@ -50,14 +50,14 @@ public class AmigoEmprestimoController {
     @RequestParam Integer idAmigo,
     @RequestParam Integer idDono) {
 
-    AmigoEmprestimo amigo = amigoEmprestimoService.findyByIdDonoAndIdAmigoEmprestimo(idAmigo,idDono);
+    AmigoEmprestimo amigo = service.findyByIdDonoAndIdAmigoEmprestimo(idAmigo,idDono);
 
     return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
   }
 
   @GetMapping(value = "/buscar_melhores_avaliados")
   public ResponseEntity<List<AmigoEmprestimoDTO>> findByAvaliacao() {
-    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByAvaliacao();
+    List<AmigoEmprestimo> listAmigos = service.findByAvaliacao();
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
@@ -69,7 +69,7 @@ public class AmigoEmprestimoController {
 
   @GetMapping(value = "/buscar_piores_avaliados")
   public ResponseEntity<List<AmigoEmprestimoDTO>> findByPioresAvaliados() {
-    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findByPioresAvaliados();
+    List<AmigoEmprestimo> listAmigos = service.findByPioresAvaliados();
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
@@ -81,7 +81,7 @@ public class AmigoEmprestimoController {
 
   @GetMapping(value = "/listar_todos")
   public ResponseEntity<List<AmigoEmprestimoDTO>> findAll() {
-    List<AmigoEmprestimo> listAmigos = amigoEmprestimoService.findAll();
+    List<AmigoEmprestimo> listAmigos = service.findAll();
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
@@ -96,7 +96,7 @@ public class AmigoEmprestimoController {
     @RequestBody AmigoEmprestimo amigoEmprestimo,
     @RequestParam String nomeDono) {
 
-    AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.create(amigoEmprestimo,nomeDono);
+    AmigoEmprestimo novoAmigoEmprestimo = service.create(amigoEmprestimo,nomeDono);
     AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
 
     URI uri = ServletUriComponentsBuilder
@@ -113,14 +113,14 @@ public class AmigoEmprestimoController {
     @PathVariable Integer id,
     @RequestBody AmigoEmprestimo amigoEmprestimo) {
 
-    AmigoEmprestimo novoAmigoEmprestimo = amigoEmprestimoService.update(id, amigoEmprestimo);
+    AmigoEmprestimo novoAmigoEmprestimo = service.update(id, amigoEmprestimo);
 
     return ResponseEntity.ok().body(new AmigoEmprestimoDTO(novoAmigoEmprestimo));
   }
 
   @DeleteMapping(value = "/deletar/{id}")
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
-    amigoEmprestimoService.delete(id);
+    service.delete(id);
 
     return ResponseEntity.noContent().build();
   }
