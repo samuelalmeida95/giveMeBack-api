@@ -122,14 +122,16 @@ public class ItemEmprestadoController {
   public ItemEmprestadoDTO emprestarItem(
     @RequestParam Integer dono,
     @RequestParam Integer idAmigoEmprestimo,
-    @Valid @RequestBody ItemEmprestado item
+    @Valid 
+    @RequestBody ItemEmprestado item
   ) {
-    ItemEmprestado novoItemEmprestado = itemEmprestadoService.criarEmprestarNovoItem(
-      item,
-      dono,
-      idAmigoEmprestimo
+    return new ItemEmprestadoDTO(
+      itemEmprestadoService.criarEmprestarNovoItem(
+        item,
+        dono,
+        idAmigoEmprestimo
+      )
     );
-    return new ItemEmprestadoDTO(novoItemEmprestado);
   }
 
   @PutMapping(value = "/devolver/{idItem}")
