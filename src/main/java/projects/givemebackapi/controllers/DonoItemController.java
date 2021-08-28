@@ -30,15 +30,14 @@ public class DonoItemController {
   public ResponseEntity<DonoItemDTO> findById(
     @PathVariable Integer idDonoItem
   ) {
-    DonoItem donoItem = service.findById(idDonoItem);
-    return ResponseEntity.ok(new DonoItemDTO(donoItem));
+    return ResponseEntity.ok(new DonoItemDTO(service.findById(idDonoItem)));
   }
 
   @GetMapping(value = "/buscar_por_nome")
   public ResponseEntity<DonoItemDTO> findByNome(@RequestParam String nomeDono) {
-    DonoItem donoItem = service.findByNome(nomeDono);
-
-    return ResponseEntity.ok().body(new DonoItemDTO(donoItem));
+    return ResponseEntity
+      .ok()
+      .body(new DonoItemDTO(service.findByNome(nomeDono)));
   }
 
   @GetMapping(value = "/listar_todos")
@@ -65,8 +64,7 @@ public class DonoItemController {
     @PathVariable Integer id,
     @RequestBody DonoItem dono
   ) {
-    DonoItem novoDonoItem = service.update(id, dono);
-    return ResponseEntity.ok().body(new DonoItemDTO(novoDonoItem));
+    return ResponseEntity.ok().body(new DonoItemDTO(service.update(id, dono)));
   }
 
   @DeleteMapping(value = "/deletar/{id}")

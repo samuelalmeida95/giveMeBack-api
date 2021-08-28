@@ -3,7 +3,6 @@ package projects.givemebackapi.controllers;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import projects.givemebackapi.dtos.AmigoEmprestimoDTO;
 import projects.givemebackapi.model.AmigoEmprestimo;
 import projects.givemebackapi.services.AmigoEmprestimoService;
@@ -30,7 +28,6 @@ public class AmigoEmprestimoController {
 
   @GetMapping(value = "/buscar_por_id/{id}")
   public ResponseEntity<AmigoEmprestimoDTO> findById(@PathVariable Integer id) {
-
     AmigoEmprestimo amigoEmprestimo = service.findById(id);
 
     return ResponseEntity.ok(new AmigoEmprestimoDTO(amigoEmprestimo));
@@ -38,21 +35,25 @@ public class AmigoEmprestimoController {
 
   @GetMapping(value = "/buscar_por_nome")
   public ResponseEntity<AmigoEmprestimoDTO> findByNome(
-    @RequestParam String amigoEmprestimo) {
-
-    AmigoEmprestimo amigo = service.findByNome(amigoEmprestimo);
-
-    return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
+    @RequestParam String amigoEmprestimo
+  ) {
+    return ResponseEntity
+      .ok()
+      .body(new AmigoEmprestimoDTO(service.findByNome(amigoEmprestimo)));
   }
 
   @GetMapping(value = "/buscar_por_dono_item")
   public ResponseEntity<AmigoEmprestimoDTO> findyByIdDonoAndIdAmigoEmprestimo(
     @RequestParam Integer idAmigo,
-    @RequestParam Integer idDono) {
-
-    AmigoEmprestimo amigo = service.findyByIdDonoAndIdAmigoEmprestimo(idAmigo,idDono);
-
-    return ResponseEntity.ok().body(new AmigoEmprestimoDTO(amigo));
+    @RequestParam Integer idDono
+  ) {
+    return ResponseEntity
+      .ok()
+      .body(
+        new AmigoEmprestimoDTO(
+          service.findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono)
+        )
+      );
   }
 
   @GetMapping(value = "/buscar_melhores_avaliados")
@@ -94,10 +95,11 @@ public class AmigoEmprestimoController {
   @PostMapping(value = "/adicionar")
   public ResponseEntity<AmigoEmprestimoDTO> create(
     @RequestBody AmigoEmprestimo amigoEmprestimo,
-    @RequestParam String nomeDono) {
-
-    AmigoEmprestimo novoAmigoEmprestimo = service.create(amigoEmprestimo,nomeDono);
-    AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(novoAmigoEmprestimo);
+    @RequestParam String nomeDono
+  ) {
+    AmigoEmprestimoDTO amigoDTO = new AmigoEmprestimoDTO(
+      service.create(amigoEmprestimo, nomeDono)
+    );
 
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
@@ -111,17 +113,16 @@ public class AmigoEmprestimoController {
   @PutMapping(value = "/alterar/{id}")
   public ResponseEntity<AmigoEmprestimoDTO> update(
     @PathVariable Integer id,
-    @RequestBody AmigoEmprestimo amigoEmprestimo) {
-
-    AmigoEmprestimo novoAmigoEmprestimo = service.update(id, amigoEmprestimo);
-
-    return ResponseEntity.ok().body(new AmigoEmprestimoDTO(novoAmigoEmprestimo));
+    @RequestBody AmigoEmprestimo amigoEmprestimo
+  ) {
+    return ResponseEntity
+      .ok()
+      .body(new AmigoEmprestimoDTO(service.update(id, amigoEmprestimo)));
   }
 
   @DeleteMapping(value = "/deletar/{id}")
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     service.delete(id);
-
     return ResponseEntity.noContent().build();
   }
 }
