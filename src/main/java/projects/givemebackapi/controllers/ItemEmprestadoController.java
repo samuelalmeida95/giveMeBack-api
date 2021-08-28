@@ -34,29 +34,31 @@ public class ItemEmprestadoController {
   public ResponseEntity<ItemEmprestadoDTO> findById(
     @PathVariable Integer idItemEmprestado
   ) {
-    ItemEmprestado itemEmprestado = itemEmprestadoService.findById(
-      idItemEmprestado
-    );
-    return ResponseEntity.ok().body(new ItemEmprestadoDTO(itemEmprestado));
+    return ResponseEntity
+      .ok()
+      .body(
+        new ItemEmprestadoDTO(itemEmprestadoService.findById(idItemEmprestado))
+      );
   }
 
   @GetMapping(value = "/buscar_por_nome")
   public ResponseEntity<ItemEmprestadoDTO> findByNome(
     @RequestParam String nomeItem
   ) {
-    ItemEmprestado itemEmprestado = itemEmprestadoService.findByNome(nomeItem);
-    return ResponseEntity.ok().body(new ItemEmprestadoDTO(itemEmprestado));
+    return ResponseEntity
+      .ok()
+      .body(new ItemEmprestadoDTO(itemEmprestadoService.findByNome(nomeItem)));
   }
 
   @GetMapping(value = "/emprestados_para{idAmigo}")
   public ResponseEntity<List<CustomItemEmprestadoDTO>> findByEmprestadoPara(
     @RequestParam Integer idAmigo
   ) {
-    List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByEmprestadoPara(
+    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByEmprestadoPara(
       idAmigo
     );
 
-    List<CustomItemEmprestadoDTO> listDTO = listItensEmprestado
+    List<CustomItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
       .map(item -> new CustomItemEmprestadoDTO(item))
       .collect(Collectors.toList());
@@ -68,11 +70,11 @@ public class ItemEmprestadoController {
   public ResponseEntity<List<ItemEmprestadoDTO>> findByDono(
     @RequestParam Integer idDono
   ) {
-    List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByDono(
+    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByDono(
       idDono
     );
 
-    List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+    List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
       .map(item -> new ItemEmprestadoDTO(item))
       .collect(Collectors.toList());
@@ -84,11 +86,11 @@ public class ItemEmprestadoController {
   public ResponseEntity<List<ItemEmprestadoDTO>> findByStatus(
     @RequestParam TipoStatus status
   ) {
-    List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findByStatus(
+    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findByStatus(
       status
     );
 
-    List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+    List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
       .map(item -> new ItemEmprestadoDTO(item))
       .collect(Collectors.toList());
@@ -98,9 +100,9 @@ public class ItemEmprestadoController {
 
   @GetMapping(value = "/listar_itens")
   public ResponseEntity<List<ItemEmprestadoDTO>> findAll() {
-    List<ItemEmprestado> listItensEmprestado = itemEmprestadoService.findAll();
+    List<ItemEmprestado> itensEmprestados = itemEmprestadoService.findAll();
 
-    List<ItemEmprestadoDTO> listDTO = listItensEmprestado
+    List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
       .map(item -> new ItemEmprestadoDTO(item))
       .collect(Collectors.toList());
@@ -113,8 +115,9 @@ public class ItemEmprestadoController {
     @PathVariable Integer id,
     @Valid @RequestBody ItemEmprestado item
   ) {
-    ItemEmprestado novoItem = itemEmprestadoService.update(id, item);
-    return ResponseEntity.ok().body(new ItemEmprestadoDTO(novoItem));
+    return ResponseEntity
+      .ok()
+      .body(new ItemEmprestadoDTO(itemEmprestadoService.update(id, item)));
   }
 
   @PostMapping(value = "/emprestar_item")
@@ -122,8 +125,7 @@ public class ItemEmprestadoController {
   public ItemEmprestadoDTO emprestarItem(
     @RequestParam Integer dono,
     @RequestParam Integer idAmigoEmprestimo,
-    @Valid 
-    @RequestBody ItemEmprestado item
+    @Valid @RequestBody ItemEmprestado item
   ) {
     return new ItemEmprestadoDTO(
       itemEmprestadoService.criarEmprestarNovoItem(
@@ -140,12 +142,13 @@ public class ItemEmprestadoController {
     @RequestParam String nomeAmigo,
     @RequestParam AvaliacaoStatus avaliacao
   ) {
-    ItemEmprestado novoItem = itemEmprestadoService.devolverAvaliar(
-      idItem,
-      nomeAmigo,
-      avaliacao
-    );
-    return ResponseEntity.ok().body(new ItemEmprestadoDTO(novoItem));
+    return ResponseEntity
+      .ok()
+      .body(
+        new ItemEmprestadoDTO(
+          itemEmprestadoService.devolverAvaliar(idItem, nomeAmigo, avaliacao)
+        )
+      );
   }
 
   @PutMapping(value = "/emprestar_novamente")
