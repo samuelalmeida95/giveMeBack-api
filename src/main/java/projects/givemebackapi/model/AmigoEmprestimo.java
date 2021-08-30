@@ -45,7 +45,7 @@ public class AmigoEmprestimo {
     this.whatsapp = whatsapp;
     this.endereco = endereco;
     this.donoItem = donoItem;
-    this.avaliacao = AvaliacaoStatus.NAO_AVALIADO;
+    this.avaliacao = AvaliacaoStatus.NAO_AVALIADO; //padrao novo amigo nao é avaliado.
   }
 
   public AmigoEmprestimo() {
