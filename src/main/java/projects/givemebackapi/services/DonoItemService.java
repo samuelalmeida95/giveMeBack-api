@@ -1,7 +1,6 @@
 package projects.givemebackapi.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,20 +18,18 @@ public class DonoItemService {
     private DonoItemRepository donoItemRepository;
 
     public DonoItem findById(Integer id) {
-        Optional<DonoItem> donoItem = donoItemRepository.findById(id);
-
-        return donoItem.orElseThrow(() -> new ObjectNotFoundException(
+        return donoItemRepository
+        .findById(id)
+        .orElseThrow(() -> new ObjectNotFoundException(
                 "Dono de item não encontrado! " + id + " Tipo:  " + DonoItem.class.getName()));
     }
 
+    //implementação nova... sem optional.
     public DonoItem findByNome(String nome) {
-        Optional<DonoItem> donoOptional = donoItemRepository.findByNome(nome);
-
-        if (!donoOptional.isPresent())
-            throw new ObjectNotFoundException(
-                    "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName());
-
-        return donoOptional.get();
+        return donoItemRepository
+        .findByNome(nome)
+        .orElseThrow(() ->  new ObjectNotFoundException(
+            "Dono de item não encontrado! " + nome + " Tipo: " + DonoItem.class.getName()));
     }
 
     public List<DonoItem> findAll() {
@@ -41,29 +38,19 @@ public class DonoItemService {
 
     public DonoItem create(DonoItem dono) {
         dono.setId(null);
-
-        if (this.donoItemRepository.findByNome(dono.getNome()).isPresent()) {
-            throw new ObjectAlreadyExistsException("Já existe um Dono com este nome, por favor entre com outro,  Nome: "
-                    + dono.getNome() + " Tipo: " + DonoItem.class.getName());
-        }
-
         return donoItemRepository.save(dono);
     }
 
     public DonoItem update(Integer id, DonoItem novoDono) {
-        Optional<DonoItem> donoItemOptional = donoItemRepository.findById(id);
+       DonoItem donoBuscado = findById(id);
 
-        if (!donoItemOptional.isPresent())
-            throw new ObjectNotFoundException(
-                    "Dono não encontrado! Id: " + id + ", Tipo: " + DonoItem.class.getName());
-
-        if (this.donoItemRepository.findByNome(novoDono.getNome()).isPresent())
+        if (donoItemRepository.findByNome(novoDono.getNome()).isPresent())
             throw new ObjectAlreadyExistsException(
                     "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
                             + novoDono.getNome() + ", Tipo: " + DonoItem.class.getName());
 
-        DonoItem donoItemAtualizado = updateData(donoItemOptional.get(), novoDono);
-        return this.donoItemRepository.save(donoItemAtualizado);
+        DonoItem donoItemAtualizado = updateData(donoBuscado, novoDono);
+        return donoItemRepository.save(donoItemAtualizado);
     }
 
     public DonoItem updateData(DonoItem novoDono, DonoItem dono) {
