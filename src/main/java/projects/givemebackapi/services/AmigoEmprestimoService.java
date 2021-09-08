@@ -1,7 +1,6 @@
 package projects.givemebackapi.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -27,43 +26,34 @@ public class AmigoEmprestimoService {
     private DonoItemRepository donoItemRepository;
 
     public AmigoEmprestimo findById(Integer idAmigo) {
-        Optional<AmigoEmprestimo> amigo = amigoEmprestimoRepository.findById(idAmigo);
-
-        return amigo.orElseThrow(() -> new ObjectNotFoundException(
+        return amigoEmprestimoRepository
+        .findById(idAmigo)
+        .orElseThrow(() -> new ObjectNotFoundException(
                 "Amigo não encontrado! " + idAmigo + " Tipo:  " + AmigoEmprestimo.class.getName()));
     }
 
     public AmigoEmprestimo findByNome(String nome) {
-        Optional<AmigoEmprestimo> amigoEmprestimo = amigoEmprestimoRepository.findByNome(nome);
-
-        if (!amigoEmprestimo.isPresent())
-            throw new ObjectNotFoundException(
-                    "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName());
-
-         return amigoEmprestimo.get();   
+       return amigoEmprestimoRepository
+        .findByNome(nome)
+        .orElseThrow(() -> new ObjectNotFoundException(
+            "Amigo não encontrado! " + nome + " Tipo: " + AmigoEmprestimo.class.getName()));
+   
     }
 
     public AmigoEmprestimo findyByIdDonoAndIdAmigoEmprestimo(Integer idDono, Integer idAmigo) {
-        Optional<AmigoEmprestimo> amigoDono = amigoEmprestimoRepository
-                .findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono);
-
-        if (!amigoDono.isPresent())
-            throw new NoSuchElementException(
-                    "AmigoEmprestimo não está associado a este DonoItem");
-
-         return amigoDono.get();
+        return amigoEmprestimoRepository
+        .findyByIdDonoAndIdAmigoEmprestimo(idAmigo, idDono)
+        .orElseThrow(() -> new NoSuchElementException("AmigoEmprestimo não está associado a este DonoItem"));
     }
         
     public List<AmigoEmprestimo> findAll() {
         return amigoEmprestimoRepository.findAll();
     }
 
-    public void findByWhatsapp(String whatsAmigo){
-        Optional<AmigoEmprestimo> whatsappAmigo = amigoEmprestimoRepository.findByWhatsapp(whatsAmigo);
-        
-        if(whatsappAmigo.isPresent())
+    public void findByWhatsapp(String whatsAmigo) {
+        if (amigoEmprestimoRepository.findByWhatsapp(whatsAmigo).isPresent())
             throw new ObjectNotFoundException(
-                "Amigo já cadastrado, Whatsapp: " + whatsAmigo + " Tipo: " + AmigoEmprestimo.class.getName());   
+                    "Amigo já cadastrado, Whatsapp: " + whatsAmigo + " Tipo: " + AmigoEmprestimo.class.getName());
     }
 
     @Transactional
@@ -77,19 +67,13 @@ public class AmigoEmprestimoService {
     }
 
     public AmigoEmprestimo update(Integer idAmigo, AmigoEmprestimo novoAmigo) {
-        Optional<AmigoEmprestimo> amigoEmprestimo = amigoEmprestimoRepository.findById(idAmigo);
+        AmigoEmprestimo amigoEmprestimo = findById(idAmigo);
 
-        if (!amigoEmprestimo.isPresent())
-            throw new ObjectNotFoundException(
-                    "Objeto não encontrado! Id: " + idAmigo + ", Tipo: " + AmigoEmprestimo.class.getName());
+        if(amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent())
+                throw new ObjectAlreadyExistsException(
+                        "Nome de usuário igual ao existente, entre com dados diferentes");
 
-        if (amigoEmprestimoRepository.findByNome(novoAmigo.getNome()).isPresent())
-            throw new ObjectAlreadyExistsException(
-                    "Você não pode alterar seu Nome de usuário porque é igual ao existente, por favor entre com dados diferentes, Nome: "
-                            + novoAmigo.getNome() + ", Tipo: " + AmigoEmprestimo.class.getName());
-
-        AmigoEmprestimo amigoEmprestimoAtualizado = updateData(novoAmigo, amigoEmprestimo.get());
-        return amigoEmprestimoRepository.save(amigoEmprestimoAtualizado);
+        return amigoEmprestimoRepository.save(updateData(novoAmigo, amigoEmprestimo));
     }
 
     public AmigoEmprestimo updateData(AmigoEmprestimo novoAmigo, AmigoEmprestimo amigo) {
