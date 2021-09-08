@@ -2,9 +2,9 @@ package projects.givemebackapi.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 import projects.givemebackapi.dtos.DonoItemDTO;
 import projects.givemebackapi.model.DonoItem;
 import projects.givemebackapi.services.DonoItemService;
@@ -27,21 +28,20 @@ public class DonoItemController {
   private DonoItemService service;
 
   @GetMapping(value = "/buscar_por_id/{idDonoItem}")
-  public ResponseEntity<DonoItemDTO> findById(
-    @PathVariable Integer idDonoItem
-  ) {
-    return ResponseEntity.ok(new DonoItemDTO(service.findById(idDonoItem)));
+  @ResponseStatus(HttpStatus.OK)
+  public DonoItemDTO findById(@PathVariable Integer idDonoItem) {
+    return new DonoItemDTO(service.findById(idDonoItem));
   }
 
   @GetMapping(value = "/buscar_por_nome")
-  public ResponseEntity<DonoItemDTO> findByNome(@RequestParam String nomeDono) {
-    return ResponseEntity
-      .ok()
-      .body(new DonoItemDTO(service.findByNome(nomeDono)));
+  @ResponseStatus(HttpStatus.OK)
+  public DonoItemDTO findByNome(@RequestParam String nomeDono) {
+    return new DonoItemDTO(service.findByNome(nomeDono));
   }
 
   @GetMapping(value = "/listar_todos")
-  public ResponseEntity<List<DonoItemDTO>> findAll() {
+  @ResponseStatus(HttpStatus.OK)
+  public List<DonoItemDTO> findAll() {
     List<DonoItem> listDonos = service.findAll();
 
     List<DonoItemDTO> listDTO = listDonos
@@ -49,7 +49,7 @@ public class DonoItemController {
       .map(dono -> new DonoItemDTO(dono))
       .collect(Collectors.toList());
 
-    return ResponseEntity.ok().body(listDTO);
+    return listDTO;
   }
 
   @PostMapping(value = "/adicionar")
@@ -60,17 +60,14 @@ public class DonoItemController {
   }
 
   @PutMapping(value = "/alterar/{id}")
-  public ResponseEntity<DonoItemDTO> update(
-    @PathVariable Integer id,
-    @RequestBody DonoItem dono
-  ) {
-    return ResponseEntity.ok().body(new DonoItemDTO(service.update(id, dono)));
+  @ResponseStatus(HttpStatus.OK)
+  public DonoItemDTO update(@PathVariable Integer id, @RequestBody DonoItem dono) {
+    return new DonoItemDTO(service.update(id, dono));
   }
 
   @DeleteMapping(value = "/deletar/{id}")
-  public ResponseEntity<Void> delete(@PathVariable Integer id) {
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable Integer id) {
     service.delete(id);
-
-    return ResponseEntity.noContent().build();
   }
 }
