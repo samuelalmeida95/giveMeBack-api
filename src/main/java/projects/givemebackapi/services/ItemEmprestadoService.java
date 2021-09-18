@@ -124,7 +124,7 @@ public class ItemEmprestadoService {
         return item;
     }
 
-    public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo, AvaliacaoStatus avaliacao){
+    public ItemEmprestado devolverAvaliar(Integer idItem, String nomeAmigo){
         ItemEmprestado itemDevolvido = findById(idItem);
         AmigoEmprestimo amigoParaDevolverItem = amigoEmprestimoService.findByNome(nomeAmigo);
         Integer idAmigo = amigoParaDevolverItem.getId();
@@ -133,7 +133,7 @@ public class ItemEmprestadoService {
         itemDevolvido.setStatus(TipoStatus.DEVOLVIDO);
         itemDevolvido.setAmigoEmprestimo(null);
         itemDevolvido.setDataDevolucaoItem(LocalDate.now());
-        avaliarAmigo(nomeAmigo, avaliacao);
+        avaliarAmigo(nomeAmigo, AvaliacaoStatus.BOA);
 
         return itemEmprestadoRepository.save(itemDevolvido);
     }
