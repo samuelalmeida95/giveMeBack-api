@@ -62,7 +62,7 @@ public class AmigoEmprestimoController {
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
-      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .map(AmigoEmprestimoDTO::new)
       .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(listDTO);
@@ -74,7 +74,7 @@ public class AmigoEmprestimoController {
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
-      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .map(AmigoEmprestimoDTO::new)
       .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(listDTO);
@@ -86,7 +86,7 @@ public class AmigoEmprestimoController {
 
     List<AmigoEmprestimoDTO> listDTO = listAmigos
       .stream()
-      .map(amigo -> new AmigoEmprestimoDTO(amigo))
+      .map(AmigoEmprestimoDTO::new)
       .collect(Collectors.toList());
 
     return ResponseEntity.ok().body(listDTO);

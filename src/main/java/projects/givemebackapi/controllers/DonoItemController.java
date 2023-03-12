@@ -46,7 +46,7 @@ public class DonoItemController {
 
     List<DonoItemDTO> listDTO = listDonos
       .stream()
-      .map(dono -> new DonoItemDTO(dono))
+      .map(DonoItemDTO::new)
       .collect(Collectors.toList());
 
     return listDTO;

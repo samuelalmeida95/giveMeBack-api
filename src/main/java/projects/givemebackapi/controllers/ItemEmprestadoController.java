@@ -52,7 +52,7 @@ public class ItemEmprestadoController {
 
     List<CustomItemEmprestadoDTO> listDTO = itensEmprestados
        .stream()
-       .map(item -> new CustomItemEmprestadoDTO(item))
+       .map(CustomItemEmprestadoDTO::new)
        .collect(Collectors.toList());
 
     return listDTO;
@@ -65,7 +65,7 @@ public class ItemEmprestadoController {
 
     List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
-      .map(item -> new ItemEmprestadoDTO(item))
+      .map(ItemEmprestadoDTO::new)
       .collect(Collectors.toList());
 
     return listDTO;
@@ -78,7 +78,7 @@ public class ItemEmprestadoController {
 
     List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
-      .map(item -> new ItemEmprestadoDTO(item))
+      .map(ItemEmprestadoDTO::new)
       .collect(Collectors.toList());
 
     return listDTO;
@@ -91,7 +91,7 @@ public class ItemEmprestadoController {
 
     List<ItemEmprestadoDTO> listDTO = itensEmprestados
       .stream()
-      .map(item -> new ItemEmprestadoDTO(item))
+      .map(ItemEmprestadoDTO::new)
       .collect(Collectors.toList());
 
     return listDTO;
